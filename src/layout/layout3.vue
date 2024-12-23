@@ -145,8 +145,8 @@
     let vali = ref({
         x: 700,
         y: 160,
-        width: 35,
-        height: 70,
+        width: 70,
+        height: 25,
         fill: 'black',
         stroke: 'black',
         strokeWidth: 0,
@@ -154,7 +154,7 @@
         dragBoundFunc: function (pos) {
             return {
                 x: pos.x > 765 ? 765 : pos.x <= 0 ? 0 : pos.x,
-                y: pos.y > 180 ? 180 : pos.y <= 0 ? 0 : pos.y
+                y: pos.y > 195 ? 195 : pos.y <= 0 ? 0 : pos.y
             }
         }
     })
