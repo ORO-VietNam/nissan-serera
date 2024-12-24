@@ -38,6 +38,9 @@
 </template>
 
 <script setup>
+    import sonImg from '../assets/images/son.png';
+    import dadImg from '../assets/images/dad.png';
+    import carImg from '../assets/images/car.jpg';
     import { ref, onMounted } from 'vue'
     let son = ref({
         image: null,
@@ -145,8 +148,8 @@
     let vali = ref({
         x: 700,
         y: 160,
-        width: 35,
-        height: 70,
+        width: 70,
+        height: 25,
         fill: 'black',
         stroke: 'black',
         strokeWidth: 0,
@@ -154,7 +157,7 @@
         dragBoundFunc: function (pos) {
             return {
                 x: pos.x > 765 ? 765 : pos.x <= 0 ? 0 : pos.x,
-                y: pos.y > 180 ? 180 : pos.y <= 0 ? 0 : pos.y
+                y: pos.y > 195 ? 195 : pos.y <= 0 ? 0 : pos.y
             }
         }
     })
@@ -189,8 +192,8 @@
     }
 
     onMounted(async function() {
-        son.value.image = await loadSon("./src/images/son.png");
-        dad.value.image = await loadSon("./src/images/dad.png");
-        car.value.image = await loadSon("./src/images/car.jpg");
+        son.value.image = await loadSon(sonImg);
+        dad.value.image = await loadSon(dadImg);
+        car.value.image = await loadSon(carImg);
     })
 </script>
