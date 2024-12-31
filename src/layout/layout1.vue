@@ -39,6 +39,9 @@
 
 <script setup>
     import { ref, onMounted } from 'vue'
+    import sonImg from '../assets/images/son.png';
+    import dadImg from '../assets/images/dad.png';
+    import carImg from '../assets/images/car.jpg';
     let son = ref({
         image: null,
         x: 700,
@@ -186,8 +189,8 @@
     }
 
     onMounted(async function() {
-        son.value.image = await loadSon("./src/images/son.png");
-        dad.value.image = await loadSon("./src/images/dad.png");
-        car.value.image = await loadSon("./src/images/car.jpg");
+        son.value.image = await loadSon(sonImg);
+        dad.value.image = await loadSon(dadImg);
+        car.value.image = await loadSon(carImg);
     })
 </script>
