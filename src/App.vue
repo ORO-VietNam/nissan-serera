@@ -5,12 +5,14 @@
                 <option value="1">Layout 1</option>
                 <option value="2">Layout 2</option>
                 <option value="3">Layout 3</option>
+                <option value="4">Layout 4</option>
             </select>
         </div>
-        <div>
+        <div class='container w-[500px] max-w-full aspect-[1]'>
             <Layout1  v-if="layout == 1"/> 
             <Layout2  v-if="layout == 2"/> 
             <Layout3  v-if="layout == 3"/> 
+            <Layout4  v-if="layout == 4"/> 
         </div>
     </div>
 </template>
@@ -19,6 +21,7 @@
     import Layout1 from './layout/layout1.vue'
     import Layout2 from './layout/layout2.vue'
     import Layout3 from './layout/layout3.vue'
+    import Layout4 from './layout/layout4.vue'
     import { ref, onMounted } from 'vue'
     let layout = ref(1)
 
