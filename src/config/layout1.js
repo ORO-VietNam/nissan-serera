@@ -115,7 +115,7 @@ export default  {
         },
         buttonNext: {
             group: {x: cell * 11.5, y: cell / 2 + 18},
-            circle: { width: 30, height: 30, fill: '#e2e2e2'},
+            circle: { width: 30, height: 30, fill: '#B0D0E0'},
             icon: {
                 x: -4,
                 y: -6,

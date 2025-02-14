@@ -33,7 +33,7 @@
                             <v-rect :config="config.head.filter.all.rect"/>
                             <v-text :config="config.head.filter.all.text"/>
                         </v-group>
-                        <v-group :config="config.head.filter.people.group">
+                        <v-group  :config="config.head.filter.people.group">
                             <v-rect :config="config.head.filter.people.rect"/>
                             <v-text :config="config.head.filter.people.text"/>
                         </v-group>
@@ -43,14 +43,14 @@
                         </v-group>
                     </v-group>
                     <!-- Prev -->
-                    <v-group :config="config.head.buttonPrev.group" @tap="prevSlider">
+                    <v-group ref="prevSliderRef" :config="config.head.buttonPrev.group" @tap="prevSlider" @click="prevSlider">
                         <v-circle 
                              :config="config.head.buttonPrev.circle"
                         />
                         <v-path :config="config.head.buttonPrev.icon"/> 
                     </v-group>
                     <!-- Next -->
-                    <v-group :config="config.head.buttonNext.group" @tap="nextSlider">
+                    <v-group ref="nextSliderRef" :config="config.head.buttonNext.group" @tap="nextSlider" @click="nextSlider">
                         <v-circle 
                              :config="config.head.buttonNext.circle"
                         />
@@ -162,6 +162,8 @@
     const container = ref()
     const shadowRect = ref();
     const groupSlider = ref();
+    const prevSliderRef = ref();
+    const nextSliderRef = ref();
     const groupItemsRef = ref();
     const dropZonesRef = ref()
     const groupCarRef = ref()
@@ -191,8 +193,9 @@
     let inDropZone = () => getDropZoneActive().length == 1
     let sliderPerMove = ref(config.value.slider.perMove)
     let moveCount = ref(0)
+
     function prevSlider() {
-        if(moveCount.value == 1) return;
+        if(moveCount.value == 0) return;
         const slider = groupSlider.value.getNode()
         moveCount.value++
         slider.to({
@@ -200,6 +203,7 @@
             y: slider.y(),
             duration: 0.3,
         })
+        handleButtonSlider()
         console.log(moveCount.value)
     }
   
@@ -212,7 +216,22 @@
           y: slider.y(),
           duration: 0.3,
         })
+        handleButtonSlider()
         console.log(moveCount.value)
+    }
+
+    function handleButtonSlider() {
+        const prev = prevSliderRef.value.getNode()
+        const circlePrev = prev.find('Circle')[0]
+        const next = nextSliderRef.value.getNode()
+        const circleNext = next.find('Circle')[0]
+        if(moveCount.value == 0) {
+            circleNext.fill('#B0D0E0')
+            circlePrev.fill('#e2e2e2')
+        } else {
+            circleNext.fill('#e2e2e2')
+            circlePrev.fill('#B0D0E0')
+        }
     }
 
     const handleDragStart = async (e, index) => {

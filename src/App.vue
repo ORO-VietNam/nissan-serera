@@ -27,7 +27,7 @@
 <style>
     .stage-container {
         width: 1280px;
-        min-height: 100vh;
+        height: 100vh;
         max-width: 100%;
         margin: 0 auto;
     }
