@@ -43,18 +43,16 @@
                         </v-group>
                     </v-group>
                     <!-- Prev -->
-                    <v-group :config="config.head.buttonPrev.group">
+                    <v-group :config="config.head.buttonPrev.group" @tap="prevSlider">
                         <v-circle 
                              :config="config.head.buttonPrev.circle"
-                             @tap="prevSlider"
                         />
                         <v-path :config="config.head.buttonPrev.icon"/> 
                     </v-group>
                     <!-- Next -->
-                    <v-group :config="config.head.buttonNext.group">
+                    <v-group :config="config.head.buttonNext.group" @tap="nextSlider">
                         <v-circle 
                              :config="config.head.buttonNext.circle"
-                             @tap="nextSlider"
                         />
                         <v-path :config="config.head.buttonNext.icon"/> 
                     </v-group>
@@ -62,6 +60,7 @@
 <!-- slider -->
                 <v-group ref="groupSlider" :config="config.slider.group">
                 <!-- Shadow     -->
+                    <!-- <v-rect :config="{x: 0, y: 0, width: 12 * cell, height: 4 * cell, fill: 'red'}"/> -->
                     <v-rect
                         :config="shadowRectConfig"
                         ref="shadowRect"
@@ -144,11 +143,11 @@
             </v-layer>
             <v-layer>
                 <v-path />
-                <v-line
+                <!-- <v-line
                     v-for="line in gridLines"
                     :key="line.id"
                     :config="line"
-                />
+                /> -->
             </v-layer>
         </v-stage>
     </div>
@@ -190,27 +189,30 @@
     let getDropZoneActive = () => dropZonesRef.value.filter(item => item.getNode().fill() == 'green')
     let overlapItem = () => getItemOverlap().length > 0
     let inDropZone = () => getDropZoneActive().length == 1
-  
-    function updateStage() {
-        stageRef.value.getNode().batchDraw()
-    }
-
+    let sliderPerMove = ref(config.value.slider.perMove)
+    let moveCount = ref(0)
     function prevSlider() {
+        if(moveCount.value == 1) return;
         const slider = groupSlider.value.getNode()
+        moveCount.value++
         slider.to({
-            x: slider.x() - cell.value * 2,
+            x: slider.x() + sliderPerMove.value,
             y: slider.y(),
             duration: 0.3,
         })
+        console.log(moveCount.value)
     }
   
     function nextSlider() {
+        if(moveCount.value == -1) return;
         const slider = groupSlider.value.getNode()
+        moveCount.value--
         slider.to({
-          x: slider.x() + cell.value * 2,
+          x: slider.x() - sliderPerMove.value,
           y: slider.y(),
           duration: 0.3,
         })
+        console.log(moveCount.value)
     }
 
     const handleDragStart = async (e, index) => {
@@ -235,10 +237,7 @@
         loadDrapImage(index, 'imgAfter')
         group.moveToTop()
         shadowRectConfig.value.visible = true
-        updateStage()
     }
-
-    
     
     const handleDragEnd = (e, index) => {
         const group = e.target
@@ -249,7 +248,7 @@
         if(!overlapItem() && inDropZone()) {
             group.moveTo(groupCarRef.value.getNode())
             group.position({
-                x: Math.round(group.x() / cell.value) * cell.value,
+                x: Math.round((group.x() + (sliderPerMove.value * moveCount.value)) / cell.value) * cell.value,
                 y: Math.round(group.y() / cell.value) * cell.value 
             })
             group.attrs.drop = true
@@ -269,6 +268,8 @@
                 stroke: itemOriginal.config.stroke,
                 duration: 0.3
             })
+            shape.fill(itemOriginal.config.fill)
+            shape.stroke(itemOriginal.config.stroke)
             image.to({
                 x: itemOriginal.imageConfig.x,
                 y: itemOriginal.imageConfig.y,
@@ -291,14 +292,14 @@
         shadowRectConfig.value.height = shape.height()
         shadowRectConfig.value.x = Math.round(group.x() / cell.value ) * cell.value
         shadowRectConfig.value.y = Math.round(group.y() / cell.value) * cell.value
-        
         groupItemsRef.value.forEach(el => {
             let item = el.getNode()
             if(item == group) return;
             if (checkOverlap(item.getClientRect(), shadowRect.value.getNode().getClientRect())) {
                 item.find('Rect')[0].fill('red')
             } else {
-                item.find('Rect')[0].fill('transparent')
+                if(item.find('Rect')[0].fill() == 'red')
+                    item.find('Rect')[0].fill('transparent')
             }
         });
         dropZonesRef.value.forEach(el => {
@@ -321,7 +322,6 @@
             shadowRectConfig.value.fill = '#ff56566e'
             shadowRectConfig.value.stroke = '#ff56566e'
         }
-        updateStage()
     }
 
     function checkDropZone(itemBox, targetBox) {
@@ -401,7 +401,7 @@
     }
 
     const resetKonva = () => {
-        
+        window.location.href = '.'
     };
 
   

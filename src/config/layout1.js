@@ -54,46 +54,46 @@ export default  {
         filter: {
             group: {x: cell / 2, y: cell / 2},
             background: {
-                width: 7 * cell,
+                width: 9 * cell,
                 height: 1 * cell,
                 fill: '#f2f2f2',
                 opacity: 1,
                 cornerRadius: 2*cell 
             },
             activeBackground: {x: 0 * cell,
-                width: 2.333 * cell,
+                width: 3 * cell,
                 height: 1 * cell,
                 fill: '#15668E',
                 cornerRadius: cell
             },
             all: {
                 group: {x: 0, y: 0},
-                rect: {width: 2 * cell, height: 1 * cell},
+                rect: {width: 3 * cell, height: 1 * cell},
                 text: {
                     y: 14,
-                    width: 2.333 * cell,
+                    width: 3 * cell,
                     text: 'ดูทั้งหมด',
                     align: 'center',
                     fill: 'white'
                 }
             },
             people: {
-                group: {x: 2.333 * cell, y: 0},
-                rect: {width: 2.333 * cell, height: 1 * cell},
+                group: {x: 3 * cell, y: 0},
+                rect: {width: 3 * cell, height: 1 * cell},
                 text: {
                     y: 14,
-                    width: 2.333 * cell,
+                    width: 3 * cell,
                     text: 'ดูทั้งหมด',
                     align: 'center',
                     fill: 'black'
                 }
             },
             items: {
-                group: {x: 4.666 * cell, y: 0},
-                rect: {width: 2.333 * cell, height: 1 * cell},
+                group: {x: 6 * cell, y: 0},
+                rect: {width: 3 * cell, height: 1 * cell},
                 text: {
                     y: 14,
-                    width: 2.333 * cell,
+                    width: 3 * cell,
                     text: 'ดูทั้งหมด',
                     align: 'center',
                     fill: 'black'
@@ -101,7 +101,7 @@ export default  {
             },
         },
         buttonPrev: {
-            group: {x: cell * 9, y: cell / 2 + 18 },
+            group: {x: cell * 10.5, y: cell / 2 + 18 },
             circle: { width: 30, height: 30, fill: '#e2e2e2'},
             icon: {
                 x: -4,
@@ -114,7 +114,7 @@ export default  {
             }
         },
         buttonNext: {
-            group: {x: cell * 10 + 5, y: cell / 2 + 18},
+            group: {x: cell * 11.5, y: cell / 2 + 18},
             circle: { width: 30, height: 30, fill: '#e2e2e2'},
             icon: {
                 x: -4,
@@ -238,7 +238,8 @@ export default  {
         },
     ],
     slider: {
-        group: {x: cell, y: cell * 2}
+        group: {x: cell , y: cell * 2},
+        perMove: blockSize * 10
     },
     item: {
         shadow: {
@@ -418,6 +419,44 @@ export default  {
         {
             groupConfig: {
                 id: 'baby,3,4',
+                x: 5 * blockSize * 2, 
+                y: 0 * blockSize * 2, 
+                with: blockSize * 2,
+                height: blockSize * 2, 
+                fill: 'azure',
+                draggable: true,
+            },
+            config: {
+                x: 0 * blockSize * 2 + padding, 
+                y: 0 * blockSize * 2 + padding, 
+                width: blockSize * 2 - padding * 2, 
+                height: blockSize * 2 - padding * 2, 
+                fill: '#f2f2f2', 
+                stroke: '#3D95B5',
+                strokeWidth: 1,
+                cornerRadius: 5
+            },
+            imageConfig: {
+                x: 20,
+                y: 15,
+                with: 25,
+                height: 25,
+                image: null
+            },
+            afterImageConfig: {
+                x: 10,
+                y: 5,
+                with: 48,
+                height: 68,
+            },
+            text: "ลูกคนกลาง",
+            imgBefore: "baby-group.png",
+            imgAfter: "baby.png",
+            size: [2,2]
+        },
+        {
+            groupConfig: {
+                id: 'baby,3,4',
                 x: 4 * blockSize * 2, 
                 y: 0 * blockSize * 2, 
                 with: blockSize * 2,
@@ -491,6 +530,157 @@ export default  {
             imgAfter: "big-bag.png",
             size: [2,3]
         },
-        
+        {
+            groupConfig: {
+                id: 'bigbag,5',
+                x: 1 * blockSize * 2, 
+                y: 1 * blockSize * 2, 
+                with: blockSize * 2,
+                height: blockSize * 2, 
+                fill: 'azure',
+                draggable: true,
+            },
+            config: {
+                x: 0 * blockSize * 2 + padding, 
+                y: 0 * blockSize * 2 + padding, 
+                width: blockSize * 2 - padding * 2, 
+                height: blockSize * 2 - padding * 2, 
+                fill: '#f2f2f2', 
+                stroke: '#3D95B5',
+                strokeWidth: 1,
+                cornerRadius: 5
+            },
+            imageConfig: {
+                x: 20,
+                y: 5,
+                with: 24,
+                height: 46,
+                image: null
+            },
+            afterImageConfig: {
+                x: 5,
+                y: 5,
+                height: 84,
+                with: 54,
+            },
+            text: "ลูกคนกลาง",
+            imgBefore: "big-bag-group.png",
+            imgAfter: "big-bag.png",
+            size: [2,3]
+        },
+        {
+            groupConfig: {
+                id: 'bigbag,5',
+                x: 2 * blockSize * 2, 
+                y: 1 * blockSize * 2, 
+                with: blockSize * 2,
+                height: blockSize * 2, 
+                fill: 'azure',
+                draggable: true,
+            },
+            config: {
+                x: 0 * blockSize * 2 + padding, 
+                y: 0 * blockSize * 2 + padding, 
+                width: blockSize * 2 - padding * 2, 
+                height: blockSize * 2 - padding * 2, 
+                fill: '#f2f2f2', 
+                stroke: '#3D95B5',
+                strokeWidth: 1,
+                cornerRadius: 5
+            },
+            imageConfig: {
+                x: 20,
+                y: 5,
+                with: 24,
+                height: 46,
+                image: null
+            },
+            afterImageConfig: {
+                x: 5,
+                y: 5,
+                height: 84,
+                with: 54,
+            },
+            text: "ลูกคนกลาง",
+            imgBefore: "big-bag-group.png",
+            imgAfter: "big-bag.png",
+            size: [2,3]
+        },
+        {
+            groupConfig: {
+                id: 'bigbag,5',
+                x: 3 * blockSize * 2, 
+                y: 1 * blockSize * 2, 
+                with: blockSize * 2,
+                height: blockSize * 2, 
+                fill: 'azure',
+                draggable: true,
+            },
+            config: {
+                x: 0 * blockSize * 2 + padding, 
+                y: 0 * blockSize * 2 + padding, 
+                width: blockSize * 2 - padding * 2, 
+                height: blockSize * 2 - padding * 2, 
+                fill: '#f2f2f2', 
+                stroke: '#3D95B5',
+                strokeWidth: 1,
+                cornerRadius: 5
+            },
+            imageConfig: {
+                x: 20,
+                y: 5,
+                with: 24,
+                height: 46,
+                image: null
+            },
+            afterImageConfig: {
+                x: 5,
+                y: 5,
+                height: 84,
+                with: 54,
+            },
+            text: "ลูกคนกลาง",
+            imgBefore: "big-bag-group.png",
+            imgAfter: "big-bag.png",
+            size: [2,3]
+        },
+        {
+            groupConfig: {
+                id: 'bigbag,5',
+                x: 4 * blockSize * 2, 
+                y: 1 * blockSize * 2, 
+                with: blockSize * 2,
+                height: blockSize * 2, 
+                fill: 'azure',
+                draggable: true,
+            },
+            config: {
+                x: 0 * blockSize * 2 + padding, 
+                y: 0 * blockSize * 2 + padding, 
+                width: blockSize * 2 - padding * 2, 
+                height: blockSize * 2 - padding * 2, 
+                fill: '#f2f2f2', 
+                stroke: '#3D95B5',
+                strokeWidth: 1,
+                cornerRadius: 5
+            },
+            imageConfig: {
+                x: 20,
+                y: 5,
+                with: 24,
+                height: 46,
+                image: null
+            },
+            afterImageConfig: {
+                x: 5,
+                y: 5,
+                height: 84,
+                with: 54,
+            },
+            text: "ลูกคนกลาง",
+            imgBefore: "big-bag-group.png",
+            imgAfter: "big-bag.png",
+            size: [2,3]
+        },
     ]    
 }
