@@ -2,6 +2,8 @@ const blockSize = 35;
 const cell = 35;
 const baseWidth = 430;
 const baseHeight = 25 * blockSize;
+const imageSize = 80;
+const space = 10;
 let padding = 4;
 
 export default  {
@@ -46,7 +48,7 @@ export default  {
     },
     head: {
         background: { 
-            x: 0, y: 0, width: baseWidth, height: 6 * cell + 15, 
+            x: 0, y: 0, width: baseWidth, height: 6 * cell + 30, 
             fillLinearGradientStartPoint: { x: 0, y: 0 },
             fillLinearGradientEndPoint: { x: 0, y: 6 * cell },
             fillLinearGradientColorStops: [0.6, 'white', 1, '#ffffffb4'],
@@ -264,423 +266,548 @@ export default  {
         }
     },
     items: [
+        // {
+        //     groupConfig: {
+        //         id: 'dad,1,2,3,4',
+        //         x: 0 * blockSize * 2, 
+        //         y: 0 * blockSize * 2,
+        //         width: blockSize * 2,
+        //         height: blockSize * 2, 
+        //         fill: 'azure',
+        //         draggable: true,
+        //     },
+        //     config: {
+        //         x: 0 * blockSize * 2 + padding, 
+        //         y: 0 * blockSize * 2 + padding, 
+        //         width: blockSize * 2 - padding * 2, 
+        //         height: blockSize * 2 - padding * 2, 
+        //         fill: '#f2f2f2', 
+        //         stroke: '#3D95B5',
+        //         strokeWidth: 1,
+        //         cornerRadius: 5
+        //     },
+        //     image: {
+        //         x: 20,
+        //         y: 5,
+        //         width: 23,
+        //         height: 45,
+        //         image: null
+        //     },
+        //     imageDrag: {
+        //         x: 10,
+        //         y: -(blockSize / 2),
+        //         width: 54,
+        //         height: 84,
+        //     },
+        //     text: "คุณพ่อ",
+        //     imageName: "dad-group.png",
+        //     imageDragName: "dad.png",
+        //     size: [2,2]
+        // },
+        // {
+        //     groupConfig: {
+        //         id: 'wife,1,2,3,4',
+        //         x: 1 * blockSize * 2, 
+        //         y: 0 * blockSize * 2, 
+        //         width: blockSize * 2,
+        //         height: blockSize * 2, 
+        //         fill: 'azure',
+        //         draggable: true,
+        //     },
+        //     config: {
+        //         x: 0 * blockSize * 2 + padding, 
+        //         y: 0 * blockSize * 2 + padding, 
+        //         width: blockSize * 2 - padding * 2, 
+        //         height: blockSize * 2 - padding * 2, 
+        //         fill: '#f2f2f2', 
+        //         stroke: '#3D95B5',
+        //         strokeWidth: 1,
+        //         cornerRadius: 5
+        //     },
+        //     image: {
+        //         x: 20,
+        //         y: 8,
+        //         width: 22,
+        //         height: 42,
+        //         image: null
+        //     },
+        //     imageDrag: {
+        //         x: 10,
+        //         y: -(blockSize / 2),
+        //         width: 54,
+        //         height: 84,
+        //     },
+        //     text: "คุณแม่",
+        //     imageName: "wife-group.png",
+        //     imageDragName: "wife.png",
+        //     size: [2,2]
+        // },
+        // {
+        //     groupConfig: {
+        //         id: 'kidboy1,3,4',
+        //         x: 2 * blockSize * 2, 
+        //         y: 0 * blockSize * 2, 
+        //         width: blockSize * 2,
+        //         height: blockSize * 2, 
+        //         fill: 'azure',
+        //         draggable: true,
+        //     },
+        //     config: {
+        //         x: 0 * blockSize * 2 + padding, 
+        //         y: 0 * blockSize * 2 + padding, 
+        //         width: blockSize * 2 - padding * 2, 
+        //         height: blockSize * 2 - padding * 2, 
+        //         fill: '#f2f2f2', 
+        //         stroke: '#3D95B5',
+        //         strokeWidth: 1,
+        //         cornerRadius: 5
+        //     },
+        //     image: {
+        //         x: 20,
+        //         y: 15,
+        //         width: 16,
+        //         height: 32,
+        //         image: null
+        //     },
+        //     imageDrag: {
+        //         x: 10,
+        //         y: -(blockSize / 2),
+        //         width: 46,
+        //         height: 68,
+        //     },
+        //     text: "ลูกคนกลาง",
+        //     imageName: "kid-boy-group.png",
+        //     imageDragName: "kid-boy.png",
+        //     size: [2,2],
+        // },
+        // {
+        //     groupConfig: {
+        //         id: 'kidgirl,1,3,4',
+        //         x: 3 * blockSize * 2, 
+        //         y: 0 * blockSize * 2, 
+        //         width: blockSize * 2,
+        //         height: blockSize * 2, 
+        //         fill: 'azure',
+        //         draggable: true,
+        //     },
+        //     config: {
+        //         x: 0 * blockSize * 2 + padding, 
+        //         y: 0 * blockSize * 2 + padding, 
+        //         width: blockSize * 2 - padding * 2, 
+        //         height: blockSize * 2 - padding * 2, 
+        //         fill: '#f2f2f2', 
+        //         stroke: '#3D95B5',
+        //         strokeWidth: 1,
+        //         cornerRadius: 5
+        //     },
+        //     image: {
+        //         x: 20,
+        //         y: 15,
+        //         width: 19,
+        //         height: 35,
+        //         image: null
+        //     },
+        //     imageDrag: {
+        //         x: 10,
+        //         y: -(blockSize / 2),
+        //         width: 46,
+        //         height: 68,
+        //     },
+        //     text: "ลูกคนกลาง",
+        //     imageName: "kid-girl-group.png",
+        //     imageDragName: "kid-girl.png",
+        //     size: [2,2]
+        // },
+        // {
+        //     groupConfig: {
+        //         id: 'baby,3,4',
+        //         x: 5 * blockSize * 2, 
+        //         y: 0 * blockSize * 2, 
+        //         width: blockSize * 2,
+        //         height: blockSize * 2, 
+        //         fill: 'azure',
+        //         draggable: true,
+        //     },
+        //     config: {
+        //         x: 0 * blockSize * 2 + padding, 
+        //         y: 0 * blockSize * 2 + padding, 
+        //         width: blockSize * 2 - padding * 2, 
+        //         height: blockSize * 2 - padding * 2, 
+        //         fill: '#f2f2f2', 
+        //         stroke: '#3D95B5',
+        //         strokeWidth: 1,
+        //         cornerRadius: 5
+        //     },
+        //     image: {
+        //         x: 20,
+        //         y: 15,
+        //         width: 25,
+        //         height: 25,
+        //         image: null
+        //     },
+        //     imageDrag: {
+        //         x: 10,
+        //         y: 5,
+        //         width: 48,
+        //         height: 68,
+        //     },
+        //     text: "ลูกคนกลาง",
+        //     imageName: "baby-group.png",
+        //     imageDragName: "baby.png",
+        //     size: [2,2]
+        // },
+        // {
+        //     groupConfig: {
+        //         id: 'baby,3,4',
+        //         x: 4 * blockSize * 2, 
+        //         y: 0 * blockSize * 2, 
+        //         width: blockSize * 2,
+        //         height: blockSize * 2, 
+        //         fill: 'azure',
+        //         draggable: true,
+        //     },
+        //     config: {
+        //         x: 0 * blockSize * 2 + padding, 
+        //         y: 0 * blockSize * 2 + padding, 
+        //         width: blockSize * 2 - padding * 2, 
+        //         height: blockSize * 2 - padding * 2, 
+        //         fill: '#f2f2f2', 
+        //         stroke: '#3D95B5',
+        //         strokeWidth: 1,
+        //         cornerRadius: 5
+        //     },
+        //     image: {
+        //         x: 20,
+        //         y: 15,
+        //         width: 25,
+        //         height: 25,
+        //         image: null
+        //     },
+        //     imageDrag: {
+        //         x: 10,
+        //         y: 5,
+        //         width: 48,
+        //         height: 68,
+        //     },
+        //     text: "ลูกคนกลาง",
+        //     imageName: "baby-group.png",
+        //     imageDragName: "baby.png",
+        //     size: [2,2]
+        // },
+        // {
+        //     groupConfig: {
+        //         id: 'bigbag,5',
+        //         x: 0 * blockSize * 2, 
+        //         y: 1 * blockSize * 2, 
+        //         width: blockSize * 2,
+        //         height: blockSize * 2, 
+        //         fill: 'azure',
+        //         draggable: true,
+        //     },
+        //     config: {
+        //         x: 0 * blockSize * 2 + padding, 
+        //         y: 0 * blockSize * 2 + padding, 
+        //         width: blockSize * 2 - padding * 2, 
+        //         height: blockSize * 2 - padding * 2, 
+        //         fill: '#f2f2f2', 
+        //         stroke: '#3D95B5',
+        //         strokeWidth: 1,
+        //         cornerRadius: 5
+        //     },
+        //     image: {
+        //         x: 20,
+        //         y: 5,
+        //         width: 24,
+        //         height: 46,
+        //         image: null
+        //     },
+        //     imageDrag: {
+        //         x: -8,
+        //         y: 20,
+        //         height: 105,
+        //         width: 52,
+        //     },
+        //     text: "ลูกคนกลาง",
+        //     imageName: "bike-group.png",
+        //     imageDragName: "bike.png",
+        //     size: [1,4]
+        // },
         {
             groupConfig: {
-                id: 'dad,1,2,3,4',
-                x: 0 * blockSize * 2, 
-                y: 0 * blockSize * 2,
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
+                id: 'people|dad|1,2,3,4',
                 draggable: true,
             },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
             },
-            imageConfig: {
-                x: 20,
-                y: 5,
-                with: 23,
-                height: 45,
-                image: null
-            },
-            afterImageConfig: {
+            imageDrag: {
                 x: 10,
                 y: -(blockSize / 2),
-                with: 54,
+                width: 54,
                 height: 84,
             },
-            text: "คุณพ่อ",
-            imgBefore: "dad-group.png",
-            imgAfter: "dad.png",
+            imageName: "dad-group.png",
+            imageDragName: "dad.png",
+            type: "people",
             size: [2,2]
         },
         {
             groupConfig: {
-                id: 'wife,1,2,3,4',
-                x: 1 * blockSize * 2, 
-                y: 0 * blockSize * 2, 
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
+                id: 'people|wife|1,2,3,4',
                 draggable: true,
             },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
             },
-            imageConfig: {
-                x: 20,
-                y: 8,
-                with: 22,
-                height: 42,
-                image: null
-            },
-            afterImageConfig: {
+            imageDrag: {
                 x: 10,
                 y: -(blockSize / 2),
-                with: 54,
+                width: 54,
                 height: 84,
             },
-            text: "คุณแม่",
-            imgBefore: "wife-group.png",
-            imgAfter: "wife.png",
+            imageName: "wife-group.png",
+            imageDragName: "wife.png",
+            type: "people",
             size: [2,2]
         },
         {
             groupConfig: {
-                id: 'kidboy1,3,4',
-                x: 2 * blockSize * 2, 
-                y: 0 * blockSize * 2, 
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
+                id: 'people|kidboy|1,3,4',
                 draggable: true,
             },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
             },
-            imageConfig: {
-                x: 20,
-                y: 15,
-                with: 16,
-                height: 32,
-                image: null
-            },
-            afterImageConfig: {
+            imageDrag: {
                 x: 10,
                 y: -(blockSize / 2),
-                with: 46,
-                height: 68,
+                width: 54,
+                height: 84,
             },
-            text: "ลูกคนกลาง",
-            imgBefore: "kid-boy-group.png",
-            imgAfter: "kid-boy.png",
-            size: [2,2],
+            imageName: "kid-boy-group.png",
+            imageDragName: "kid-boy.png",
+            type: "people",
+            size: [2,2]
         },
         {
             groupConfig: {
-                id: 'kidgirl,1,3,4',
-                x: 3 * blockSize * 2, 
-                y: 0 * blockSize * 2, 
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
+                id: 'people|kidboy|1,2,3,4',
                 draggable: true,
             },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
             },
-            imageConfig: {
-                x: 20,
-                y: 15,
-                with: 19,
-                height: 35,
-                image: null
-            },
-            afterImageConfig: {
+            imageDrag: {
                 x: 10,
                 y: -(blockSize / 2),
-                with: 46,
-                height: 68,
+                width: 54,
+                height: 84,
             },
-            text: "ลูกคนกลาง",
-            imgBefore: "kid-girl-group.png",
-            imgAfter: "kid-girl.png",
+            imageName: "kid-girl-group.png",
+            imageDragName: "kid-girl.png",
+            type: "people",
             size: [2,2]
         },
         {
             groupConfig: {
-                id: 'baby,3,4',
-                x: 5 * blockSize * 2, 
-                y: 0 * blockSize * 2, 
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
+                id: 'people|kidboy|1,2,3,4',
                 draggable: true,
             },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
             },
-            imageConfig: {
-                x: 20,
-                y: 15,
-                with: 25,
-                height: 25,
-                image: null
-            },
-            afterImageConfig: {
+            imageDrag: {
                 x: 10,
                 y: 5,
-                with: 48,
+                width: 48,
                 height: 68,
             },
-            text: "ลูกคนกลาง",
-            imgBefore: "baby-group.png",
-            imgAfter: "baby.png",
+            imageName: "baby-group.png",
+            imageDragName: "baby.png",
+            type: "people",
             size: [2,2]
         },
         {
             groupConfig: {
-                id: 'baby,3,4',
-                x: 4 * blockSize * 2, 
-                y: 0 * blockSize * 2, 
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
+                id: 'people|grandfather|1,3,4',
                 draggable: true,
             },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
             },
-            imageConfig: {
-                x: 20,
-                y: 15,
-                with: 25,
-                height: 25,
-                image: null
-            },
-            afterImageConfig: {
+            imageDrag: {
                 x: 10,
                 y: 5,
-                with: 48,
+                width: 48,
                 height: 68,
             },
-            text: "ลูกคนกลาง",
-            imgBefore: "baby-group.png",
-            imgAfter: "baby.png",
+            imageName: "grand-father-group.png",
+            imageDragName: "grand-father.png",
+            type: "people",
             size: [2,2]
         },
         {
             groupConfig: {
-                id: 'bigbag,5',
-                x: 0 * blockSize * 2, 
-                y: 1 * blockSize * 2, 
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
+                id: 'people|grandfather|1,3,4',
                 draggable: true,
             },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
             },
-            imageConfig: {
-                x: 20,
+            imageDrag: {
+                x: 10,
                 y: 5,
-                with: 24,
-                height: 46,
-                image: null
+                width: 48,
+                height: 68,
             },
-            afterImageConfig: {
+            imageName: "grand-mother-group.png",
+            imageDragName: "grand-mother.png",
+            type: "people",
+            size: [2,2]
+        },
+// items
+        {
+            groupConfig: {
+                id: 'item|box,5',
+                draggable: true,
+            },
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
+            },
+            imageDrag: {
                 x: 5,
                 y: 5,
-                height: 84,
-                with: 54,
+                width: 54,
+                height: 84
             },
-            text: "ลูกคนกลาง",
-            imgBefore: "big-bag-group.png",
-            imgAfter: "big-bag.png",
+            imageName: "box-group.png",
+            imageDragName: "box.png",
+            type: "item",
+            size: [1,5]
+        },
+        {
+            groupConfig: {
+                id: 'item|vali|5',
+                draggable: true,
+            },
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
+            },
+            imageDrag: {
+                x: 5,
+                y: 5,
+                width: 54,
+                height: 84
+            },
+            imageName: "vali-group.png",
+            imageDragName: "vali.png",
+            type: "item",
             size: [2,3]
         },
         {
             groupConfig: {
-                id: 'bigbag,5',
-                x: 1 * blockSize * 2, 
-                y: 1 * blockSize * 2, 
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
+                id: 'item|surfboard|5',
                 draggable: true,
             },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
             },
-            imageConfig: {
-                x: 20,
-                y: 5,
-                with: 24,
-                height: 46,
-                image: null
-            },
-            afterImageConfig: {
+            imageDrag: {
                 x: 5,
                 y: 5,
-                height: 84,
-                with: 54,
+                width: 54,
+                height: 84
             },
-            text: "ลูกคนกลาง",
-            imgBefore: "big-bag-group.png",
-            imgAfter: "big-bag.png",
-            size: [2,3]
+            imageName: "surfboard-group.png",
+            imageDragName: "surfboard.png",
+            type: "item",
+            size: [1,3]
         },
         {
             groupConfig: {
-                id: 'bigbag,5',
-                x: 2 * blockSize * 2, 
-                y: 1 * blockSize * 2, 
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
+                id: 'item|bike|5',
                 draggable: true,
             },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
             },
-            imageConfig: {
-                x: 20,
-                y: 5,
-                with: 24,
-                height: 46,
-                image: null
+            imageDrag: {
+                x: -8,
+                y: 20,
+                height: 105,
+                width: 52,
             },
-            afterImageConfig: {
-                x: 5,
-                y: 5,
-                height: 84,
-                with: 54,
-            },
-            text: "ลูกคนกลาง",
-            imgBefore: "big-bag-group.png",
-            imgAfter: "big-bag.png",
-            size: [2,3]
+            imageName: "bike-group.png",
+            imageDragName: "bike.png",
+            type: "item",
+            size: [1,4]
         },
         {
             groupConfig: {
-                id: 'bigbag,5',
-                x: 3 * blockSize * 2, 
-                y: 1 * blockSize * 2, 
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
+                id: 'item|kidbike|5',
                 draggable: true,
             },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
+            image: {
+                image: null,
+                x: space,
+                y: space,
+                width: imageSize - space,
+                height: imageSize - space
             },
-            imageConfig: {
-                x: 20,
-                y: 5,
-                with: 24,
-                height: 46,
-                image: null
+            imageDrag: {
+                x: -8,
+                y: 20,
+                height: 105,
+                width: 52,
             },
-            afterImageConfig: {
-                x: 5,
-                y: 5,
-                height: 84,
-                with: 54,
-            },
-            text: "ลูกคนกลาง",
-            imgBefore: "big-bag-group.png",
-            imgAfter: "big-bag.png",
-            size: [2,3]
-        },
-        {
-            groupConfig: {
-                id: 'bigbag,5',
-                x: 4 * blockSize * 2, 
-                y: 1 * blockSize * 2, 
-                with: blockSize * 2,
-                height: blockSize * 2, 
-                fill: 'azure',
-                draggable: true,
-            },
-            config: {
-                x: 0 * blockSize * 2 + padding, 
-                y: 0 * blockSize * 2 + padding, 
-                width: blockSize * 2 - padding * 2, 
-                height: blockSize * 2 - padding * 2, 
-                fill: '#f2f2f2', 
-                stroke: '#3D95B5',
-                strokeWidth: 1,
-                cornerRadius: 5
-            },
-            imageConfig: {
-                x: 20,
-                y: 5,
-                with: 24,
-                height: 46,
-                image: null
-            },
-            afterImageConfig: {
-                x: 5,
-                y: 5,
-                height: 84,
-                with: 54,
-            },
-            text: "ลูกคนกลาง",
-            imgBefore: "big-bag-group.png",
-            imgAfter: "big-bag.png",
-            size: [2,3]
+            imageName: "kid-bike-group.png",
+            imageDragName: "kid-bike.png",
+            type: "item",
+            size: [1,4]
         },
     ]    
 }

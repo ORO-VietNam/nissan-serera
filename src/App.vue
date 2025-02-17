@@ -2,7 +2,7 @@
     <div class="">
         <!-- <img src="@images/car/car.png" alt=""> -->
         <div class="border-b border-[#f5f5f5]">
-            <div class="px-5">
+            <div class="px-5 max-w-[1320px] mx-auto lg:hidden">
                 <div class="flex items-center">
                     <div class="flex-1 text-[#15668E]">
                         <p class="font-bold text-2xl">เลื่อน พับ<br>ปรับที่นั่ง</p>
@@ -15,6 +15,7 @@
             </div>
         </div>
         <Layout1 />
+        <div class="h-screen"></div>
     </div>
 </template>
 

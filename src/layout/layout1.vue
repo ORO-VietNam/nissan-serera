@@ -6,14 +6,17 @@
         >
             <v-layer ref="mainLayer">
 <!-- Car -->
-                <v-group ref="groupCarRef" :config="config.car.group">
-                    <v-rect :config="config.car.shadow"/>
-                    <v-group :config="config.car.groupItem">
-                        <v-image ref="carRef" :config="car" />
-                        <v-image ref="" :config="seat1" />
-                        <v-image ref="" :config="seat2" />
-                        <v-image ref="" :config="seat3" />
-                        <v-image ref="" :config="seat4" />
+                <v-group 
+                    ref="groupCarRef" 
+                    :config="config.car.group"
+                >
+                    <v-rect :config="config.car.shadow" :listening="false"/>
+                    <v-group :config="config.car.groupItem" >
+                        <v-image ref="carRef" :config="car" :listening="false"/>
+                        <v-image ref="" :config="seat1" :listening="false"/>
+                        <v-image ref="" :config="seat2" :listening="false"/>
+                        <v-image ref="" :config="seat3" :listening="false"/>
+                        <v-image ref="" :config="seat4" :listening="false"/>
                     </v-group>
                     <v-image ref="volangRef" :config="volang" />
                 </v-group>
@@ -22,6 +25,7 @@
                     ref="dropZonesRef"
                     :key="rect.id"
                     :config="rect"
+                    :listening="false"
                 />
 <!-- controll  -->
                 <v-group>
@@ -33,7 +37,10 @@
                             <v-rect :config="config.head.filter.all.rect"/>
                             <v-text :config="config.head.filter.all.text"/>
                         </v-group>
-                        <v-group  :config="config.head.filter.people.group">
+                        <v-group 
+                            :config="config.head.filter.people.group"
+                            @tap="filterSlider"
+                        >
                             <v-rect :config="config.head.filter.people.rect"/>
                             <v-text :config="config.head.filter.people.text"/>
                         </v-group>
@@ -74,9 +81,9 @@
                         @dragend="handleDragEnd($event, index)"
                         @dragmove="handleDragMove"
                     >
-                        <v-rect :config="item.config"/>
-                        <v-image :config="item.imageConfig" />
-                        <v-text :config="{...config.item.text, text: item.text}"/>
+                        <v-rect :config="item.rect"/>
+                        <v-image :config="item.image" />
+                        <!-- <v-text :config="{...config.item.text, text: item.text}"/> -->
                     </v-group>
                 </v-group>
 <!-- introduction -->
@@ -153,7 +160,7 @@
     </div>
 </template>
 <script setup>
-    import { ref, onMounted } from 'vue'
+    import { ref, onMounted, computed } from 'vue'
     import configLayout1 from '../config/layout1'
     
     const config = ref(configLayout1)
@@ -175,10 +182,10 @@
     const padding = config.value.padding;
     const shadowRectConfig = ref(config.value.item.shadow);
     const stageConfig = {width: baseWidth, height: baseHeight};
+    
     let width =  ref(baseWidth);
     let height = ref(baseHeight)
     let cell = ref(blockSize);
-    let initItems = ref(config.value.items)
     let car = ref(config.value.car.body)
     let volang = ref(config.value.car.volang)
     let seat1 = ref(config.value.car.seat1)
@@ -194,6 +201,46 @@
     let sliderPerMove = ref(config.value.slider.perMove)
     let moveCount = ref(0)
 
+    const initSlider = () => {
+        let list = []
+        let space = 10
+        let size = 80
+        let breakLine = 0
+        let count = 0
+        config.value.items.forEach(function(item, index) {
+            let id = item.groupConfig.id
+            if(id == "item|box,5") {
+                breakLine = 1
+                count = 0
+            }
+            item.groupConfig = {
+                ...item.groupConfig,
+                x: count * size,
+                y: breakLine * size 
+            }
+            item.rect = {
+                x: 0,
+                y: 0,
+                width: size + space,
+                height: size + space,
+                // fill: 'red'
+            }
+            count++
+            list.push(item)
+        })
+        return list;
+    }
+
+    const initItems = ref(initSlider())
+
+    function filterSlider() {
+        let count = 0
+        groupSlider.value.getNode().find('Group').forEach(function(el, index) {
+            const groupRef = el
+            groupRef.visible(false)
+        })
+    }
+
     function prevSlider() {
         if(moveCount.value == 0) return;
         const slider = groupSlider.value.getNode()
@@ -204,7 +251,6 @@
             duration: 0.3,
         })
         handleButtonSlider()
-        console.log(moveCount.value)
     }
   
     function nextSlider() {
@@ -217,7 +263,6 @@
           duration: 0.3,
         })
         handleButtonSlider()
-        console.log(moveCount.value)
     }
 
     function handleButtonSlider() {
@@ -240,20 +285,18 @@
         const text = e.target.find('Text')[0]
         const image = e.target.find('Image')[0]
         const itemOriginal = initItems.value[index]
-        group.attrs.index = index
-        group.attrs.drop = false
+        // group.attrs.index = index
+        // group.attrs.drop = false
         shape.width(itemOriginal.size[0] * cell.value - padding * 2)
         shape.height(itemOriginal.size[1] * cell.value - padding * 2)
-        shape.fill('transparent')
-        shape.stroke('transparent')
         image.to({
-            x: itemOriginal.afterImageConfig.x,
-            y: itemOriginal.afterImageConfig.y,
-            width: itemOriginal.afterImageConfig.with,
-            height: itemOriginal.afterImageConfig.height,
+            x: itemOriginal.imageDrag.x,
+            y: itemOriginal.imageDrag.y,
+            width: itemOriginal.imageDrag.width,
+            height: itemOriginal.imageDrag.height,
         })
-        text.visible(false);
-        loadDrapImage(index, 'imgAfter')
+        // text.visible(false);
+        loadImageRef(image, index, 'imageDragName')
         group.moveToTop()
         shadowRectConfig.value.visible = true
     }
@@ -263,14 +306,13 @@
         const shape = group.find('Rect')[0]
         const image = group.find('Image')[0]
         const text = group.find('Text')[0]
-        // console.log(group)
         if(!overlapItem() && inDropZone()) {
             group.moveTo(groupCarRef.value.getNode())
             group.position({
                 x: Math.round((group.x() + (sliderPerMove.value * moveCount.value)) / cell.value) * cell.value,
                 y: Math.round(group.y() / cell.value) * cell.value 
             })
-            group.attrs.drop = true
+            // group.attrs.drop = true
             volangRef.value.getNode().moveToTop()
         } else {
             const itemOriginal = initItems.value[index]
@@ -283,20 +325,16 @@
             shape.to({
                 width: 2 * cell.value - padding * 2,
                 height: 2 * cell.value - padding * 2,
-                fill: itemOriginal.config.fill,
-                stroke: itemOriginal.config.stroke,
                 duration: 0.3
             })
-            shape.fill(itemOriginal.config.fill)
-            shape.stroke(itemOriginal.config.stroke)
             image.to({
-                x: itemOriginal.imageConfig.x,
-                y: itemOriginal.imageConfig.y,
-                width: itemOriginal.imageConfig.with,
-                height: itemOriginal.imageConfig.height,
+                x: itemOriginal.image.x,
+                y: itemOriginal.image.y,
+                width: itemOriginal.image.width,
+                height: itemOriginal.image.height,
             })
-            text.visible(true)
-            loadDrapImage(index, 'imgBefore')
+            // text.visible(true)
+            loadImageRef(image, index, 'imageName')
         }
         getItemOverlap().forEach(el => el.getNode().find('Rect')[0].fill('transparent'))
         getDropZoneActive().forEach(el => el.getNode().fill('transparent'))
@@ -309,12 +347,13 @@
         const groupId = group.id()
         shadowRectConfig.value.width = shape.width()
         shadowRectConfig.value.height = shape.height()
-        shadowRectConfig.value.x = Math.round(group.x() / cell.value ) * cell.value
-        shadowRectConfig.value.y = Math.round(group.y() / cell.value) * cell.value
+        shadowRectConfig.value.x = Math.round(group.x() / cell.value ) * cell.value + padding
+        shadowRectConfig.value.y = Math.round(group.y() / cell.value) * cell.value + padding
         groupItemsRef.value.forEach(el => {
             let item = el.getNode()
+            let shape = item.find('Rect')[0]
             if(item == group) return;
-            if (checkOverlap(item.getClientRect(), shadowRect.value.getNode().getClientRect())) {
+            if (checkOverlap(shape.getClientRect(), shadowRect.value.getNode().getClientRect())) {
                 item.find('Rect')[0].fill('red')
             } else {
                 if(item.find('Rect')[0].fill() == 'red')
@@ -360,8 +399,6 @@
             r2.y - 4 + r2.height - 4 < r1.y
         );
     }
-
-
     // window.addEventListener('resize', stageScale)
 
     function loadImage(config, name) {
@@ -374,22 +411,22 @@
     }
 
     function imageInit() {
-        initItems.value.forEach(function(el) {
-            let path = new URL(`../assets/images/${el.imgBefore}`, import.meta.url).href ;
-            let img = new Image()
-            img.onload = function() {
-                el.imageConfig.image = img
-            }
-            img.src = path
+        groupItemsRef.value.forEach(function(el, index) {
+            let imageRef = el.getNode().find('Image')[0]
+            loadImageRef(imageRef, index, 'imageName')
         })
     }
 
-    function loadDrapImage(index, type) {
+    function loadImageRef(imageRef, index, type) {
         let item = initItems.value[index]
-        let path = new URL(`../assets/images/${item[type]}`, import.meta.url).href ;
+        let size = item.image
+        if(type == 'imageDragName') size = item.imageDrag
+        let path = new URL(`../assets/images/${item[type]}`, import.meta.url).href;
         let img = new Image()
         img.onload = function() {
-            item.imageConfig.image = img
+            imageRef.image(img)
+            imageRef.width(size.width)
+            imageRef.height(size.height)
         }
         img.src = path
     }
@@ -420,10 +457,10 @@
     }
 
     const resetKonva = () => {
-        window.location.href = '.'
+        let data = stageRef.value.getNode().toJSON()
+        console.log(data)
     };
 
-  
     onMounted(async () => {
         fitStageIntoParentContainer()
         loadCar()
