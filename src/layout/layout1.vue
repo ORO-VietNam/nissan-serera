@@ -1,22 +1,28 @@
 <template>
-    <div ref="container" class="stage-container">
+    <div ref="container" class="relative stage-container lg:min-h-screen lg:px-5">
+        <Layout2 />
         <v-stage
             ref="stageRef"
             :config="stageConfig"
         >
             <v-layer ref="mainLayer">
-<!-- Car -->
+<!-- Car -->    
+                <v-rect :config="config.background" :listening="false"/>
                 <v-group 
                     ref="groupCarRef" 
                     :config="config.car.group"
                 >
                     <v-rect :config="config.car.shadow" :listening="false"/>
+                    <v-rect :config="config.car.background" :listening="false"/>
                     <v-group :config="config.car.groupItem" >
                         <v-image ref="carRef" :config="car" :listening="false"/>
-                        <v-image ref="" :config="seat1" :listening="false"/>
-                        <v-image ref="" :config="seat2" :listening="false"/>
-                        <v-image ref="" :config="seat3" :listening="false"/>
-                        <v-image ref="" :config="seat4" :listening="false"/>
+                        <v-group
+                            v-for="(seat, index) in config.car.seats"
+                            :config="seat.group"
+                        >
+                            <v-rect ref="dropZonesRef" :config="seat.rect"/>
+                            <v-image ref="seatsRef" :config="seat.image" :listening="false"/>
+                        </v-group>
                     </v-group>
                     <v-image ref="volangRef" :config="volang" />
                 </v-group>
@@ -27,26 +33,41 @@
                     :config="rect"
                     :listening="false"
                 />
+                <v-rect
+                    :config="shadowRectConfig"
+                    ref="shadowRect"
+                />
 <!-- controll  -->
                 <v-group>
                     <v-rect :config="config.head.background"/>
                     <v-group :config="config.head.filter.group">
                         <v-rect :config="config.head.filter.background"/>
-                        <v-rect :config="config.head.filter.activeBackground"/>
-                        <v-group :config="config.head.filter.all.group">
+                        <v-rect ref="filterBackground" :config="config.head.filter.activeBackground"/>
+                        <v-group 
+                            :config="config.head.filter.all.group"
+                            @tap="filterSlider($event, '')"
+                            @click="filterSlider($event, '')"
+                        >
                             <v-rect :config="config.head.filter.all.rect"/>
-                            <v-text :config="config.head.filter.all.text"/>
+                            <v-text :listening="false" :config="config.head.filter.all.text"/>
                         </v-group>
                         <v-group 
                             :config="config.head.filter.people.group"
-                            @tap="filterSlider"
-                        >
+                            @tap="filterSlider($event, 'people')"
+                            @click="filterSlider($event, 'people')"
+                            >
                             <v-rect :config="config.head.filter.people.rect"/>
-                            <v-text :config="config.head.filter.people.text"/>
+                            <v-path :listening="false" :config="config.head.filter.people.path"/>
+                            <v-text :listening="false" :config="config.head.filter.people.text"/>
                         </v-group>
-                        <v-group :config="config.head.filter.items.group">
+                        <v-group 
+                            :config="config.head.filter.items.group"
+                            @tap="filterSlider($event, 'item')"
+                            @click="filterSlider($event, 'item')"
+                        >
                             <v-rect :config="config.head.filter.items.rect"/>
-                            <v-text :config="config.head.filter.items.text"/>
+                            <v-path :listening="false" :config="config.head.filter.items.path"/>
+                            <v-text :listening="false" :config="config.head.filter.items.text"/>
                         </v-group>
                     </v-group>
                     <!-- Prev -->
@@ -68,10 +89,7 @@
                 <v-group ref="groupSlider" :config="config.slider.group">
                 <!-- Shadow     -->
                     <!-- <v-rect :config="{x: 0, y: 0, width: 12 * cell, height: 4 * cell, fill: 'red'}"/> -->
-                    <v-rect
-                        :config="shadowRectConfig"
-                        ref="shadowRect"
-                    />
+                    
                     <v-group
                         v-for="(item, index) in initItems"
                         :config="item.groupConfig"
@@ -87,87 +105,76 @@
                     </v-group>
                 </v-group>
 <!-- introduction -->
-                <v-group :config="{x: 0, y: 8 * cell}">
-                    <v-rect 
-                        :config="{ x: 0, y: 0, width: cell * 4, height: cell, fill: '', }"
-                    />
+                <v-group :config="config.intro.group">
+                    <!-- <v-rect 
+                        :config="{ x: 0, y: 0, width: cell * 4, height: cell * 14, fill: 'red', opacity: 0.2 }"
+                    /> -->
+                   
+                    <v-group 
+                        v-for="(item, index) in itemsIntro"
+                        :config="item.group"
+                    >
+                        <!-- <v-rect 
+                            :config="{width: cell * 3, height: cell * 3, fill: 'red', opacity: 0.2 }"
+                        /> -->
+                        <v-image ref="introImageRef" :config="item.image"/>
+                    </v-group>
                 </v-group>
-                <v-group :config="{x: 0, y: 23 * cell}">
+<!-- Footer -->
+                <v-group :config="config.footer.group">
                     <v-rect 
-                        :config="{ 
-                            x: 0, y: 0, width: width, height: 2 * cell, fill: '#124057', }"
+                        :config="config.footer.background"
                     />
                     <v-group 
-                        :config="{
-                            x: cell / 2 + 20,
-                            y: (2 * cell - 40) / 2 +  20,
-                        }"
+                        :config="config.footer.selectLayout.group"
                     >
-                        <v-circle :config="{
-                            x: 0,
-                            y: 0,
-                            radius: 20,
-                            stroke: 'white',
-                            strokeWidth: 2
-                        }"/>
-                        <v-path :config="{
-                            x: -6,
-                            y: -6,
-                            data: 'M7.78788 13H5.21212V7.78788H0V5.21212H5.21212V0H7.78788V5.21212H13V7.78788H7.78788V13Z',
-                            fill: 'white',
-                            stroke: 'white',
-                        }"/>
-                        <v-text :config="{
-                            x: 30,
-                            y: -6,
-                            text: 'ดูรูปแบบที่นั่งทั้ง 13 แบบเพิ่มเติม',
-                            fill: 'white',
-                            fontSize: 16,
-                        }"/>
+                        <v-circle :config="config.footer.selectLayout.circle"/>
+                        <v-path :config="config.footer.selectLayout.path"/>
+                        <v-text :config="config.footer.selectLayout.text"/>
                     </v-group>
-                    <v-group :config="{
-                            x: 9.5 * cell,
-                            y: 21
-                        }"
+                    <v-group :config="config.footer.resetLayout.group"
                         @tap="resetKonva"
                     >
-                        <v-path :config="{
-                            data: 'M22 14.2556C22 20.0546 17.299 24.7556 11.5 24.7556C5.70101 24.7556 1 20.0546 1 14.2556C1 8.45663 5.70101 3.75562 11.5 3.75562C14.2424 3.75562 16.7393 4.80697 18.6095 6.52862 M17.5 1.24438L19.1471 7.3915L13 9.03861',
-                            fill: 'transparent',
-                            stroke: 'white',
-                            scaleX: 1,
-                            scaleY: 1,
-                        }"/>
-                        <v-text :config="{
-                            x: 35,
-                            y: 7,
-                            text: 'รีเซ็ต',
-                            fill: 'white',
-                            fontSize: 16,
-                        }"/>
+                        <v-path :config="config.footer.resetLayout.path"/>
+                        <v-text :config="config.footer.resetLayout.text"/>
                     </v-group>
                 </v-group>
             </v-layer>
-            <v-layer>
-                <v-path />
-                <!-- <v-line
+            <!-- <v-layer>
+                <v-line
+                    :listening="false"
                     v-for="line in gridLines"
                     :key="line.id"
                     :config="line"
-                /> -->
-            </v-layer>
+                />
+            </v-layer> -->
         </v-stage>
+        
     </div>
 </template>
+    
 <script setup>
     import { ref, onMounted, computed } from 'vue'
-    import configLayout1 from '../config/layout1'
+    import Layout2 from './layout2.vue'
+    import configSP from '../config/config-sp'
+    import configTB from '../config/config-tb'
+    import configPC from '../config/config-pc'
+    import items from '../config/item-layout-1'
     
-    const config = ref(configLayout1)
+    const windowWidth = window.innerWidth
+    let config = ref()
+    if(windowWidth < 768) {
+        config.value = {...configSP, ...items}
+    } else if(windowWidth >= 768 && windowWidth < 1024) {
+        config.value = {...configTB, ...items}
+    } else {
+        config.value = {...configPC, ...items}
+    }
     const stageRef = ref();
     const mainLayer = ref();
     const container = ref()
     const shadowRect = ref();
+    const filterBackground = ref()
     const groupSlider = ref();
     const prevSliderRef = ref();
     const nextSliderRef = ref();
@@ -176,16 +183,17 @@
     const groupCarRef = ref()
     const carRef = ref()
     const volangRef = ref()
-    const blockSize = config.value.blockSize;
+    const seatsRef = ref()
+    const introImageRef = ref()
     const baseWidth = config.value.baseWidth
     const baseHeight = config.value.baseHeight
     const padding = config.value.padding;
     const shadowRectConfig = ref(config.value.item.shadow);
     const stageConfig = {width: baseWidth, height: baseHeight};
-    
+    const sliderConfig = config.value.slider;
     let width =  ref(baseWidth);
     let height = ref(baseHeight)
-    let cell = ref(blockSize);
+    let cell = ref(config.value.cell);
     let car = ref(config.value.car.body)
     let volang = ref(config.value.car.volang)
     let seat1 = ref(config.value.car.seat1)
@@ -193,6 +201,7 @@
     let seat3 = ref(config.value.car.seat3)
     let seat4 = ref(config.value.car.seat4)
     let dropZones = ref(config.value.dropZones)
+    let itemsIntro = ref(config.value.intro.items)
     let gridLines = ref(config.value.grid())
     let getItemOverlap = () => groupItemsRef.value.filter(item => item.getNode().find('Rect')[0].fill() == 'red')
     let getDropZoneActive = () => dropZonesRef.value.filter(item => item.getNode().fill() == 'green')
@@ -200,11 +209,11 @@
     let inDropZone = () => getDropZoneActive().length == 1
     let sliderPerMove = ref(config.value.slider.perMove)
     let moveCount = ref(0)
+    let filterType = ""
 
     const initSlider = () => {
         let list = []
-        let space = 10
-        let size = 80
+        let size = sliderConfig.itemSize
         let breakLine = 0
         let count = 0
         config.value.items.forEach(function(item, index) {
@@ -221,9 +230,8 @@
             item.rect = {
                 x: 0,
                 y: 0,
-                width: size + space,
-                height: size + space,
-                // fill: 'red'
+                width: size,
+                height: size,
             }
             count++
             list.push(item)
@@ -233,18 +241,74 @@
 
     const initItems = ref(initSlider())
 
-    function filterSlider() {
+    function filterSlider(e, type) {
+        let size = sliderConfig.itemSize
         let count = 0
+        let breakLine = 0
+        let listGroupVisible = []
+        filterType = type;
+        activeFilterBackground(e, type)
         groupSlider.value.getNode().find('Group').forEach(function(el, index) {
             const groupRef = el
-            groupRef.visible(false)
+            const groupId = el.id()
+            if(!groupId.includes(type)) {
+                groupRef.visible(false)
+            } else {
+                groupRef.visible(true)
+                listGroupVisible.push(groupRef)
+            }
+        })
+        let totalItemX = Math.round(listGroupVisible.length / 2)
+        listGroupVisible.forEach(function(group, index) {
+            if(count == totalItemX) {
+                breakLine++
+                count = 0
+            }
+            group.to({
+                x: count * size,
+                y: breakLine * size 
+            })
+            count++
+        })
+    }
+
+    function activeFilterBackground(e, type) {
+        let texts = e.target.parent.parent.find("Text")
+        let paths = e.target.parent.parent.find("Path")
+        let text = e.target.parent.find('Text')[0]
+        let path = e.target.parent.find('Path')[0]
+        const background = filterBackground.value.getNode()
+        let x = 0
+        switch (type) {
+            case '':
+                x = 0
+                break;
+            case 'people':
+                x = cell.value * 3;
+                break;
+            case 'item':
+                x = cell.value * 6;
+                break;
+            default:
+                break;
+        }
+        handleButtonSlider()
+        texts.forEach(el => el.fill('black'))
+        paths.forEach(el => el.fill('#15668E'))
+        text.fill('white')
+        if(type != '') {
+            path.fill('white')
+            prevSlider()
+        }
+        background.to({
+            x: x + 2
         })
     }
 
     function prevSlider() {
         if(moveCount.value == 0) return;
         const slider = groupSlider.value.getNode()
-        moveCount.value++
+        moveCount.value--
         slider.to({
             x: slider.x() + sliderPerMove.value,
             y: slider.y(),
@@ -254,9 +318,9 @@
     }
   
     function nextSlider() {
-        if(moveCount.value == -1) return;
+        if(moveCount.value == 1 || filterType != '') return;
         const slider = groupSlider.value.getNode()
-        moveCount.value--
+        moveCount.value++
         slider.to({
           x: slider.x() - sliderPerMove.value,
           y: slider.y(),
@@ -273,10 +337,14 @@
         if(moveCount.value == 0) {
             circleNext.fill('#B0D0E0')
             circlePrev.fill('#e2e2e2')
+            if(filterType != '') {
+                circleNext.fill('#e2e2e2')
+            }
         } else {
             circleNext.fill('#e2e2e2')
             circlePrev.fill('#B0D0E0')
         }
+        console.log(moveCount.value)
     }
 
     const handleDragStart = async (e, index) => {
@@ -285,8 +353,7 @@
         const text = e.target.find('Text')[0]
         const image = e.target.find('Image')[0]
         const itemOriginal = initItems.value[index]
-        // group.attrs.index = index
-        // group.attrs.drop = false
+        group.moveTo(groupCarRef.value.getNode())
         shape.width(itemOriginal.size[0] * cell.value - padding * 2)
         shape.height(itemOriginal.size[1] * cell.value - padding * 2)
         image.to({
@@ -297,6 +364,7 @@
         })
         // text.visible(false);
         loadImageRef(image, index, 'imageDragName')
+        groupCarRef.value.getNode().moveToTop()
         group.moveToTop()
         shadowRectConfig.value.visible = true
     }
@@ -309,7 +377,7 @@
         if(!overlapItem() && inDropZone()) {
             group.moveTo(groupCarRef.value.getNode())
             group.position({
-                x: Math.round((group.x() + (sliderPerMove.value * moveCount.value)) / cell.value) * cell.value,
+                x: Math.round(group.x() / cell.value) * cell.value,
                 y: Math.round(group.y() / cell.value) * cell.value 
             })
             // group.attrs.drop = true
@@ -347,7 +415,7 @@
         const groupId = group.id()
         shadowRectConfig.value.width = shape.width()
         shadowRectConfig.value.height = shape.height()
-        shadowRectConfig.value.x = Math.round(group.x() / cell.value ) * cell.value + padding
+        shadowRectConfig.value.x = Math.round(group.x() / cell.value ) * cell.value + padding 
         shadowRectConfig.value.y = Math.round(group.y() / cell.value) * cell.value + padding
         groupItemsRef.value.forEach(el => {
             let item = el.getNode()
@@ -415,6 +483,12 @@
             let imageRef = el.getNode().find('Image')[0]
             loadImageRef(imageRef, index, 'imageName')
         })
+        itemsIntro.value.forEach(function(el, index) {
+            loadImage(el.image, el.imageName)
+        })
+        config.value.car.seats.forEach(function(el, index) {
+            loadImage(el.image, el.imageName)
+        })
     }
 
     function loadImageRef(imageRef, index, type) {
@@ -434,10 +508,10 @@
     function loadCar() {
         loadImage(car.value, 'car.png')
         loadImage(volang.value, 'volang.png')
-        loadImage(seat1.value, 'seat-left.png')
-        loadImage(seat2.value, 'seat-right.png')
-        loadImage(seat3.value, 'seat-left.png')
-        loadImage(seat4.value, 'seat-right.png')
+        // loadImage(seat1.value, 'seat-left.png')
+        // loadImage(seat2.value, 'seat-right.png')
+        // loadImage(seat3.value, 'seat-left.png')
+        // loadImage(seat4.value, 'seat-right.png')
     }
 
     // Function to calculate and update scale
