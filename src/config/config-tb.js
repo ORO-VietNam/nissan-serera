@@ -1,7 +1,9 @@
+const windowWidth = window.innerWidth
 const cell = 40;
 const baseWidth = 768;
 const baseHeight = 1024;
-const sliderItemSize = 100;
+const sliderItemCount = 7
+const sliderItemSize = (windowWidth - cell) / sliderItemCount;
 const sliderSpacing = 10;
 const padding = 4;
 const sliderX = cell / 2
@@ -12,6 +14,7 @@ export default  {
     baseWidth: baseWidth,
     baseHeight: baseHeight,
     padding: padding,
+    group: {x: 0, y: 0},
     background: {
         x: 0,
         y: 0,
@@ -33,9 +36,9 @@ export default  {
               Math.round(i * cell),
               baseHeight
             ],
-            stroke: '#ddd',
+            stroke: '#ccc',
             strokeWidth: 1,
-            opacity: .4
+            opacity: .8
           })
         }
         
@@ -49,9 +52,9 @@ export default  {
               baseWidth,
               Math.round(j * cell) + 0.5
             ],
-            stroke: '#ddd',
+            stroke: '#ccc',
             strokeWidth: 1,
-            opacity: .4
+            opacity: .8
           })
         }
         
@@ -208,7 +211,7 @@ export default  {
     car: {
         group: {x: 0, y: 0},
         shadow: {
-            x: 8 * cell,
+            x: 9 * cell,
             y: 2 * cell,
             width: 7 * cell,
             height: 20 * cell,
@@ -220,18 +223,17 @@ export default  {
             shadowOpacity: 1,
         },
         background: {
-            x: 6 * cell,
+            x: 7 * cell,
             y: 9.5 * cell,
             width: 11 * cell,
             height: 12 * cell,
             fill: 'white',
             cornerRadius: cell,
-            filters: [Konva.Filters.Blur],
             blurRadius: 20,
             // shadowBlur: 44.1,
             opacity: 0.7,
         },
-        groupItem: {x: 2 * cell},
+        groupItem: {x: 3 * cell},
         body: {
             image: null,
             x: cell * 5,
@@ -242,7 +244,7 @@ export default  {
         },
         volang: {
             image: null,
-            x: 8.15 * cell,
+            x: 9.15 * cell,
             y: 6.4 * cell,
             width: 6.65 * cell,
             opacity: 1,
@@ -257,7 +259,7 @@ export default  {
                     id: "1",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -269,6 +271,25 @@ export default  {
             },
             {
                 group: {
+                    x: 9 * cell,
+                    y: 8.5 * cell,
+                },
+                rect: {
+                    id: "0",
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    fill: ''
+                },
+                image: {
+                    image: null,
+                    width: 1 * cell,
+                    height: 2.3 * cell,
+                    opacity: 1
+                },
+                imageName: "seat-middle.png"
+            },
+            {
+                group: {
                     x: 10 * cell,
                     y: 8 * cell,
                 },
@@ -276,7 +297,7 @@ export default  {
                     id: "2",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -295,7 +316,7 @@ export default  {
                     id: "3",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -314,7 +335,7 @@ export default  {
                     id: "4",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -330,6 +351,15 @@ export default  {
         {
             id: '5',
             x: 10 * cell,
+            y: 19 * cell,
+            width: 5 * cell,
+            height: 2 * cell,               
+            fill:  'red' ,
+            opacity: 0.2
+        },
+        {
+            id: '5',
+            x: 11 * cell,
             y: 15 * cell,
             width: 3 * cell,
             height: 6 * cell,               
@@ -338,10 +368,9 @@ export default  {
         },
     ],
     slider: {
-        x: sliderX,
-        y: sliderY,
-        group: {x: sliderX , y: sliderY},
-        perMove: cell * 10,
+        group: {x: cell / 2, y: sliderY},
+        count: sliderItemCount,
+        perMove: sliderItemSize * sliderItemCount,
         itemSize: sliderItemSize,
         spacing: sliderSpacing
     },

@@ -1,155 +1,158 @@
 <template>
-    <div ref="container" class="relative stage-container lg:min-h-screen lg:px-5">
+    <div ref="container" class="relative stage-container">
         <Layout2 />
         <v-stage
             ref="stageRef"
             :config="stageConfig"
         >
             <v-layer ref="mainLayer">
-<!-- Car -->    
-                <v-rect :config="config.background" :listening="false"/>
-                <v-group 
-                    ref="groupCarRef" 
-                    :config="config.car.group"
-                >
-                    <v-rect :config="config.car.shadow" :listening="false"/>
-                    <v-rect :config="config.car.background" :listening="false"/>
-                    <v-group :config="config.car.groupItem" >
-                        <v-image ref="carRef" :config="car" :listening="false"/>
-                        <v-group
-                            v-for="(seat, index) in config.car.seats"
-                            :config="seat.group"
-                        >
-                            <v-rect ref="dropZonesRef" :config="seat.rect"/>
-                            <v-image ref="seatsRef" :config="seat.image" :listening="false"/>
-                        </v-group>
-                    </v-group>
-                    <v-image ref="volangRef" :config="volang" />
-                </v-group>
-                <v-rect
-                    v-for="rect in dropZones"
-                    ref="dropZonesRef"
-                    :key="rect.id"
-                    :config="rect"
-                    :listening="false"
-                />
-                <v-rect
-                    :config="shadowRectConfig"
-                    ref="shadowRect"
-                />
-<!-- controll  -->
-                <v-group>
-                    <v-rect :config="config.head.background"/>
-                    <v-group :config="config.head.filter.group">
-                        <v-rect :config="config.head.filter.background"/>
-                        <v-rect ref="filterBackground" :config="config.head.filter.activeBackground"/>
-                        <v-group 
-                            :config="config.head.filter.all.group"
-                            @tap="filterSlider($event, '')"
-                            @click="filterSlider($event, '')"
-                        >
-                            <v-rect :config="config.head.filter.all.rect"/>
-                            <v-text :listening="false" :config="config.head.filter.all.text"/>
-                        </v-group>
-                        <v-group 
-                            :config="config.head.filter.people.group"
-                            @tap="filterSlider($event, 'people')"
-                            @click="filterSlider($event, 'people')"
+                <v-group :config="config.group">
+    <!-- Car -->    
+                    <v-rect :config="config.background" :listening="false"/>
+                    <v-group 
+                        ref="groupCarRef" 
+                        :config="config.car.group"
+                    >
+                        <v-rect :config="config.car.shadow" :listening="false"/>
+                        <v-rect :config="config.car.background" :listening="false"/>
+                        <v-group :config="config.car.groupItem" >
+                            <v-image ref="carRef" :config="car" :listening="false"/>
+                            <v-group
+                                v-for="(seat, index) in config.car.seats"
+                                :config="seat.group"
                             >
-                            <v-rect :config="config.head.filter.people.rect"/>
-                            <v-path :listening="false" :config="config.head.filter.people.path"/>
-                            <v-text :listening="false" :config="config.head.filter.people.text"/>
+                            <v-image ref="seatsRef" :config="seat.image" :listening="false"/>
+                            <v-rect ref="dropZonesRef" :config="seat.rect"/>
                         </v-group>
-                        <v-group 
-                            :config="config.head.filter.items.group"
-                            @tap="filterSlider($event, 'item')"
-                            @click="filterSlider($event, 'item')"
-                        >
-                            <v-rect :config="config.head.filter.items.rect"/>
-                            <v-path :listening="false" :config="config.head.filter.items.path"/>
-                            <v-text :listening="false" :config="config.head.filter.items.text"/>
                         </v-group>
+                        <v-image ref="volangRef" :config="volang" />
                     </v-group>
-                    <!-- Prev -->
-                    <v-group ref="prevSliderRef" :config="config.head.buttonPrev.group" @tap="prevSlider" @click="prevSlider">
-                        <v-circle 
-                             :config="config.head.buttonPrev.circle"
-                        />
-                        <v-path :config="config.head.buttonPrev.icon"/> 
-                    </v-group>
-                    <!-- Next -->
-                    <v-group ref="nextSliderRef" :config="config.head.buttonNext.group" @tap="nextSlider" @click="nextSlider">
-                        <v-circle 
-                             :config="config.head.buttonNext.circle"
-                        />
-                        <v-path :config="config.head.buttonNext.icon"/> 
-                    </v-group>
-                </v-group>
-<!-- slider -->
-                <v-group ref="groupSlider" :config="config.slider.group">
-                <!-- Shadow     -->
-                    <!-- <v-rect :config="{x: 0, y: 0, width: 12 * cell, height: 4 * cell, fill: 'red'}"/> -->
-                    
-                    <v-group
-                        v-for="(item, index) in initItems"
-                        :config="item.groupConfig"
-                        :key="index"
-                        ref="groupItemsRef"
-                        @dragstart="handleDragStart($event, index)"
-                        @dragend="handleDragEnd($event, index)"
-                        @dragmove="handleDragMove"
-                    >
-                        <v-rect :config="item.rect"/>
-                        <v-image :config="item.image" />
-                        <!-- <v-text :config="{...config.item.text, text: item.text}"/> -->
-                    </v-group>
-                </v-group>
-<!-- introduction -->
-                <v-group :config="config.intro.group">
-                    <!-- <v-rect 
-                        :config="{ x: 0, y: 0, width: cell * 4, height: cell * 14, fill: 'red', opacity: 0.2 }"
-                    /> -->
-                   
-                    <v-group 
-                        v-for="(item, index) in itemsIntro"
-                        :config="item.group"
-                    >
-                        <!-- <v-rect 
-                            :config="{width: cell * 3, height: cell * 3, fill: 'red', opacity: 0.2 }"
-                        /> -->
-                        <v-image ref="introImageRef" :config="item.image"/>
-                    </v-group>
-                </v-group>
-<!-- Footer -->
-                <v-group :config="config.footer.group">
-                    <v-rect 
-                        :config="config.footer.background"
+                    <v-rect
+                        v-for="rect in dropZones"
+                        ref="dropZonesRef"
+                        :key="rect.id"
+                        :config="rect"
+                        :listening="false"
                     />
-                    <v-group 
-                        :config="config.footer.selectLayout.group"
-                    >
-                        <v-circle :config="config.footer.selectLayout.circle"/>
-                        <v-path :config="config.footer.selectLayout.path"/>
-                        <v-text :config="config.footer.selectLayout.text"/>
+                    <v-rect
+                        :config="shadowRectConfig"
+                        ref="shadowRect"
+                    />
+    <!-- controll  -->
+                    <v-group>
+                        <v-rect :config="config.head.background"/>
+                        <v-group :config="config.head.filter.group">
+                            <v-rect :config="config.head.filter.background"/>
+                            <v-rect ref="filterBackground" :config="config.head.filter.activeBackground"/>
+                            <v-group 
+                                :config="config.head.filter.all.group"
+                                @tap="filterSlider($event, '')"
+                                @click="filterSlider($event, '')"
+                            >
+                                <v-rect :config="config.head.filter.all.rect"/>
+                                <v-text :listening="false" :config="config.head.filter.all.text"/>
+                            </v-group>
+                            <v-group 
+                                :config="config.head.filter.people.group"
+                                @tap="filterSlider($event, 'people')"
+                                @click="filterSlider($event, 'people')"
+                                >
+                                <v-rect :config="config.head.filter.people.rect"/>
+                                <v-path :listening="false" :config="config.head.filter.people.path"/>
+                                <v-text :listening="false" :config="config.head.filter.people.text"/>
+                            </v-group>
+                            <v-group 
+                                :config="config.head.filter.items.group"
+                                @tap="filterSlider($event, 'item')"
+                                @click="filterSlider($event, 'item')"
+                            >
+                                <v-rect :config="config.head.filter.items.rect"/>
+                                <v-path :listening="false" :config="config.head.filter.items.path"/>
+                                <v-text :listening="false" :config="config.head.filter.items.text"/>
+                            </v-group>
+                        </v-group>
+                        <!-- Prev -->
+                        <v-group ref="prevSliderRef" :config="config.head.buttonPrev.group" @tap="prevSlider" @click="prevSlider">
+                            <v-circle 
+                                    :config="config.head.buttonPrev.circle"
+                            />
+                            <v-path :config="config.head.buttonPrev.icon"/> 
+                        </v-group>
+                        <!-- Next -->
+                        <v-group ref="nextSliderRef" :config="config.head.buttonNext.group" @tap="nextSlider" @click="nextSlider">
+                            <v-circle 
+                                    :config="config.head.buttonNext.circle"
+                            />
+                            <v-path :config="config.head.buttonNext.icon"/> 
+                        </v-group>
                     </v-group>
-                    <v-group :config="config.footer.resetLayout.group"
-                        @tap="resetKonva"
-                    >
-                        <v-path :config="config.footer.resetLayout.path"/>
-                        <v-text :config="config.footer.resetLayout.text"/>
+    <!-- slider -->
+                    <v-group ref="" :config="config.slider.group">
+                        <v-group ref="groupSlider" >
+                        <!-- Shadow     -->
+                            <!-- <v-rect :config="{x: 0, y: 0, width: 12 * cell, height: 4 * cell, fill: 'red'}"/> -->
+                            
+                            <v-group
+                                v-for="(item, index) in initItems"
+                                :config="item.groupConfig"
+                                :key="index"
+                                ref="groupItemsRef"
+                                @dragstart="handleDragStart($event, index)"
+                                @dragend="handleDragEnd($event, index)"
+                                @dragmove="handleDragMove"
+                            >
+                                <v-rect :config="{...item.rect, fill: '', opacity: .1}"/>
+                                <v-image :config="item.image" />
+                                <!-- <v-text :config="{...config.item.text, text: item.text}"/> -->
+                            </v-group>
+                        </v-group>
+                    </v-group>
+    <!-- introduction -->
+                    <v-group :config="config.intro.group">
+                        <!-- <v-rect 
+                            :config="{ x: 0, y: 0, width: cell * 4, height: cell * 14, fill: 'red', opacity: 0.2 }"
+                        /> -->
+                        
+                        <v-group 
+                            v-for="(item, index) in itemsIntro"
+                            :config="item.group"
+                        >
+                            <!-- <v-rect 
+                                :config="{width: cell * 3, height: cell * 3, fill: 'red', opacity: 0.2 }"
+                            /> -->
+                            <v-image ref="introImageRef" :config="item.image"/>
+                        </v-group>
+                    </v-group>
+    <!-- Footer -->
+                    <v-group :config="config.footer.group">
+                        <v-rect 
+                            :config="config.footer.background"
+                        />
+                        <v-group 
+                            :config="config.footer.selectLayout.group"
+                        >
+                            <v-circle :config="config.footer.selectLayout.circle"/>
+                            <v-path :config="config.footer.selectLayout.path"/>
+                            <v-text :config="config.footer.selectLayout.text"/>
+                        </v-group>
+                        <v-group :config="config.footer.resetLayout.group"
+                            @tap="resetKonva"
+                        >
+                            <v-path :config="config.footer.resetLayout.path"/>
+                            <v-text :config="config.footer.resetLayout.text"/>
+                        </v-group>
                     </v-group>
                 </v-group>
             </v-layer>
-            <!-- <v-layer>
+            <v-layer>
                 <v-line
                     :listening="false"
                     v-for="line in gridLines"
                     :key="line.id"
                     :config="line"
                 />
-            </v-layer> -->
+            </v-layer>
         </v-stage>
-        
     </div>
 </template>
     
@@ -191,15 +194,11 @@
     const shadowRectConfig = ref(config.value.item.shadow);
     const stageConfig = {width: baseWidth, height: baseHeight};
     const sliderConfig = config.value.slider;
-    let width =  ref(baseWidth);
-    let height = ref(baseHeight)
+    // let width =  ref(baseWidth);
+    // let height = ref(baseHeight)
     let cell = ref(config.value.cell);
     let car = ref(config.value.car.body)
     let volang = ref(config.value.car.volang)
-    let seat1 = ref(config.value.car.seat1)
-    let seat2 = ref(config.value.car.seat2)
-    let seat3 = ref(config.value.car.seat3)
-    let seat4 = ref(config.value.car.seat4)
     let dropZones = ref(config.value.dropZones)
     let itemsIntro = ref(config.value.intro.items)
     let gridLines = ref(config.value.grid())
@@ -243,6 +242,7 @@
 
     function filterSlider(e, type) {
         let size = sliderConfig.itemSize
+        let slideCount = sliderConfig.count
         let count = 0
         let breakLine = 0
         let listGroupVisible = []
@@ -258,9 +258,9 @@
                 listGroupVisible.push(groupRef)
             }
         })
-        let totalItemX = Math.round(listGroupVisible.length / 2)
+       
         listGroupVisible.forEach(function(group, index) {
-            if(count == totalItemX) {
+            if((type != '' && count == slideCount) || (type == '' && group.id() == "item|box,5")) {
                 breakLine++
                 count = 0
             }
@@ -318,7 +318,7 @@
     }
   
     function nextSlider() {
-        if(moveCount.value == 1 || filterType != '') return;
+        if(moveCount.value == 2 || filterType != '') return;
         const slider = groupSlider.value.getNode()
         moveCount.value++
         slider.to({
@@ -350,7 +350,6 @@
     const handleDragStart = async (e, index) => {
         const group = e.target
         const shape = e.target.find('Rect')[0]
-        const text = e.target.find('Text')[0]
         const image = e.target.find('Image')[0]
         const itemOriginal = initItems.value[index]
         group.moveTo(groupCarRef.value.getNode())
@@ -362,9 +361,8 @@
             width: itemOriginal.imageDrag.width,
             height: itemOriginal.imageDrag.height,
         })
-        // text.visible(false);
         loadImageRef(image, index, 'imageDragName')
-        groupCarRef.value.getNode().moveToTop()
+        // groupCarRef.value.getNode().moveToTop()
         group.moveToTop()
         shadowRectConfig.value.visible = true
     }

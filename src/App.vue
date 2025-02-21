@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="relative lg:min-h-screen gradient lg:flex justify-center items-center flex-col ">
+        <div class="relative lg:min-h-screen gradient lg:flex justify-center items-center">
             <Layout1 />
         </div>
         <div class="h-screen"></div>
@@ -24,6 +24,7 @@
 
 <script setup>
     import Layout1 from './layout/layout1.vue'
+    import Layout2 from './layout/layout2.vue'
     import { ref, onMounted } from 'vue'
     let layout = ref(1)
 </script>
@@ -31,10 +32,8 @@
 <style>
     .stage-container {
         width: 1280px;
-        height: 100vh;
         max-width: 100%;
         margin: 0 auto;
-        display: flex;
         justify-content: center;
         align-items: center;
     }
@@ -42,10 +41,12 @@
         margin: 0 auto;
     }
     .gradient:before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: linear-gradient(to right,white 0%, #f2f2f2 65%, #e2e2e2 100%);
-        transform: rotate(-180deg);
+        @screen md {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(to right,white 0%, #f2f2f2 65%, #e2e2e2 100%);
+            transform: rotate(-180deg);
+        }
     }
 </style>

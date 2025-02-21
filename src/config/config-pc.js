@@ -1,8 +1,9 @@
 const cell = 40;
 const baseWidth = 1280;
 const baseHeight = 620;
-const sliderItemSize = 100;
-const sliderSpacing = 10;
+const sliderItemCount = 7
+const sliderItemSize = (17 * cell) / sliderItemCount;
+const sliderSpacing = 8;
 const padding = 4;
 const sliderX = cell / 2
 const sliderY = cell * 2
@@ -12,6 +13,7 @@ export default  {
     baseWidth: baseWidth,
     baseHeight: baseHeight,
     padding: padding,
+    group: {x: 0, y: 0},
     background: {
         // x: 0,
         // y: 0,
@@ -59,7 +61,7 @@ export default  {
     },
     head: {
         background: { 
-            x: 0, y: 5.5 * cell, width: 18.5 * cell - sliderSpacing, height: 7.5 * cell,
+            x: 0, y: 5.5 * cell, width: 18 * cell, height: 7.5 * cell,
             fillLinearGradientStartPoint: { x: 0, y: 0 },
             fillLinearGradientEndPoint: { x: 0, y: 6 * cell },
             fillLinearGradientColorStops: [0.6, 'white', 1, '#ffffffb4'],
@@ -163,7 +165,7 @@ export default  {
     },
     footer: {
         group: {x: 0, y: 13.5 * cell},
-        background: {x: 0, y: 0, width: 18.5 * cell, height: 2 * cell, fill: '#124057', cornerRadius: 12},
+        background: {x: 0, y: 0, width: 18 * cell, height: 2 * cell, fill: '#124057', cornerRadius: 12},
         selectLayout: {
             group: {x: cell / 2, y: cell / 2 },
             circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
@@ -263,7 +265,7 @@ export default  {
                     id: "1",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -275,6 +277,25 @@ export default  {
             },
             {
                 group: {
+                    x: 23 * cell,
+                    y: 1.5 * cell,
+                },
+                rect: {
+                    id: "0",
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    fill: ''
+                },
+                image: {
+                    image: null,
+                    width: 1 * cell,
+                    height: 2.3 * cell,
+                    opacity: 1
+                },
+                imageName: "seat-middle.png"
+            },
+            {
+                group: {
                     x: 24 * cell,
                     y: 1 * cell,
                 },
@@ -282,7 +303,7 @@ export default  {
                     id: "2",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -301,7 +322,7 @@ export default  {
                     id: "3",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -320,7 +341,7 @@ export default  {
                     id: "4",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -334,9 +355,27 @@ export default  {
     },
     dropZones: [
         {
+            id: '6',
+            x: 23 * cell,
+            y: 7.5 * cell,
+            width: 5 * cell,
+            height: 1.5 * cell,               
+            fill:  'blue' ,
+            opacity: 0.2
+        },
+        {
+            id: '7',
+            x: 23 * cell,
+            y: 12 * cell,
+            width: 5 * cell,
+            height: 1.5 * cell,               
+            fill:  'red' ,
+            opacity: 0.2
+        },
+        {
             id: '5',
-            x: 10 * cell,
-            y: 15 * cell,
+            x: 24 * cell,
+            y: 8 * cell,
             width: 3 * cell,
             height: 6 * cell,               
             fill:  'green' ,
@@ -344,10 +383,20 @@ export default  {
         },
     ],
     slider: {
-        x: sliderX,
-        y: sliderY,
-        group: {x: sliderSpacing , y:  7.5 * cell - sliderSpacing},
-        perMove: cell * 10,
+        groupContainer: {
+
+        },
+        group: {
+            x: cell / 2, 
+            y: 7.5 * cell - sliderSpacing,
+            clipFunc: function(ctx) {
+                ctx.beginPath();
+                ctx.rect(0, 0, 17 * cell, sliderItemSize * 2 + sliderSpacing);
+                ctx.closePath();
+            }
+        },
+        count: sliderItemCount,
+        perMove: sliderItemSize * sliderItemCount,
         itemSize: sliderItemSize,
         spacing: sliderSpacing
     },
@@ -377,7 +426,7 @@ export default  {
         group: {x: 0, y: 1.5 * cell},
         items: [
             {
-                group: {x: 0 , y: 0},
+                group: {x: 0 , y: 0, visible: false},
                 imageName: "intro1.png",
                 image: {
                     x: 0,
@@ -388,7 +437,7 @@ export default  {
                 },
             },
             {
-                group: {x: cell * 3 , y: 0},
+                group: {x: cell * 3 , y: 0, visible: false},
                 imageName: "intro2.png",
                 image: {
                     x: 0,
@@ -399,7 +448,7 @@ export default  {
                 },
             },
             {
-                group: {x: cell * 6.4 , y: 0},
+                group: {x: cell * 6.4 , y: 0, visible: false},
                 imageName: "intro3.png",
                 image: {
                     x: 0,

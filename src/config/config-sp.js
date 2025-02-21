@@ -1,9 +1,10 @@
-import Konva from 'konva';
+const windowWidth = window.innerWidth
 const cell = 35;
 const baseWidth = 430;
 const baseHeight = 25 * cell;
-const sliderItemSize = 80;
-const sliderSpacing = 10;
+const sliderItemCount = 5
+const sliderItemSize = (windowWidth - cell) / sliderItemCount;
+const sliderSpacing = 5;
 const padding = 4;
 const sliderX = cell / 2
 const sliderY = cell * 2
@@ -13,40 +14,41 @@ export default  {
     baseWidth: baseWidth,
     baseHeight: baseHeight,
     padding: padding,
+    group: {x: 0, y: 0},
     background: {
         x: 0,
         y: 0,
         width: baseWidth,
-        height: baseHeight ,
+        height: baseHeight,
     },
     grid: function() {
         const lines = []
         // Vertical lines
-        for (let i = 0; i < baseWidth / cell; i++) {
+        for (let i = 0; i < baseWidth / (cell/2); i++) {
           lines.push({
             points: [
-              Math.round(i * cell),
+              Math.round(i * (cell/2)) + .5,
               0,
-              Math.round(i * cell),
+              Math.round(i * (cell/2)) + .5,
               baseHeight
             ],
-            stroke: 'red',
-            strokeWidth: 1,
+            stroke: '#ccc',
+            strokeWidth: .5,
             opacity: .4
           })
         }
         
         // Horizontal lines
-        for (let j = 0; j < baseHeight / cell; j++) {
+        for (let j = 0; j < baseHeight / (cell/2); j++) {
           lines.push({
             id: `horizontal-${j}`,
             points: [
               0,
-              Math.round(j * cell) + 0.5,
+              Math.round(j * (cell/2)) + 0.5,
               baseWidth,
-              Math.round(j * cell) + 0.5
+              Math.round(j * (cell/2)) + 0.5
             ],
-            stroke: '#ddd',
+            stroke: '#ccc',
             strokeWidth: 1,
             opacity: .4
           })
@@ -96,7 +98,7 @@ export default  {
                 rect: {width: 3 * cell, height: 1 * cell},
                 path: {
                     x: 20,
-                    y: cell / 9 ,
+                    y: 7,
                     fill: '#15668E',
                     data: "M4.33761 3.30657C5.09918 3.30657 5.71667 2.68592 5.71667 1.92047C5.71667 1.15501 5.09918 0.534363 4.33761 0.534363C3.57604 0.534363 2.95855 1.15501 2.95855 1.92047C2.95855 2.68592 3.57604 3.30657 4.33761 3.30657ZM7.20694 4.99028L8.12729 9.7175H14.6936C14.6428 9.57706 14.6153 9.42406 14.6153 9.26397V5.26878C14.6153 4.58368 15.1173 4.02829 15.7363 4.02829H19.769C20.3881 4.02829 20.89 4.58368 20.89 5.26878V9.26397C20.89 9.94667 20.3841 10.5005 19.7049 10.5005L19.1476 17.4517H16.353L15.7941 10.5005C15.7586 10.5005 15.7236 10.499 15.6892 10.496C15.6619 10.502 15.6336 10.5052 15.6046 10.5052H12.6585V13.3518L12.0007 17.4656H10.0627L9.40484 13.3526L9.41088 10.5052H6.91094L7.19824 12.0067H5.80968L5.42098 17.4517H3.25739L2.86869 12.0067H1.48013L1.91317 9.74775H1.80788C1.16031 9.74775 0.672647 9.15495 0.795354 8.51521L1.47063 4.99028C1.57196 4.44125 2.01133 4.02829 2.53778 4.02829H6.1398C6.66625 4.02829 7.10561 4.44125 7.20694 4.99028ZM16.3243 1.92047C16.3243 2.68592 16.9418 3.30657 17.7034 3.30657C18.465 3.30657 19.0824 2.68592 19.0824 1.92047C19.0824 1.15501 18.465 0.534363 17.7034 0.534363C16.9418 0.534363 16.3243 1.15501 16.3243 1.92047ZM10.8369 9.03635C11.4877 9.03635 12.0157 8.50562 12.0157 7.85156C12.0157 7.1975 11.4877 6.66677 10.8369 6.66677C10.1862 6.66677 9.65815 7.1975 9.65815 7.85156C9.65815 8.50562 10.1862 9.03635 10.8369 9.03635Z M4.33761 3.30657C5.09918 3.30657 5.71667 2.68592 5.71667 1.92047C5.71667 1.15501 5.09918 0.534363 4.33761 0.534363C3.57604 0.534363 2.95855 1.15501 2.95855 1.92047C2.95855 2.68592 3.57604 3.30657 4.33761 3.30657ZM7.20694 4.99028L8.12729 9.7175H14.6936C14.6428 9.57706 14.6153 9.42406 14.6153 9.26397V5.26878C14.6153 4.58368 15.1173 4.02829 15.7363 4.02829H19.769C20.3881 4.02829 20.89 4.58368 20.89 5.26878V9.26397C20.89 9.94667 20.3841 10.5005 19.7049 10.5005L19.1476 17.4517H16.353L15.7941 10.5005C15.7586 10.5005 15.7236 10.499 15.6892 10.496C15.6619 10.502 15.6336 10.5052 15.6046 10.5052H12.6585V13.3518L12.0007 17.4656H10.0627L9.40484 13.3526L9.41088 10.5052H6.91094L7.19824 12.0067H5.80968L5.42098 17.4517H3.25739L2.86869 12.0067H1.48013L1.91317 9.74775H1.80788C1.16031 9.74775 0.672647 9.15495 0.795354 8.51521L1.47063 4.99028C1.57196 4.44125 2.01133 4.02829 2.53778 4.02829H6.1398C6.66625 4.02829 7.10561 4.44125 7.20694 4.99028ZM16.3243 1.92047C16.3243 2.68592 16.9418 3.30657 17.7034 3.30657C18.465 3.30657 19.0824 2.68592 19.0824 1.92047C19.0824 1.15501 18.465 0.534363 17.7034 0.534363C16.9418 0.534363 16.3243 1.15501 16.3243 1.92047ZM10.8369 9.03635C11.4877 9.03635 12.0157 8.50562 12.0157 7.85156C12.0157 7.1975 11.4877 6.66677 10.8369 6.66677C10.1862 6.66677 9.65815 7.1975 9.65815 7.85156C9.65815 8.50562 10.1862 9.03635 10.8369 9.03635Z"
                 },
@@ -223,9 +225,7 @@ export default  {
             height: 10 * cell,
             fill: 'white',
             cornerRadius: cell,
-            filters: [Konva.Filters.Blur],
             blurRadius: 20,
-            // shadowBlur: 44.1,
             opacity: 0.5,
         },
         groupItem: {x: 2 * cell},
@@ -254,7 +254,7 @@ export default  {
                     id: "1",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -266,6 +266,25 @@ export default  {
             },
             {
                 group: {
+                    x: 5 * cell,
+                    y: 8.5 * cell,
+                },
+                rect: {
+                    id: "0",
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    fill: ''
+                },
+                image: {
+                    image: null,
+                    width: 1 * cell,
+                    height: 2.3 * cell,
+                    opacity: 1
+                },
+                imageName: "seat-middle.png"
+            },
+            {
+                group: {
                     x: 6 * cell,
                     y: 8 * cell,
                 },
@@ -273,7 +292,7 @@ export default  {
                     id: "2",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -292,7 +311,7 @@ export default  {
                     id: "3",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -311,7 +330,7 @@ export default  {
                     id: "4",
                     width: 2 * cell,
                     height: 2 * cell,
-                    fill: 'red'
+                    fill: ''
                 },
                 image: {
                     image: null,
@@ -324,24 +343,33 @@ export default  {
         ],
     },
     dropZones: [
-       
+        {
+            id: '5',
+            x: 5 * cell,
+            y: 19 * cell,
+            width: 5 * cell,
+            height: 2 * cell,               
+            fill:  'green' ,
+            opacity: 0.2
+        },
         {
             id: '5',
             x: 6 * cell,
             y: 15 * cell,
             width: 3 * cell,
             height: 6 * cell,               
-            fill:  'transparent' ,
+            fill:  'green' ,
             opacity: 0.2
         },
     ],
     slider: {
-        x: sliderX,
-        y: sliderY,
-        group: {x: sliderX , y: sliderY},
-        perMove: cell * 10,
+        x: -sliderSpacing,
+        y: 0,
+        group: {x: cell / 2, y: sliderY},
+        count: sliderItemCount,
+        perMove: sliderItemSize * sliderItemCount,
         itemSize: sliderItemSize,
-        spacing: sliderSpacing
+        spacing: sliderSpacing,
     },
     item: {
         shadow: {
