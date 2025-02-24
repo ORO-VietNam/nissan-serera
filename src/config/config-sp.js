@@ -1,13 +1,13 @@
 const windowWidth = window.innerWidth
-const cell = 35;
+const cell = 17;
 const baseWidth = 430;
-const baseHeight = 25 * cell;
+const baseHeight = 50 * cell;
 const sliderItemCount = 5
 const sliderItemSize = (windowWidth - cell) / sliderItemCount;
 const sliderSpacing = 5;
 const padding = 4;
-const sliderX = cell / 2
-const sliderY = cell * 2
+const sliderX = cell
+const sliderY = cell * 4 - sliderSpacing
 
 export default  {
     cell: cell,
@@ -58,16 +58,19 @@ export default  {
     },
     head: {
         background: { 
-            x: 0, y: 0, width: baseWidth, height: 2 * cell + sliderItemSize * 2 + sliderSpacing , 
+            x: 0, 
+            y: 0, 
+            width: baseWidth, 
+            height: 4 * cell + sliderItemSize * 2 + sliderSpacing , 
             fillLinearGradientStartPoint: { x: 0, y: 0 },
             fillLinearGradientEndPoint: { x: 0, y: 6 * cell },
             fillLinearGradientColorStops: [0.6, 'white', 1, '#ffffffb4'],
         },
         filter: {
-            group: {x: cell / 2, y: cell / 2},
+            group: {x: cell, y: cell},
             background: {
-                width: 9 * cell,
-                height: 1 * cell,
+                width: 18 * cell,
+                height: 2 * cell,
                 fill: '#f2f2f2',
                 opacity: 1,
                 cornerRadius: 2 * cell 
@@ -75,27 +78,27 @@ export default  {
             activeBackground: {
                 x: 0 * cell + 2,
                 y: 2,
-                width: 3 * cell - 4,
-                height: 1 * cell - 4,
+                width: 6 * cell - 4,
+                height: 2 * cell - 4,
                 fill: '#15668E',
                 cornerRadius: cell
             },
             all: {
                 group: {x: 0, y: 0},
-                rect: {width: 3 * cell, height: 1 * cell},
+                rect: {width: 6 * cell, height: 2 * cell},
                 text: {
                     y: 0,
-                    width: 3 * cell,
+                    width: 6 * cell,
                     text: 'ดูทั้งหมด',
                     fontSize: 12,
-                    lineHeight: cell / 12,
+                    lineHeight: cell / 6,
                     align: 'center',
                     fill: 'white'
                 }
             },
             people: {
-                group: {x: 3 * cell, y: 0},
-                rect: {width: 3 * cell, height: 1 * cell},
+                group: {x: 6 * cell, y: 0},
+                rect: {width: 6 * cell, height: 2 * cell},
                 path: {
                     x: 20,
                     y: 7,
@@ -107,14 +110,14 @@ export default  {
                     x: 45,
                     text: 'เลือกคน',
                     fontSize: 12,
-                    lineHeight: cell / 12,
+                    lineHeight: cell / 6,
                     align: 'center',
                     fill: 'black'
                 }
             },
             items: {
-                group: {x: 6 * cell, y: 0},
-                rect: {width: 3 * cell, height: 1 * cell},
+                group: {x: 12 * cell, y: 0},
+                rect: {width: 6 * cell, height: 2 * cell},
                 path: {
                     x: 20,
                     y: 9,
@@ -126,15 +129,15 @@ export default  {
                     y: 0,
                     text: 'เลือกของ',
                     fontSize: 12,
-                    lineHeight: cell / 12,
+                    lineHeight: cell / 6,
                     align: 'center',
                     fill: 'black'
                 }
             },
         },
         buttonPrev: {
-            group: {x: baseWidth - 2 * cell  - 5, y: cell },
-            circle: { radius: cell / 2 , fill: '#e2e2e2'},
+            group: {x: baseWidth - 4 * cell - 5, y: 2 * cell },
+            circle: { radius: cell , fill: '#e2e2e2'},
             icon: {
                 x: -4,
                 y: -6,
@@ -146,8 +149,8 @@ export default  {
             }
         },
         buttonNext: {
-            group: {x: baseWidth - cell, y: cell},
-            circle: { radius: cell / 2 , fill: '#B0D0E0'},
+            group: {x: baseWidth - 2 * cell, y: 2 *  cell},
+            circle: { radius: cell , fill: '#B0D0E0'},
             icon: {
                 x: -4,
                 y: -6,
@@ -160,41 +163,41 @@ export default  {
         }
     },
     footer: {
-        group: {x: 0, y: 23 * cell},
+        group: {x: 0, y: baseHeight -  4 * cell},
         background: {
             x: 0, 
             y: 0, 
             width: baseWidth, 
-            height: 2 * cell, 
+            height: 4 * cell, 
             fillLinearGradientStartPoint: { x: 0, y: 0 },
-            fillLinearGradientEndPoint: { x: 0, y: 2 * cell },
+            fillLinearGradientEndPoint: { x: 0, y: 4 * cell },
             fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
         },
         selectLayout: {
-            group: {x: cell / 2, y: cell / 2 },
-            circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
+            group: {x: cell, y: cell },
+            circle: { x: cell, y: cell, radius: cell, stroke: 'white', strokeWidth: 2 },
             path: {
-                x: 11,
-                y: 11,
+                x: 10,
+                y: 10,
                 data: 'M7.78788 13H5.21212V7.78788H0V5.21212H5.21212V0H7.78788V5.21212H13V7.78788H7.78788V13Z',
                 fill: 'white',
                 stroke: 'white',
             },
             text: {
-                x: cell + 10,
+                x: 2 * cell + 10,
                 y: 0,
                 text: 'ดูรูปแบบที่นั่งทั้ง 13 แบบเพิ่มเติม',
                 fill: 'white',
                 fontSize: 16,
-                lineHeight: cell / 16
+                lineHeight: cell / 8
             },
         },
         resetLayout: {
             group: {
-                x: baseWidth - 2.5*cell,
-                y: cell / 2
+                x: baseWidth - 5 * cell,
+                y: cell 
             },
-            circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
+            circle: { x: cell , y: cell , radius: cell , stroke: 'white', strokeWidth: 2 },
             path: {
                 y: 3,
                 data: 'M22 14.2556C22 20.0546 17.299 24.7556 11.5 24.7556C5.70101 24.7556 1 20.0546 1 14.2556C1 8.45663 5.70101 3.75562 11.5 3.75562C14.2424 3.75562 16.7393 4.80697 18.6095 6.52862 M17.5 1.24438L19.1471 7.3915L13 9.03861',
@@ -204,186 +207,186 @@ export default  {
                 scaleY: 1,
             },
             text: {
-                x: cell,
-                y: 0,
+                x: cell * 2,
+                y: 1,
                 text: 'รีเซ็ต',
                 fill: 'white',
                 fontSize: 16,
-                lineHeight: cell / 16
+                lineHeight: cell / 8
             },
         },
     },
     car: {
         group: {x: 0, y: 0},
         shadow: {
-            x: 4 * cell,
-            y: 2 * cell,
-            width: 7 * cell,
-            height: 20 * cell,
+            x: 8 * cell,
+            y: 4 * cell,
+            width: 14 * cell,
+            height: 40 * cell,
             fill: 'red',
             opacity: 1,
-            cornerRadius: cell,
+            cornerRadius: 2 * cell,
             shadowColor: '#124057',
             shadowBlur: 30,
             shadowOffset: { x: 0, y: 10 },
             shadowOpacity: 1,
         },
         background: {
-            x: 3 * cell,
-            y: 9.5 * cell,
-            width: 10 * cell,
-            height: 10 * cell,
+            x: 6 * cell,
+            y: 19 * cell,
+            width: 20 * cell,
+            height: 20 * cell,
             fill: 'white',
             cornerRadius: cell,
             // blurRadius: 20,
             opacity: 1,
         },
-        groupItem: {x: 2 * cell},
+        groupItem: {x: 4 * cell},
         body: {
             image: null,
-            x: cell,
-            y: 1.5 * cell,
-            width: 9 * cell,
-            height: 9 * cell / 0.43,
+            x: 2 * cell,
+            y: 3 * cell,
+            width: 18 * cell,
+            height: 18 * cell / 0.43,
             opacity: 1
         },
         volang: {
             image: null,
-            x: 4.15 * cell,
-            y: 6.4 * cell,
-            width: 6.65 * cell,
+            x: 8.3 * cell,
+            y: 12.8 * cell,
+            width: 13.3 * cell,
             opacity: 1,
         },
         seats: [
             {
                 group: {
-                    x: 3 * cell,
-                    y: 8 * cell,
+                    x: 6 * cell,
+                    y: 16 * cell,
                 },
                 rect: {
                     id: "1",
-                    width: 2 * cell,
-                    height: 2 * cell,
+                    width: 4 * cell,
+                    height: 4 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 2 * cell,
-                    height: 3 * cell,
+                    width: 4 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-left.png"
             },
             {
                 group: {
-                    x: 5 * cell,
-                    y: 8.5 * cell,
+                    x: 10 * cell,
+                    y: 17 * cell,
                 },
                 rect: {
                     id: "0",
-                    width: 1 * cell,
-                    height: 3 * cell,
+                    width: 2 * cell,
+                    height: 6 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 1 * cell,
-                    height: 2.3 * cell,
+                    width: 2 * cell,
+                    height: 4.6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-middle.png"
             },
             {
                 group: {
-                    x: 6 * cell,
-                    y: 8 * cell,
+                    x: 12 * cell,
+                    y: 16 * cell,
                 },
                 rect: {
                     id: "2",
-                    width: 2 * cell,
-                    height: 2 * cell,
+                    width: 4 * cell,
+                    height: 4 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 2 * cell,
-                    height: 3 * cell,
+                    width: 4 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-right.png"
             },
             {
                 group: {
-                    x: 3 * cell,
-                    y: 12 * cell,
+                    x: 6 * cell,
+                    y: 24 * cell,
                 },
                 rect: {
                     id: "3",
-                    width: 2 * cell,
-                    height: 2 * cell,
+                    width: 4 * cell,
+                    height: 4 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 2 * cell,
-                    height: 3 * cell,
+                    width: 4 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-left.png"
             },
             {
                 group: {
-                    x: 6 * cell,
-                    y: 12 * cell,
+                    x: 12 * cell,
+                    y: 24 * cell,
                 },
                 rect: {
                     id: "4",
-                    width: 2 * cell,
-                    height: 2 * cell,
+                    width: 4 * cell,
+                    height: 4 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 2 * cell,
-                    height: 3 * cell,
+                    width: 4 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-right.png"
             },
             {
                 group: {
-                    x: 3 * cell,
-                    y: 16.5 * cell,
+                    x: 6 * cell,
+                    y: 33 * cell,
                 },
                 rect: {
                     id: "11",
-                    width: 1 * cell,
-                    height: 3 * cell,
+                    width: 2 * cell,
+                    height: 6 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 1 * cell,
-                    height: 3 * cell,
+                    width: 2 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-3-left.png"
             },
             {
                 group: {
-                    x: 7 * cell,
-                    y: 16.5 * cell,
+                    x: 14 * cell,
+                    y: 33 * cell,
                 },
                 rect: {
                     id: "11",
-                    width: 1 * cell,
-                    height: 3 * cell,
+                    width: 2 * cell,
+                    height: 6 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 1 * cell,
-                    height: 3 * cell,
+                    width: 2 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-3-right.png"
@@ -440,7 +443,7 @@ export default  {
     slider: {
         x: -sliderSpacing,
         y: 0,
-        group: {x: cell / 2, y: sliderY},
+        group: {x: cell , y: sliderY},
         count: sliderItemCount,
         perMove: sliderItemSize * sliderItemCount,
         itemSize: sliderItemSize,
@@ -469,7 +472,7 @@ export default  {
         }
     },
     intro: {
-        group: {x: 0, y: 8 * cell},
+        group: {x: 0, y: 8 * cell, visible: false},
         items: [
             {
                 group: {x: cell / 3 , y: cell * 1.5},

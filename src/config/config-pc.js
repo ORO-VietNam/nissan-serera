@@ -1,12 +1,12 @@
-const cell = 40;
+const cell = 20;
 const baseWidth = 1280;
 const baseHeight = 620;
 const sliderItemCount = 7
 const sliderItemSize = (18 * cell) / sliderItemCount;
 const sliderSpacing = 8;
 const padding = 4;
-const sliderX = cell / 2
-const sliderY = cell * 2
+const sliderX = cell 
+const sliderY = cell * 4
 
 export default  {
     cell: cell,
@@ -54,46 +54,46 @@ export default  {
     },
     head: {
         background: { 
-            x: 0, y: 5.5 * cell, width: 19 * cell, height: 7.5 * cell,
+            x: 0, y: 11 * cell, width: 38 * cell, height: 15 * cell,
             fillLinearGradientStartPoint: { x: 0, y: 0 },
-            fillLinearGradientEndPoint: { x: 0, y: 6 * cell },
+            fillLinearGradientEndPoint: { x: 0, y: 12 * cell },
             fillLinearGradientColorStops: [0, 'white', 1, '#ffffffb4'],
             cornerRadius: 24,
             opacity: .8
         },
         filter: {
-            group: {x: cell * .5, y: cell * 6},
+            group: {x: cell, y: cell * 12},
             background: {
-                width: 9 * cell,
-                height: 1 * cell,
+                width: 18 * cell,
+                height: 2 * cell,
                 fill: '#f2f2f2',
                 opacity: 1,
-                cornerRadius: cell
+                cornerRadius: cell * 2
             },
             activeBackground: {
                 x: 0 * cell + 2,
                 y: 2,
-                width: 3 * cell - 4,
-                height: 1 * cell - 4,
+                width: 6 * cell - 4,
+                height: 2 * cell - 4,
                 fill: '#15668E',
-                cornerRadius: cell
+                cornerRadius: cell * 2
             },
             all: {
                 group: {x: 0, y: 0},
-                rect: {width: 3 * cell, height: 1 * cell},
+                rect: {width: 6 * cell, height: 2 * cell},
                 text: {
                     y: 0,
-                    width: 3 * cell,
+                    width: 6 * cell,
                     text: 'ดูทั้งหมด',
                     fontSize: 16,
-                    lineHeight: cell / 16,
+                    lineHeight: cell / 8,
                     align: 'center',
                     fill: 'white'
                 }
             },
             people: {
-                group: {x: 3 * cell, y: 0},
-                rect: {width: 3 * cell, height: 1 * cell},
+                group: {x: 6 * cell, y: 0},
+                rect: {width: 6 * cell, height: 2 * cell},
                 path: {
                     x: 20,
                     y: 9,
@@ -105,14 +105,14 @@ export default  {
                     x: 45,
                     text: 'เลือกคน',
                     fontSize: 16,
-                    lineHeight: cell / 16,
+                    lineHeight: cell / 8,
                     align: 'center',
                     fill: 'black'
                 }
             },
             items: {
-                group: {x: 6 * cell, y: 0},
-                rect: {width: 3 * cell, height: 1 * cell},
+                group: {x: 12 * cell, y: 0},
+                rect: {width: 6 * cell, height: 2 * cell},
                 path: {
                     x: 20,
                     y: 10,
@@ -124,15 +124,15 @@ export default  {
                     y: 0,
                     text: 'เลือกของ',
                     fontSize: 12,
-                    lineHeight: cell / 12,
+                    lineHeight: cell / 6,
                     align: 'center',
                     fill: 'black'
                 }
             },
         },
         buttonPrev: {
-            group: {x: 17 * cell  - 5, y: cell * 6.5 },
-            circle: { radius: cell / 2 , fill: '#e2e2e2'},
+            group: {x: 34 * cell  - 5, y: cell * 13 },
+            circle: { radius: cell , fill: '#e2e2e2'},
             icon: {
                 x: -4,
                 y: -6,
@@ -144,8 +144,8 @@ export default  {
             }
         },
         buttonNext: {
-            group: {x: 18 * cell, y: cell * 6.5},
-            circle: { radius: cell / 2 , fill: '#B0D0E0'},
+            group: {x: 36 * cell, y: cell * 13},
+            circle: { radius: cell, fill: '#B0D0E0'},
             icon: {
                 x: -4,
                 y: -6,
@@ -158,19 +158,19 @@ export default  {
         }
     },
     footer: {
-        group: {x: 0, y: baseHeight - 2 * cell},
+        group: {x: 0, y: baseHeight - 4 * cell},
         background: {
             x: 0, 
             y: 0, 
-            width: 19 * cell, 
-            height: 2 * cell, 
+            width: 38 * cell, 
+            height: 4 * cell, 
             fillLinearGradientStartPoint: { x: 0, y: 0 },
-            fillLinearGradientEndPoint: { x: 0, y: 2 * cell },
+            fillLinearGradientEndPoint: { x: 0, y: 4 * cell },
             fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
         },
         selectLayout: {
-            group: {x: cell / 2, y: cell / 2 },
-            circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
+            group: {x: cell, y: cell },
+            circle: { x: cell, y: cell, radius: cell, stroke: 'white', strokeWidth: 2 },
             path: {
                 x: 13.5,
                 y: 13.5,
@@ -179,20 +179,20 @@ export default  {
                 stroke: 'white',
             },
             text: {
-                x: cell + 10,
+                x: 2 * cell + 10,
                 y: 0,
                 text: 'ดูรูปแบบที่นั่งทั้ง 13 แบบเพิ่มเติม',
                 fill: 'white',
                 fontSize: 16,
-                lineHeight: cell / 16
+                lineHeight: cell / 8
             },
         },
         resetLayout: {
             group: {
-                x: 16 * cell,
-                y: cell / 2
+                x: 32 * cell,
+                y: cell
             },
-            circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
+            circle: { x: cell, y: cell, radius: cell, stroke: 'white', strokeWidth: 2 },
             path: {
                 data: 'M22 14.2556C22 20.0546 17.299 24.7556 11.5 24.7556C5.70101 24.7556 1 20.0546 1 14.2556C1 8.45663 5.70101 3.75562 11.5 3.75562C14.2424 3.75562 16.7393 4.80697 18.6095 6.52862 M17.5 1.24438L19.1471 7.3915L13 9.03861',
                 fill: 'transparent',
@@ -201,22 +201,22 @@ export default  {
                 scaleY: 1.5,
             },
             text: {
-                x: cell * 1.25,
+                x: cell * 2.5,
                 y: 0,
                 text: 'รีเซ็ต',
                 fill: 'white',
                 fontSize: 16,
-                lineHeight: cell / 14
+                lineHeight: cell / 7
             },
         },
     },
     car: {
         group: {x: 0, y: 0},
         shadow: {
-            x: 22 * cell,
+            x: 44 * cell,
             y: 0 * cell,
-            width: 7 * cell,
-            height: 15 * cell,
+            width: 14 * cell,
+            height: 30 * cell,
             fill: 'red',
             cornerRadius: cell,
             shadowColor: '#124057',
@@ -226,10 +226,10 @@ export default  {
             opacity: 0
         },
         background: {
-            x: 20 * cell,
-            y: 1.5 * cell,
-            width: 11 * cell,
-            height: 12 * cell,
+            x: 40 * cell,
+            y: 3 * cell,
+            width: 22 * cell,
+            height: 24 * cell,
             fill: 'white',
             cornerRadius: cell,
             // filters: [Konva.Filters.Blur],
@@ -241,152 +241,152 @@ export default  {
             shadowOpacity: .2,
             opacity: 0.9,
         },
-        groupItem: {x: 2 * cell},
+        groupItem: {x: 4 * cell},
         body: {
             image: null,
-            x: cell * 19,
-            y: -5.5 * cell,
-            width: 9 * cell,
-            height: 9 * cell / 0.43,
+            x: cell * 38,
+            y: -11 * cell,
+            width: 18 * cell,
+            height: 18 * cell / 0.43,
             opacity: 1
         },
         volang: {
             image: null,
-            x: 22.15 * cell,
-            y: -0.2 * cell,
-            width: 6.65 * cell,
+            x: 44.3 * cell,
+            y: -0.4 * cell,
+            width: 13.3 * cell,
             opacity: 1,
         },
         seats: [
             {
                 group: {
-                    x: 21 * cell,
-                    y: 1 * cell,
+                    x: 42 * cell,
+                    y: 2 * cell,
                 },
                 rect: {
                     id: "1",
-                    width: 2 * cell,
-                    height: 2 * cell,
+                    width: 4 * cell,
+                    height: 4 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 2 * cell,
-                    height: 3 * cell,
+                    width: 4 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-left.png"
             },
             {
                 group: {
-                    x: 23 * cell,
-                    y: 1.5 * cell,
+                    x: 46 * cell,
+                    y: 3 * cell,
                 },
                 rect: {
                     id: "0",
-                    width: 1 * cell,
-                    height: 3 * cell,
+                    width: 2 * cell,
+                    height: 6 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 1 * cell,
-                    height: 2.3 * cell,
+                    width: 2 * cell,
+                    height: 4.6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-middle.png"
             },
             {
                 group: {
-                    x: 24 * cell,
-                    y: 1 * cell,
+                    x: 48 * cell,
+                    y: 2 * cell,
                 },
                 rect: {
                     id: "2",
-                    width: 2 * cell,
-                    height: 2 * cell,
+                    width: 4 * cell,
+                    height: 4 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 2 * cell,
-                    height: 3 * cell,
+                    width: 4 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-right.png"
             },
             {
                 group: {
-                    x: 21 * cell,
-                    y: 5 * cell,
+                    x: 42 * cell,
+                    y: 10 * cell,
                 },
                 rect: {
                     id: "3",
-                    width: 2 * cell,
-                    height: 2 * cell,
+                    width: 4 * cell,
+                    height: 4 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 2 * cell,
-                    height: 3 * cell,
+                    width: 4 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-left.png"
             },
             {
                 group: {
-                    x: 24 * cell,
-                    y: 5 * cell,
+                    x: 48 * cell,
+                    y: 10 * cell,
                 },
                 rect: {
                     id: "4",
-                    width: 2 * cell,
-                    height: 2 * cell,
+                    width: 4 * cell,
+                    height: 4 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 2 * cell,
-                    height: 3 * cell,
+                    width: 4 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-right.png"
             },
             {
                 group: {
-                    x: 21 * cell,
-                    y: 9.5 * cell,
+                    x: 42 * cell,
+                    y: 19 * cell,
                 },
                 rect: {
                     id: "11",
-                    width: 1 * cell,
-                    height: 3 * cell,
+                    width: 2 * cell,
+                    height: 6 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 1 * cell,
-                    height: 3 * cell,
+                    width: 2 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-3-left.png"
             },
             {
                 group: {
-                    x: 25 * cell,
-                    y: 9.5 * cell,
+                    x: 50 * cell,
+                    y: 19 * cell,
                 },
                 rect: {
                     id: "11",
-                    width: 1 * cell,
-                    height: 3 * cell,
+                    width: 2 * cell,
+                    height: 6 * cell,
                     fill: ''
                 },
                 image: {
                     image: null,
-                    width: 1 * cell,
-                    height: 3 * cell,
+                    width: 2 * cell,
+                    height: 6 * cell,
                     opacity: 1
                 },
                 imageName: "seat-3-right.png"
@@ -395,93 +395,91 @@ export default  {
     },
     dropZones: [
         {
-            id: '5',
-            x: 24 * cell,
-            y: 8 * cell,
-            width: 3 * cell,
-            height: 6 * cell,               
-            fill:  '' ,
+            id: "5",
+            x: 48 * cell,
+            y: 16 * cell,
+            width: 6 * cell,
+            height: 12 * cell,               
+            fill:  "" ,
             opacity: 0.2
         },
         {
-            id: '6',
-            x: 23 * cell,
-            y: 8 * cell,
-            width: 5 * cell,
-            height: 1.5 * cell,               
-            fill:  '' ,
+            id: "6",
+            x: 46 * cell,
+            y: 16 * cell,
+            width: 10 * cell,
+            height: 3 * cell,               
+            fill:  "" ,
             opacity: 0.2
         },
         {
-            id: '7',
-            x: 23 * cell,
-            y: 12.5 * cell,
-            width: 5 * cell,
-            height: 1.5 * cell,               
-            fill:  '' ,
+            id: "7",
+            x: 46 * cell,
+            y: 25 * cell,
+            width: 10 * cell,
+            height: 3 * cell,               
+            fill:  "" ,
             opacity: 0.2
         },
         {
-            id: '8',
-            x: 25 * cell,
-            y: 5 * cell,
-            width: 1 * cell,
-            height: 9 * cell,               
-            fill:  '' ,
-            opacity: 0.2
-        },
-        {
-            id: '9',
-            x: 23 * cell,
-            y: 5 * cell,
+            id: "8",
+            x: 50 * cell,
+            y: 10 * cell,
             width: 2 * cell,
-            height: 9 * cell,               
-            fill:  '' ,
+            height: 18 * cell,               
+            fill:  "" ,
             opacity: 0.2
         },
+        {
+            id: "9",
+            x: 46 * cell,
+            y: 10 * cell,
+            width: 4 * cell,
+            height: 18 * cell,               
+            fill:  "" ,
+            opacity: 0.2
+        }
     ],
     slider: {
-        groupContainer: {
-
-        },
+        groupContainer: {},
         group: {
-            x: cell / 2, 
-            y: 7.5 * cell - sliderSpacing,
+            x: cell,
+            y: 15 * cell - (2 * sliderSpacing),
             clipFunc: function(ctx) {
                 ctx.beginPath();
-                ctx.rect(0, 0, 18 * cell, sliderItemSize * 2 + sliderSpacing);
+                ctx.rect(0, 0, 36 * cell, (2 * sliderItemSize) * 2 + (2 * sliderSpacing));
                 ctx.closePath();
             }
         },
         count: sliderItemCount,
-        perMove: sliderItemSize * sliderItemCount,
-        itemSize: sliderItemSize,
-        spacing: sliderSpacing
+        perMove: (2 * sliderItemSize) * sliderItemCount,
+        itemSize: 2 * sliderItemSize,
+        spacing: 2 * sliderSpacing
     },
     item: {
         shadow: {
             x: 0,
             y: 0,
-            width: cell,
-            height: cell,
+            width: 2 * cell,
+            height: 2 * cell,
             opacity: 0.6,
-            fill: '#ff56566e',
-            stroke: '#ff56566e',
+            fill: "#ff56566e",
+            stroke: "#ff56566e",
             strokeWidth: 3,
-            dash: [20, 2],
+            dash: [40, 4],
             visible: false
         },
         text: {
-            y: 55,
+            y: 110,
             x: 0,
-            width: cell * 2,
-            align: 'center',
-            fontSize: 8,
-            fontWeight: 'bold'
+            width: 4 * cell,
+            align: "center",
+            fontSize: 16,
+            fontWeight: "bold"
         }
     },
     intro: {
-        group: {x: 0, y: 1.5 * cell, visible: false},
+        group: {x: 0, y: 3 * cell, visible: false},
         items: [
             {
                 group: {x: 0 , y: 0, visible: false},
@@ -489,33 +487,33 @@ export default  {
                 image: {
                     x: 0,
                     y: 0,
-                    width: 105,
-                    height: 114,
+                    width: 210,
+                    height: 228,
                     image: null
-                },
+                }
             },
             {
-                group: {x: cell * 3 , y: 0, visible: false},
+                group: {x: 6 * cell , y: 0, visible: false},
                 imageName: "intro2.png",
                 image: {
                     x: 0,
                     y: 0,
-                    width: 105,
-                    height: 114,
+                    width: 210,
+                    height: 228,
                     image: null
-                },
+                }
             },
             {
-                group: {x: cell * 6.4 , y: 0, visible: false},
+                group: {x: 12.8 * cell , y: 0, visible: false},
                 imageName: "intro3.png",
                 image: {
                     x: 0,
                     y: 0,
-                    width: 105,
-                    height: 114,
+                    width: 210,
+                    height: 228,
                     image: null
-                },
-            },
+                }
+            }
         ]
     }
 }

@@ -286,10 +286,10 @@
                 x = 0
                 break;
             case 'people':
-                x = cell.value * 3;
+                x = cell.value * 6;
                 break;
             case 'item':
-                x = cell.value * 6;
+                x = cell.value * 12;
                 break;
             default:
                 break;
@@ -375,14 +375,10 @@
         const image = group.find('Image')[0]
         const text = group.find('Text')[0]
         if(!overlapItem() && inDropZone()) {
-            let offsetY = 0;
-            if(group.id().includes(7)) {
-                offsetY = -cell.value / 2
-            }
             group.moveTo(groupCarRef.value.getNode())
             group.position({
                 x: Math.round(group.x() / cell.value) * cell.value,
-                y: Math.round(group.y() / cell.value) * cell.value + offsetY
+                y: Math.round(group.y() / cell.value) * cell.value
             })
             // group.attrs.drop = true
             volangRef.value.getNode().moveToTop()
@@ -398,8 +394,8 @@
                 duration: 0.3,
             })
             shape.to({
-                width: 2 * cell.value - padding * 2,
-                height: 2 * cell.value - padding * 2,
+                width: 4 * cell.value - padding * 2,
+                height: 4 * cell.value - padding * 2,
                 duration: 0.3
             })
             image.to({
@@ -422,14 +418,11 @@
         const group = e.target
         const shape = group.find("Rect")[0]
         const groupId = group.id()
-        let offsetY = 0;
-        if(group.id().includes(7)) {
-            offsetY = -cell.value / 2
-        }
+      
         shadowRectConfig.value.width = shape.width()
         shadowRectConfig.value.height = shape.height()
         shadowRectConfig.value.x = Math.round(group.x() / cell.value ) * cell.value + padding 
-        shadowRectConfig.value.y = Math.round(group.y() / cell.value) * cell.value + padding + offsetY
+        shadowRectConfig.value.y = Math.round(group.y() / cell.value) * cell.value + padding 
         itemsDropped.forEach(item => {
             // let item = el.getNode()
             let shape = item.find('Rect')[0]

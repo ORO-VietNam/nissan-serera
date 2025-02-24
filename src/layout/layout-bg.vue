@@ -38,15 +38,15 @@
     
 <script setup>
     import { ref, onMounted } from 'vue'
-    const cell = 40;
+    const cell = 20;
     const baseWidth = 1280;
-    const baseHeight = 620 + 22 * cell;
+    const baseHeight = 620 + 44 * cell;
     let config = ref({
         intro: {
-            group: {x: 0, y: 8 * cell},
+            group: {x: 0, y: 16 * cell},
             h1: {
                 x: 0,
-                y: 1.5 * cell,
+                y: 3 * cell,
                 text: "เลื่อน พับ ปรับที่นั่ง",
                 fontSize: 48,
                 fontStyle: 'bold',
@@ -54,22 +54,22 @@
             },
             h2: {
                 x: 0,
-                y: 3 * cell,
+                y: 6 * cell,
                 text: "สะดวกสบาย สไตล์ครอบครัวคุณ",
                 fontSize: 30,
                 fill: "#15668E"
             },
             image: {
-                x: 11 * cell,
+                x: 22 * cell,
                 y: 0 * cell,
-                width: 8 * cell ,
-                height: 8 * cell * 0.889,
+                width: 16 * cell ,
+                height: 16 * cell * 0.889,
                 image: null,
             },
             imageName: "img-head.png",
             items: [
                 {
-                    group: {x: 0 , y: 5 * cell},
+                    group: {x: 0 , y: 10 * cell},
                     imageName: "intro1.png",
                     image: {
                         x: 0,
@@ -80,7 +80,7 @@
                     },
                 },
                 {
-                    group: {x: cell * 3 , y: 5 * cell},
+                    group: {x: cell * 6 , y: 10 * cell},
                     imageName: "intro2.png",
                     image: {
                         x: 0,
@@ -91,7 +91,7 @@
                     },
                 },
                 {
-                    group: {x: cell * 6.4 , y: 5 * cell},
+                    group: {x: cell * 12.8 , y: 10 * cell},
                     imageName: "intro3.png",
                     image: {
                         x: 0,
@@ -106,10 +106,10 @@
         car: {
             group: {x: 0, y: 0},
             shadow: {
-                x: 22 * cell,
-                y: 6 * cell,
-                width: 7 * cell,
-                height: 20 * cell,
+                x: 44 * cell,
+                y: 12 * cell,
+                width: 14 * cell,
+                height: 40 * cell,
                 fill: 'red',
                 cornerRadius: cell,
                 shadowColor: '#124057',
@@ -117,21 +117,14 @@
                 shadowOffset: { x: 0, y: 0 },
                 shadowOpacity: 1,
             },
-            groupItem: {x: 2 * cell},
+            groupItem: {x: 4 * cell},
             body: {
                 image: null,
-                x: cell * 19,
-                y: 5.5 * cell,
-                width: 9 * cell,
-                height: 9 * cell / 0.43,
+                x: cell * 38,
+                y: 11 * cell,
+                width: 18 * cell,
+                height: 18 * cell / 0.43,
                 opacity: 1
-            },
-            volang: {
-                image: null,
-                x: 22.15 * cell,
-                y: -0.2 * cell,
-                width: 6.65 * cell,
-                opacity: 1,
             },
         }
     },)
