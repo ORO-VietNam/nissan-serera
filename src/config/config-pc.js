@@ -2,7 +2,7 @@ const cell = 40;
 const baseWidth = 1280;
 const baseHeight = 620;
 const sliderItemCount = 7
-const sliderItemSize = (17 * cell) / sliderItemCount;
+const sliderItemSize = (18 * cell) / sliderItemCount;
 const sliderSpacing = 8;
 const padding = 4;
 const sliderX = cell / 2
@@ -14,16 +14,7 @@ export default  {
     baseHeight: baseHeight,
     padding: padding,
     group: {x: 0, y: 0},
-    background: {
-        // x: 0,
-        // y: 0,
-        // width: baseWidth,
-        // height: baseHeight ,
-        // rotate: -180,
-        // fillLinearGradientStartPoint: { x: 0, y: 0 },
-        // fillLinearGradientEndPoint: { x: 0, y: baseHeight },
-        // fillLinearGradientColorStops: [0, 'white', 0.65, "#f2f2f2", 1, '#e2e2e2'],
-    },
+    background: {},
     grid: function() {
         const lines = []
         // Vertical lines
@@ -35,9 +26,10 @@ export default  {
               Math.round(i * cell),
               baseHeight
             ],
-            stroke: '#ddd',
+            stroke: 'blue',
             strokeWidth: 1,
-            opacity: .4
+            opacity: .2,
+            visible: false
           })
         }
         
@@ -51,9 +43,10 @@ export default  {
               baseWidth,
               Math.round(j * cell) + 0.5
             ],
-            stroke: '#ddd',
+            stroke: 'blue',
             strokeWidth: 1,
-            opacity: .4
+            opacity: .2,
+            visible: false
           })
         }
         
@@ -61,11 +54,12 @@ export default  {
     },
     head: {
         background: { 
-            x: 0, y: 5.5 * cell, width: 18 * cell, height: 7.5 * cell,
+            x: 0, y: 5.5 * cell, width: 19 * cell, height: 7.5 * cell,
             fillLinearGradientStartPoint: { x: 0, y: 0 },
             fillLinearGradientEndPoint: { x: 0, y: 6 * cell },
-            fillLinearGradientColorStops: [0.6, 'white', 1, '#ffffffb4'],
-            cornerRadius: 24
+            fillLinearGradientColorStops: [0, 'white', 1, '#ffffffb4'],
+            cornerRadius: 24,
+            opacity: .8
         },
         filter: {
             group: {x: cell * .5, y: cell * 6},
@@ -137,7 +131,7 @@ export default  {
             },
         },
         buttonPrev: {
-            group: {x: 16 * cell  - 5, y: cell * 6.5 },
+            group: {x: 17 * cell  - 5, y: cell * 6.5 },
             circle: { radius: cell / 2 , fill: '#e2e2e2'},
             icon: {
                 x: -4,
@@ -150,7 +144,7 @@ export default  {
             }
         },
         buttonNext: {
-            group: {x: 17 * cell, y: cell * 6.5},
+            group: {x: 18 * cell, y: cell * 6.5},
             circle: { radius: cell / 2 , fill: '#B0D0E0'},
             icon: {
                 x: -4,
@@ -164,8 +158,16 @@ export default  {
         }
     },
     footer: {
-        group: {x: 0, y: 13.5 * cell},
-        background: {x: 0, y: 0, width: 18 * cell, height: 2 * cell, fill: '#124057', cornerRadius: 12},
+        group: {x: 0, y: baseHeight - 2 * cell},
+        background: {
+            x: 0, 
+            y: 0, 
+            width: 19 * cell, 
+            height: 2 * cell, 
+            fillLinearGradientStartPoint: { x: 0, y: 0 },
+            fillLinearGradientEndPoint: { x: 0, y: 2 * cell },
+            fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
+        },
         selectLayout: {
             group: {x: cell / 2, y: cell / 2 },
             circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
@@ -187,7 +189,7 @@ export default  {
         },
         resetLayout: {
             group: {
-                x: 15.5 * cell,
+                x: 16 * cell,
                 y: cell / 2
             },
             circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
@@ -195,16 +197,16 @@ export default  {
                 data: 'M22 14.2556C22 20.0546 17.299 24.7556 11.5 24.7556C5.70101 24.7556 1 20.0546 1 14.2556C1 8.45663 5.70101 3.75562 11.5 3.75562C14.2424 3.75562 16.7393 4.80697 18.6095 6.52862 M17.5 1.24438L19.1471 7.3915L13 9.03861',
                 fill: 'transparent',
                 stroke: 'white',
-                scaleX: 1,
-                scaleY: 1,
+                scaleX: 1.5,
+                scaleY: 1.5,
             },
             text: {
-                x: cell,
+                x: cell * 1.25,
                 y: 0,
                 text: 'รีเซ็ต',
                 fill: 'white',
                 fontSize: 16,
-                lineHeight: cell / 16
+                lineHeight: cell / 14
             },
         },
     },
@@ -351,34 +353,90 @@ export default  {
                 },
                 imageName: "seat-right.png"
             },
+            {
+                group: {
+                    x: 21 * cell,
+                    y: 9.5 * cell,
+                },
+                rect: {
+                    id: "11",
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    fill: ''
+                },
+                image: {
+                    image: null,
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    opacity: 1
+                },
+                imageName: "seat-3-left.png"
+            },
+            {
+                group: {
+                    x: 25 * cell,
+                    y: 9.5 * cell,
+                },
+                rect: {
+                    id: "11",
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    fill: ''
+                },
+                image: {
+                    image: null,
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    opacity: 1
+                },
+                imageName: "seat-3-right.png"
+            },
         ],
     },
     dropZones: [
-        {
-            id: '6',
-            x: 23 * cell,
-            y: 7.5 * cell,
-            width: 5 * cell,
-            height: 1.5 * cell,               
-            fill:  'blue' ,
-            opacity: 0.2
-        },
-        {
-            id: '7',
-            x: 23 * cell,
-            y: 12 * cell,
-            width: 5 * cell,
-            height: 1.5 * cell,               
-            fill:  'red' ,
-            opacity: 0.2
-        },
         {
             id: '5',
             x: 24 * cell,
             y: 8 * cell,
             width: 3 * cell,
             height: 6 * cell,               
-            fill:  'green' ,
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '6',
+            x: 23 * cell,
+            y: 8 * cell,
+            width: 5 * cell,
+            height: 1.5 * cell,               
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '7',
+            x: 23 * cell,
+            y: 12.5 * cell,
+            width: 5 * cell,
+            height: 1.5 * cell,               
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '8',
+            x: 25 * cell,
+            y: 5 * cell,
+            width: 1 * cell,
+            height: 9 * cell,               
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '9',
+            x: 23 * cell,
+            y: 5 * cell,
+            width: 2 * cell,
+            height: 9 * cell,               
+            fill:  '' ,
             opacity: 0.2
         },
     ],
@@ -391,7 +449,7 @@ export default  {
             y: 7.5 * cell - sliderSpacing,
             clipFunc: function(ctx) {
                 ctx.beginPath();
-                ctx.rect(0, 0, 17 * cell, sliderItemSize * 2 + sliderSpacing);
+                ctx.rect(0, 0, 18 * cell, sliderItemSize * 2 + sliderSpacing);
                 ctx.closePath();
             }
         },
@@ -423,7 +481,7 @@ export default  {
         }
     },
     intro: {
-        group: {x: 0, y: 1.5 * cell},
+        group: {x: 0, y: 1.5 * cell, visible: false},
         items: [
             {
                 group: {x: 0 , y: 0, visible: false},

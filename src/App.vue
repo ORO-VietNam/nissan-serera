@@ -1,7 +1,7 @@
 <template>
     <div class="">
         <!-- <img src="@images/car/car.png" alt=""> -->
-        <div class="h-[300px]"></div>
+        <!-- <div class="h-[300px]"></div> -->
         <div class="border-b lg:border-0 border-[#f5f5f5]">
             <div class="px-5 md:px-10 max-w-[1320px] mx-auto lg:hidden">
                 <div class="flex items-center">
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="relative lg:min-h-screen gradient lg:flex justify-center items-center">
+        <div class="relative lg:min-h-screen gradient lg:flex justify-center items-center lg:px-5">
             <Layout1 />
         </div>
         <div class="h-screen"></div>
@@ -24,15 +24,14 @@
 
 <script setup>
     import Layout1 from './layout/layout1.vue'
-    import Layout2 from './layout/layout2.vue'
     import { ref, onMounted } from 'vue'
     let layout = ref(1)
 </script>
 
 <style>
     .stage-container {
-        width: 1280px;
-        max-width: 100%;
+        width: 100%;
+        max-width: 1320px;
         margin: 0 auto;
         justify-content: center;
         align-items: center;
@@ -41,12 +40,17 @@
         margin: 0 auto;
     }
     .gradient:before {
-        @screen md {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(to right,white 0%, #f2f2f2 65%, #e2e2e2 100%);
-            transform: rotate(-180deg);
-        }
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 100%;
+        transform: translateY(-50%);
+        background-image: linear-gradient(to left,white 0%, #f2f2f2 65%, #e2e2e2 100%);
+
+        @screen lg {
+            height: 200%;
+        }   
     }
 </style>

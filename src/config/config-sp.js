@@ -24,12 +24,12 @@ export default  {
     grid: function() {
         const lines = []
         // Vertical lines
-        for (let i = 0; i < baseWidth / (cell/2); i++) {
+        for (let i = 0; i < baseWidth / cell; i++) {
           lines.push({
             points: [
-              Math.round(i * (cell/2)) + .5,
+              Math.round(i * cell) + .5,
               0,
-              Math.round(i * (cell/2)) + .5,
+              Math.round(i * cell) + .5,
               baseHeight
             ],
             stroke: '#ccc',
@@ -39,14 +39,14 @@ export default  {
         }
         
         // Horizontal lines
-        for (let j = 0; j < baseHeight / (cell/2); j++) {
+        for (let j = 0; j < baseHeight / cell; j++) {
           lines.push({
             id: `horizontal-${j}`,
             points: [
               0,
-              Math.round(j * (cell/2)) + 0.5,
+              Math.round(j * cell) + 0.5,
               baseWidth,
-              Math.round(j * (cell/2)) + 0.5
+              Math.round(j * cell) + 0.5
             ],
             stroke: '#ccc',
             strokeWidth: 1,
@@ -161,7 +161,15 @@ export default  {
     },
     footer: {
         group: {x: 0, y: 23 * cell},
-        background: {x: 0, y: 0, width: baseWidth, height: 2 * cell, fill: '#124057', },
+        background: {
+            x: 0, 
+            y: 0, 
+            width: baseWidth, 
+            height: 2 * cell, 
+            fillLinearGradientStartPoint: { x: 0, y: 0 },
+            fillLinearGradientEndPoint: { x: 0, y: 2 * cell },
+            fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
+        },
         selectLayout: {
             group: {x: cell / 2, y: cell / 2 },
             circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
@@ -188,6 +196,7 @@ export default  {
             },
             circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
             path: {
+                y: 3,
                 data: 'M22 14.2556C22 20.0546 17.299 24.7556 11.5 24.7556C5.70101 24.7556 1 20.0546 1 14.2556C1 8.45663 5.70101 3.75562 11.5 3.75562C14.2424 3.75562 16.7393 4.80697 18.6095 6.52862 M17.5 1.24438L19.1471 7.3915L13 9.03861',
                 fill: 'transparent',
                 stroke: 'white',
@@ -212,10 +221,11 @@ export default  {
             width: 7 * cell,
             height: 20 * cell,
             fill: 'red',
+            opacity: 1,
             cornerRadius: cell,
             shadowColor: '#124057',
-            shadowBlur: 80,
-            shadowOffset: { x: 0, y: 0 },
+            shadowBlur: 30,
+            shadowOffset: { x: 0, y: 10 },
             shadowOpacity: 1,
         },
         background: {
@@ -225,8 +235,8 @@ export default  {
             height: 10 * cell,
             fill: 'white',
             cornerRadius: cell,
-            blurRadius: 20,
-            opacity: 0.5,
+            // blurRadius: 20,
+            opacity: 1,
         },
         groupItem: {x: 2 * cell},
         body: {
@@ -340,25 +350,90 @@ export default  {
                 },
                 imageName: "seat-right.png"
             },
+            {
+                group: {
+                    x: 3 * cell,
+                    y: 16.5 * cell,
+                },
+                rect: {
+                    id: "11",
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    fill: ''
+                },
+                image: {
+                    image: null,
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    opacity: 1
+                },
+                imageName: "seat-3-left.png"
+            },
+            {
+                group: {
+                    x: 7 * cell,
+                    y: 16.5 * cell,
+                },
+                rect: {
+                    id: "11",
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    fill: ''
+                },
+                image: {
+                    image: null,
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    opacity: 1
+                },
+                imageName: "seat-3-right.png"
+            },
         ],
     },
     dropZones: [
-        {
-            id: '5',
-            x: 5 * cell,
-            y: 19 * cell,
-            width: 5 * cell,
-            height: 2 * cell,               
-            fill:  'green' ,
-            opacity: 0.2
-        },
         {
             id: '5',
             x: 6 * cell,
             y: 15 * cell,
             width: 3 * cell,
             height: 6 * cell,               
-            fill:  'green' ,
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '6',
+            x: 5 * cell,
+            y: 15 * cell,
+            width: 5 * cell,
+            height: 1.5 * cell,               
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '7',
+            x: 5 * cell,
+            y: 19.5 * cell,
+            width: 5 * cell,
+            height: 1.5 * cell,               
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '8',
+            x: 7 * cell,
+            y: 12 * cell,
+            width: 1 * cell,
+            height: 9 * cell,               
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '9',
+            x: 5 * cell,
+            y: 12 * cell,
+            width: 2 * cell,
+            height: 9 * cell,               
+            fill:  '' ,
             opacity: 0.2
         },
     ],

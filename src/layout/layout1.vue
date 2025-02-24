@@ -1,6 +1,6 @@
 <template>
     <div ref="container" class="relative stage-container">
-        <Layout2 />
+        <LayoutBackground />
         <v-stage
             ref="stageRef"
             :config="stageConfig"
@@ -13,19 +13,19 @@
                         ref="groupCarRef" 
                         :config="config.car.group"
                     >
-                        <v-rect :config="config.car.shadow" :listening="false"/>
                         <v-rect :config="config.car.background" :listening="false"/>
+                        <v-rect :config="config.car.shadow" :listening="false"/>
                         <v-group :config="config.car.groupItem" >
                             <v-image ref="carRef" :config="car" :listening="false"/>
                             <v-group
                                 v-for="(seat, index) in config.car.seats"
                                 :config="seat.group"
                             >
-                            <v-image ref="seatsRef" :config="seat.image" :listening="false"/>
-                            <v-rect ref="dropZonesRef" :config="seat.rect"/>
+                                <v-image ref="seatsRef" :config="seat.image" :listening="false"/>
+                                <v-rect ref="dropZonesRef" :config="seat.rect" :listening="false"/>
+                            </v-group>
                         </v-group>
-                        </v-group>
-                        <v-image ref="volangRef" :config="volang" />
+                        <v-image ref="volangRef" :config="volang" :listening="false"/>
                     </v-group>
                     <v-rect
                         v-for="rect in dropZones"
@@ -109,17 +109,11 @@
                     </v-group>
     <!-- introduction -->
                     <v-group :config="config.intro.group">
-                        <!-- <v-rect 
-                            :config="{ x: 0, y: 0, width: cell * 4, height: cell * 14, fill: 'red', opacity: 0.2 }"
-                        /> -->
-                        
                         <v-group 
                             v-for="(item, index) in itemsIntro"
                             :config="item.group"
+                            :listening="false"
                         >
-                            <!-- <v-rect 
-                                :config="{width: cell * 3, height: cell * 3, fill: 'red', opacity: 0.2 }"
-                            /> -->
                             <v-image ref="introImageRef" :config="item.image"/>
                         </v-group>
                     </v-group>
@@ -149,16 +143,24 @@
                     :listening="false"
                     v-for="line in gridLines"
                     :key="line.id"
-                    :config="line"
+                    :config="{...line, visible: showGridLine}"
                 />
             </v-layer>
         </v-stage>
+        <div class="absolute -bottom-20 left-5">
+            <div class="flex items-center">
+                <input id="grid" type="checkbox" v-model="showGridLine" />
+                <label for="grid" class="pl-2">show grid line</label>
+            </div>
+            <p>*i will delete after review complete</p>
+        </div>
     </div>
 </template>
     
 <script setup>
     import { ref, onMounted, computed } from 'vue'
-    import Layout2 from './layout2.vue'
+    import '../components/array'
+    import LayoutBackground from './layout-bg.vue'
     import configSP from '../config/config-sp'
     import configTB from '../config/config-tb'
     import configPC from '../config/config-pc'
@@ -194,21 +196,21 @@
     const shadowRectConfig = ref(config.value.item.shadow);
     const stageConfig = {width: baseWidth, height: baseHeight};
     const sliderConfig = config.value.slider;
-    // let width =  ref(baseWidth);
-    // let height = ref(baseHeight)
     let cell = ref(config.value.cell);
     let car = ref(config.value.car.body)
     let volang = ref(config.value.car.volang)
     let dropZones = ref(config.value.dropZones)
     let itemsIntro = ref(config.value.intro.items)
     let gridLines = ref(config.value.grid())
+    let showGridLine = ref(false)
     let getItemOverlap = () => groupItemsRef.value.filter(item => item.getNode().find('Rect')[0].fill() == 'red')
     let getDropZoneActive = () => dropZonesRef.value.filter(item => item.getNode().fill() == 'green')
     let overlapItem = () => getItemOverlap().length > 0
-    let inDropZone = () => getDropZoneActive().length == 1
+    let inDropZone = () => getDropZoneActive().length > 0 
     let sliderPerMove = ref(config.value.slider.perMove)
     let moveCount = ref(0)
     let filterType = ""
+    let itemsDropped = [];
 
     const initSlider = () => {
         let list = []
@@ -217,7 +219,7 @@
         let count = 0
         config.value.items.forEach(function(item, index) {
             let id = item.groupConfig.id
-            if(id == "item|box,5") {
+            if(id == "item|longbox|9") {
                 breakLine = 1
                 count = 0
             }
@@ -260,7 +262,7 @@
         })
        
         listGroupVisible.forEach(function(group, index) {
-            if((type != '' && count == slideCount) || (type == '' && group.id() == "item|box,5")) {
+            if(((type != '' && count == slideCount) || (type == '' && group.id().includes('item'))) && breakLine == 0) {
                 breakLine++
                 count = 0
             }
@@ -344,7 +346,7 @@
             circleNext.fill('#e2e2e2')
             circlePrev.fill('#B0D0E0')
         }
-        console.log(moveCount.value)
+        // console.log(moveCount.value)
     }
 
     const handleDragStart = async (e, index) => {
@@ -355,6 +357,7 @@
         group.moveTo(groupCarRef.value.getNode())
         shape.width(itemOriginal.size[0] * cell.value - padding * 2)
         shape.height(itemOriginal.size[1] * cell.value - padding * 2)
+        
         image.to({
             x: itemOriginal.imageDrag.x,
             y: itemOriginal.imageDrag.y,
@@ -362,7 +365,6 @@
             height: itemOriginal.imageDrag.height,
         })
         loadImageRef(image, index, 'imageDragName')
-        // groupCarRef.value.getNode().moveToTop()
         group.moveToTop()
         shadowRectConfig.value.visible = true
     }
@@ -373,13 +375,20 @@
         const image = group.find('Image')[0]
         const text = group.find('Text')[0]
         if(!overlapItem() && inDropZone()) {
+            let offsetY = 0;
+            if(group.id().includes(7)) {
+                offsetY = -cell.value / 2
+            }
             group.moveTo(groupCarRef.value.getNode())
             group.position({
                 x: Math.round(group.x() / cell.value) * cell.value,
-                y: Math.round(group.y() / cell.value) * cell.value 
+                y: Math.round(group.y() / cell.value) * cell.value + offsetY
             })
             // group.attrs.drop = true
             volangRef.value.getNode().moveToTop()
+            if(!itemsDropped.includes(group))
+                itemsDropped.push(group)
+            console.log(itemsDropped)
         } else {
             const itemOriginal = initItems.value[index]
             group.moveTo(groupSlider.value.getNode())
@@ -399,8 +408,10 @@
                 width: itemOriginal.image.width,
                 height: itemOriginal.image.height,
             })
-            // text.visible(true)
             loadImageRef(image, index, 'imageName')
+            if(itemsDropped.includes(group)) {
+                itemsDropped.removeItem(group)
+            }
         }
         getItemOverlap().forEach(el => el.getNode().find('Rect')[0].fill('transparent'))
         getDropZoneActive().forEach(el => el.getNode().fill('transparent'))
@@ -411,14 +422,19 @@
         const group = e.target
         const shape = group.find("Rect")[0]
         const groupId = group.id()
+        let offsetY = 0;
+        if(group.id().includes(7)) {
+            offsetY = -cell.value / 2
+        }
         shadowRectConfig.value.width = shape.width()
         shadowRectConfig.value.height = shape.height()
         shadowRectConfig.value.x = Math.round(group.x() / cell.value ) * cell.value + padding 
-        shadowRectConfig.value.y = Math.round(group.y() / cell.value) * cell.value + padding
-        groupItemsRef.value.forEach(el => {
-            let item = el.getNode()
+        shadowRectConfig.value.y = Math.round(group.y() / cell.value) * cell.value + padding + offsetY
+        itemsDropped.forEach(item => {
+            // let item = el.getNode()
             let shape = item.find('Rect')[0]
             if(item == group) return;
+
             if (checkOverlap(shape.getClientRect(), shadowRect.value.getNode().getClientRect())) {
                 item.find('Rect')[0].fill('red')
             } else {
@@ -506,10 +522,6 @@
     function loadCar() {
         loadImage(car.value, 'car.png')
         loadImage(volang.value, 'volang.png')
-        // loadImage(seat1.value, 'seat-left.png')
-        // loadImage(seat2.value, 'seat-right.png')
-        // loadImage(seat3.value, 'seat-left.png')
-        // loadImage(seat4.value, 'seat-right.png')
     }
 
     // Function to calculate and update scale

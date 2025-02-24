@@ -164,8 +164,16 @@ export default  {
         }
     },
     footer: {
-        group: {x: 0, y: 23 * cell},
-        background: {x: 0, y: 0, width: baseWidth, height: 2 * cell, fill: '#124057', },
+        group: {x: 0, y: baseHeight - 2 * cell},
+        background: {
+            x: 0, 
+            y: 0, 
+            width: baseWidth, 
+            height: 2 * cell, 
+            fillLinearGradientStartPoint: { x: 0, y: 0 },
+            fillLinearGradientEndPoint: { x: 0, y: 2 * cell },
+            fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
+        },
         selectLayout: {
             group: {x: cell / 2, y: cell / 2 },
             circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
@@ -187,7 +195,7 @@ export default  {
         },
         resetLayout: {
             group: {
-                x: baseWidth - 25 * cell,
+                x: baseWidth - 3 * cell,
                 y: cell / 2
             },
             circle: { x: cell / 2, y: cell / 2, radius: cell / 2, stroke: 'white', strokeWidth: 2 },
@@ -195,8 +203,8 @@ export default  {
                 data: 'M22 14.2556C22 20.0546 17.299 24.7556 11.5 24.7556C5.70101 24.7556 1 20.0546 1 14.2556C1 8.45663 5.70101 3.75562 11.5 3.75562C14.2424 3.75562 16.7393 4.80697 18.6095 6.52862 M17.5 1.24438L19.1471 7.3915L13 9.03861',
                 fill: 'transparent',
                 stroke: 'white',
-                scaleX: 1,
-                scaleY: 1,
+                scaleX: 1.3,
+                scaleY: 1.3,
             },
             text: {
                 x: cell,
@@ -218,8 +226,8 @@ export default  {
             fill: 'red',
             cornerRadius: cell,
             shadowColor: '#124057',
-            shadowBlur: 80,
-            shadowOffset: { x: 0, y: 0 },
+            shadowBlur: 50,
+            shadowOffset: { x: 0, y: 10 },
             shadowOpacity: 1,
         },
         background: {
@@ -345,25 +353,90 @@ export default  {
                 },
                 imageName: "seat-right.png"
             },
+            {
+                group: {
+                    x: 7 * cell,
+                    y: 16.5 * cell,
+                },
+                rect: {
+                    id: "11",
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    fill: ''
+                },
+                image: {
+                    image: null,
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    opacity: 1
+                },
+                imageName: "seat-3-left.png"
+            },
+            {
+                group: {
+                    x: 11 * cell,
+                    y: 16.6 * cell,
+                },
+                rect: {
+                    id: "11",
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    fill: ''
+                },
+                image: {
+                    image: null,
+                    width: 1 * cell,
+                    height: 3 * cell,
+                    opacity: 1
+                },
+                imageName: "seat-3-right.png"
+            },
         ],
     },
     dropZones: [
-        {
-            id: '5',
-            x: 10 * cell,
-            y: 19 * cell,
-            width: 5 * cell,
-            height: 2 * cell,               
-            fill:  'red' ,
-            opacity: 0.2
-        },
         {
             id: '5',
             x: 11 * cell,
             y: 15 * cell,
             width: 3 * cell,
             height: 6 * cell,               
-            fill:  'green' ,
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '6',
+            x: 10 * cell,
+            y: 15 * cell,
+            width: 5 * cell,
+            height: 1.5 * cell,               
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '7',
+            x: 10 * cell,
+            y: 19.5 * cell,
+            width: 5 * cell,
+            height: 1.5 * cell,               
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '8',
+            x: 12 * cell,
+            y: 12 * cell,
+            width: 1 * cell,
+            height: 9 * cell,               
+            fill:  '' ,
+            opacity: 0.2
+        },
+        {
+            id: '9',
+            x: 10 * cell,
+            y: 12 * cell,
+            width: 2 * cell,
+            height: 9 * cell,               
+            fill:  '' ,
             opacity: 0.2
         },
     ],
@@ -397,7 +470,7 @@ export default  {
         }
     },
     intro: {
-        group: {x: 2 * cell, y: 7 * cell},
+        group: {x: 2 * cell, y: 8.5 * cell},
         items: [
             {
                 group: {x: cell / 3 , y: cell * 1.5},

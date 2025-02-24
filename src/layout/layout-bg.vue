@@ -1,5 +1,5 @@
 <template>
-    <div ref="container" class="absolute left-0 bottom-0 hidden lg:block w-full">
+    <div ref="container" class="absolute left-0 top-1/2 -translate-y-1/2 hidden lg:block w-full">
         <v-stage
             ref="stageRef"
             :config="stageConfig"
@@ -24,8 +24,7 @@
                         ref="groupCarRef" 
                         :config="config.car.group"
                     >
-                        <!-- <v-rect :config="config.shadow" :listening="false"/> -->
-                        
+                        <v-rect :config="config.car.shadow" :listening="false"/>
                         <v-group :config="config.car.groupItem" >
                             <v-image ref="carRef" :config="config.car.body" :listening="false"/>
                         </v-group>
@@ -39,10 +38,9 @@
     
 <script setup>
     import { ref, onMounted } from 'vue'
-
     const cell = 40;
     const baseWidth = 1280;
-    const baseHeight = 620 + 11 * cell;
+    const baseHeight = 620 + 22 * cell;
     let config = ref({
         intro: {
             group: {x: 0, y: 8 * cell},
@@ -62,7 +60,7 @@
                 fill: "#15668E"
             },
             image: {
-                x: 10 * cell,
+                x: 11 * cell,
                 y: 0 * cell,
                 width: 8 * cell ,
                 height: 8 * cell * 0.889,
@@ -107,6 +105,18 @@
         },
         car: {
             group: {x: 0, y: 0},
+            shadow: {
+                x: 22 * cell,
+                y: 6 * cell,
+                width: 7 * cell,
+                height: 20 * cell,
+                fill: 'red',
+                cornerRadius: cell,
+                shadowColor: '#124057',
+                shadowBlur: 80,
+                shadowOffset: { x: 0, y: 0 },
+                shadowOpacity: 1,
+            },
             groupItem: {x: 2 * cell},
             body: {
                 image: null,
