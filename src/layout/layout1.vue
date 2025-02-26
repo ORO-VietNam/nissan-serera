@@ -44,7 +44,8 @@
                         <v-group :config="config.head.filter.group">
                             <v-rect :config="config.head.filter.background"/>
                             <v-rect ref="filterBackground" :config="config.head.filter.activeBackground"/>
-                            <v-group 
+                            <v-group
+                                ref="filterAllButtonRef" 
                                 :config="config.head.filter.all.group"
                                 @tap="filterSlider($event, '')"
                                 @click="filterSlider($event, '')"
@@ -131,6 +132,7 @@
                         </v-group>
                         <v-group :config="config.footer.resetLayout.group"
                             @tap="resetKonva"
+                            @click="resetKonva"
                         >
                             <v-path :config="config.footer.resetLayout.path"/>
                             <v-text :config="config.footer.resetLayout.text"/>
@@ -158,7 +160,7 @@
 </template>
     
 <script setup>
-    import { ref, onMounted, computed } from 'vue'
+    import { ref, onMounted } from 'vue'
     import '../components/array'
     import LayoutBackground from './layout-bg.vue'
     import configSP from '../config/config-sp'
@@ -180,6 +182,7 @@
     const container = ref()
     const shadowRect = ref();
     const filterBackground = ref()
+    const filterAllButtonRef = ref()
     const groupSlider = ref();
     const prevSliderRef = ref();
     const nextSliderRef = ref();
@@ -208,8 +211,10 @@
     let overlapItem = () => getItemOverlap().length > 0
     let inDropZone = () => getDropZoneActive().length > 0 
     let sliderPerMove = ref(config.value.slider.perMove)
+    let itemPerPage = sliderConfig.count
+    let sliderPage= baseWidth < 768 ? 3 : 2
     let moveCount = ref(0)
-    let filterType = ""
+    let filterType = "";
     let itemsDropped = [];
 
     const initSlider = () => {
@@ -240,16 +245,12 @@
         return list;
     }
 
-    const initItems = ref(initSlider())
+    let initItems = ref(initSlider())
 
     function filterSlider(e, type) {
-        let size = sliderConfig.itemSize
-        let slideCount = sliderConfig.count
-        let count = 0
-        let breakLine = 0
         let listGroupVisible = []
         filterType = type;
-        activeFilterBackground(e, type)
+       
         groupSlider.value.getNode().find('Group').forEach(function(el, index) {
             const groupRef = el
             const groupId = el.id()
@@ -260,18 +261,47 @@
                 listGroupVisible.push(groupRef)
             }
         })
-       
-        listGroupVisible.forEach(function(group, index) {
-            if(((type != '' && count == slideCount) || (type == '' && group.id().includes('item'))) && breakLine == 0) {
-                breakLine++
-                count = 0
+        reOrderSlider()
+        activeFilterBackground(e, type)
+    }
+
+    function reOrderSlider() {
+        let breakLine = 0
+        let size = sliderConfig.itemSize
+        let slideCount = sliderConfig.count
+        let count = -1
+        let peopleCount = -1
+        let itemCount = -1
+        groupSlider.value.getNode().find('Group').forEach(function(group, index) {
+            const groupId = group.id()
+           
+            if(group.visible()) {
+                if(filterType == '') {
+                    if(groupId.includes('people')) {
+                        breakLine = 0
+                        peopleCount++
+                        count = peopleCount
+                    } else {
+                        breakLine = 1
+                        itemCount++
+                        count = itemCount
+                    }
+                }
+                else {
+                    count++
+                    if(slideCount == count && breakLine == 0) {
+                        breakLine++
+                        count = 0
+                    }
+                }
+                group.to({
+                    x: count * size,
+                    y: breakLine * size,
+                    duration: 0 
+                })
             }
-            group.to({
-                x: count * size,
-                y: breakLine * size 
-            })
-            count++
         })
+        handleButtonSlider()
     }
 
     function activeFilterBackground(e, type) {
@@ -294,17 +324,41 @@
             default:
                 break;
         }
-        handleButtonSlider()
         texts.forEach(el => el.fill('black'))
         paths.forEach(el => el.fill('#15668E'))
         text.fill('white')
         if(type != '') {
             path.fill('white')
-            prevSlider()
+            moveCount.value = 0
+            sliderTo(0)
         }
         background.to({
             x: x + 2
         })
+    }
+
+    function handleButtonSlider() {
+        const prev = prevSliderRef.value.getNode()
+        const next = nextSliderRef.value.getNode()
+        let slideCount = sliderConfig.count
+        let peopleCount = groupSlider.value.getNode().find(group => group.id().includes('people') && group.visible()).length
+        let itemCount = groupSlider.value.getNode().find(group => group.id().includes('item') && group.visible()).length
+        if((peopleCount > slideCount || itemCount > slideCount) && peopleCount + itemCount > itemPerPage * 2 ) {
+            prev.visible(true)
+            next.visible(true)
+        } else {
+            prev.visible(false)
+            next.visible(false)
+        }
+        let a = 1
+        if(filterType != '') a = 2
+        sliderPage = Math.ceil(Math.max(peopleCount, itemCount) / (itemPerPage * a))
+
+        console.log(peopleCount)
+        console.log(itemCount)
+        console.log(sliderPage)
+        console.log('---------------')
+
     }
 
     function prevSlider() {
@@ -316,37 +370,44 @@
             y: slider.y(),
             duration: 0.3,
         })
-        handleButtonSlider()
+        checkButtonSlider()
+    }
+
+    function sliderTo(to) {
+        const slider = groupSlider.value.getNode()
+        slider.to({
+            x: sliderPerMove.value * to,
+            y: 0,
+            duration: 0.3,
+        })
     }
   
     function nextSlider() {
-        if(moveCount.value == 2 || filterType != '') return;
+        if(moveCount.value == sliderPage - 1) return;
         const slider = groupSlider.value.getNode()
         moveCount.value++
         slider.to({
-          x: slider.x() - sliderPerMove.value,
-          y: slider.y(),
-          duration: 0.3,
+            x: slider.x() - sliderPerMove.value,
+            y: slider.y(),
+            duration: 0.3,
         })
-        handleButtonSlider()
+        checkButtonSlider()
     }
 
-    function handleButtonSlider() {
+    function checkButtonSlider() {
         const prev = prevSliderRef.value.getNode()
-        const circlePrev = prev.find('Circle')[0]
         const next = nextSliderRef.value.getNode()
+        const circlePrev = prev.find('Circle')[0]
         const circleNext = next.find('Circle')[0]
         if(moveCount.value == 0) {
-            circleNext.fill('#B0D0E0')
             circlePrev.fill('#e2e2e2')
-            if(filterType != '') {
-                circleNext.fill('#e2e2e2')
-            }
+            circleNext.fill('#B0D0E0')
         } else {
-            circleNext.fill('#e2e2e2')
             circlePrev.fill('#B0D0E0')
+        }        
+        if(moveCount.value == sliderPage - 1) {
+            circleNext.fill('#e2e2e2')
         }
-        // console.log(moveCount.value)
     }
 
     const handleDragStart = async (e, index) => {
@@ -357,13 +418,14 @@
         group.moveTo(groupCarRef.value.getNode())
         shape.width(itemOriginal.size[0] * cell.value - padding * 2)
         shape.height(itemOriginal.size[1] * cell.value - padding * 2)
-        
         image.to({
             x: itemOriginal.imageDrag.x,
             y: itemOriginal.imageDrag.y,
             width: itemOriginal.imageDrag.width,
             height: itemOriginal.imageDrag.height,
+            duration: 0
         })
+        reOrderSlider()
         loadImageRef(image, index, 'imageDragName')
         group.moveToTop()
         shadowRectConfig.value.visible = true
@@ -384,7 +446,6 @@
             volangRef.value.getNode().moveToTop()
             if(!itemsDropped.includes(group))
                 itemsDropped.push(group)
-            console.log(itemsDropped)
         } else {
             const itemOriginal = initItems.value[index]
             group.moveTo(groupSlider.value.getNode())
@@ -408,6 +469,10 @@
             if(itemsDropped.includes(group)) {
                 itemsDropped.removeItem(group)
             }
+            if(!group.id().includes(filterType)) {
+                group.visible(false)
+            }
+            reOrderSlider()
         }
         getItemOverlap().forEach(el => el.getNode().find('Rect')[0].fill('transparent'))
         getDropZoneActive().forEach(el => el.getNode().fill('transparent'))
@@ -474,7 +539,6 @@
             r2.y - 4 + r2.height - 4 < r1.y
         );
     }
-    // window.addEventListener('resize', stageScale)
 
     function loadImage(config, name) {
         let path = new URL(`../assets/images/${name}`, import.meta.url).href ;
@@ -487,7 +551,11 @@
 
     function imageInit() {
         groupItemsRef.value.forEach(function(el, index) {
-            let imageRef = el.getNode().find('Image')[0]
+            let group = el.getNode()
+            group.attrs['originalX'] = group.x()
+            group.attrs['originalY'] = group.y()
+            group.attrs['index'] = index
+            let imageRef = group.find('Image')[0]
             loadImageRef(imageRef, index, 'imageName')
         })
         itemsIntro.value.forEach(function(el, index) {
@@ -517,7 +585,6 @@
         loadImage(volang.value, 'volang.png')
     }
 
-    // Function to calculate and update scale
     const fitStageIntoParentContainer = () => {
         if (!container.value || !stageRef.value) return
         const containerWidth = container.value.offsetWidth
@@ -534,9 +601,61 @@
     }
 
     const resetKonva = () => {
-        let data = stageRef.value.getNode().toJSON()
-        console.log(data)
+        if(itemsDropped.length == 0) return
+        itemsDropped.forEach(function(group) {
+            group.moveTo(groupSlider.value.getNode())
+        })
+        groupSlider.value.getNode().children.forEach(function(group) {
+            const shape = group.find('Shape')[0]
+            const image = group.find('Image')[0]
+            const groupX = group.attrs['originalX']
+            const groupY = group.attrs['originalY']
+            const groupIndex = group.attrs['index']
+            const itemOriginal = initItems.value[groupIndex]
+            group.to({
+                x: groupX,
+                y: groupY,
+                duration: 0.3,
+            })
+            shape.to({
+                width: 4 * cell.value - padding * 2,
+                height: 4 * cell.value - padding * 2,
+                duration: 0.3
+            })
+            image.to({
+                x: itemOriginal.image.x,
+                y: itemOriginal.image.y,
+                width: itemOriginal.image.width,
+                height: itemOriginal.image.height,
+            })
+            group.visible(true)
+            loadImageRef(image, groupIndex, 'imageName')
+        })
+        resetFilter()
+        handleButtonSlider()
     };
+
+    function resetFilter() {
+        const group = filterAllButtonRef.value.getNode()
+        const background = filterBackground.value.getNode()
+        const slider = groupSlider.value.getNode()
+        let texts = group.parent.find("Text")
+        let paths = group.parent.find("Path")
+        let text = group.find('Text')[0]
+        
+        texts.forEach(el => el.fill('black'))
+        paths.forEach(el => el.fill('#15668E'))
+        text.fill('white')
+        moveCount.value = 0
+        background.to({
+            x: 2
+        })
+        slider.to({
+            x: sliderConfig.x,
+            y: sliderConfig.y,
+            duration: 0.3,
+        })
+    }
 
     onMounted(async () => {
         fitStageIntoParentContainer()

@@ -4,12 +4,12 @@
         <!-- <div class="h-[300px]"></div> -->
         <div class="border-b lg:border-0 border-[#f5f5f5]">
             <div class="px-5 md:px-10 max-w-[1320px] mx-auto lg:hidden">
-                <div class="flex items-center">
+                <div class="flex items-center font-psl">
                     <div class="flex-1 text-[#15668E]">
-                        <p class="font-bold text-[38px] md:text-[42px]">เลื่อน พับ<br class="md:hidden">ปรับที่นั่ง</p>
-                        <p class="text-2xl md:text-[32px]">สะดวกสบาย<br class="md:hidden">สไตล์ครอบครัวคุณ</p>
+                        <p class="font-bold text-[28px] md:text-[42px]">เลื่อน พับ<br class="md:hidden">ปรับที่นั่ง</p>
+                        <p class="text-xl md:text-[32px]">สะดวกสบาย<br class="md:hidden">สไตล์ครอบครัวคุณ</p>
                     </div>
-                    <div class="w-[210px]">
+                    <div class="w-[190px]">
                         <img src="@assets/images/img-head.png" alt="">
                     </div>
                 </div>

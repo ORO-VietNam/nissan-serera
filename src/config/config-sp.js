@@ -3,8 +3,8 @@ const cell = 17;
 const baseWidth = 430;
 const baseHeight = 50 * cell;
 const sliderItemCount = 5
-const sliderItemSize = (windowWidth - cell) / sliderItemCount;
-const sliderSpacing = 5;
+const sliderItemSize = Math.round((windowWidth ) / sliderItemCount);
+const sliderSpacing = 4;
 const padding = 4;
 const sliderX = cell
 const sliderY = cell * 4 - sliderSpacing
@@ -90,6 +90,7 @@ export default  {
                     y: 0,
                     width: 6 * cell,
                     text: 'ดูทั้งหมด',
+                    fontFamily: "PSLDisplayPro",
                     fontSize: 12,
                     lineHeight: cell / 6,
                     align: 'center',
@@ -109,6 +110,7 @@ export default  {
                     y: 0,
                     x: 45,
                     text: 'เลือกคน',
+                    fontFamily: "PSLDisplayPro",
                     fontSize: 12,
                     lineHeight: cell / 6,
                     align: 'center',
@@ -128,6 +130,7 @@ export default  {
                     x: 40,
                     y: 0,
                     text: 'เลือกของ',
+                    fontFamily: "PSLDisplayPro",
                     fontSize: 12,
                     lineHeight: cell / 6,
                     align: 'center',
@@ -187,6 +190,7 @@ export default  {
                 x: 2 * cell + 10,
                 y: 0,
                 text: 'ดูรูปแบบที่นั่งทั้ง 13 แบบเพิ่มเติม',
+                fontFamily: "PSLDisplayPro",
                 fill: 'white',
                 fontSize: 16,
                 lineHeight: cell / 8
@@ -210,6 +214,7 @@ export default  {
                 x: cell * 2,
                 y: 1,
                 text: 'รีเซ็ต',
+                fontFamily: "PSLDisplayPro",
                 fill: 'white',
                 fontSize: 16,
                 lineHeight: cell / 8
@@ -396,46 +401,46 @@ export default  {
     dropZones: [
         {
             id: '5',
-            x: 6 * cell,
-            y: 15 * cell,
-            width: 3 * cell,
-            height: 6 * cell,               
+            x: 12 * cell,
+            y: 30 * cell,
+            width: 6 * cell,
+            height: 12 * cell,               
             fill:  '' ,
             opacity: 0.2
         },
         {
             id: '6',
-            x: 5 * cell,
-            y: 15 * cell,
-            width: 5 * cell,
-            height: 1.5 * cell,               
+            x: 10 * cell,
+            y: 30 * cell,
+            width: 10 * cell,
+            height: 3 * cell,               
             fill:  '' ,
             opacity: 0.2
         },
         {
             id: '7',
-            x: 5 * cell,
-            y: 19.5 * cell,
-            width: 5 * cell,
-            height: 1.5 * cell,               
+            x: 10 * cell,
+            y: 39 * cell,
+            width: 10 * cell,
+            height: 3 * cell,               
             fill:  '' ,
             opacity: 0.2
         },
         {
             id: '8',
-            x: 7 * cell,
-            y: 12 * cell,
-            width: 1 * cell,
-            height: 9 * cell,               
+            x: 14 * cell,
+            y: 24 * cell,
+            width: 2 * cell,
+            height: 18 * cell,               
             fill:  '' ,
             opacity: 0.2
         },
         {
             id: '9',
-            x: 5 * cell,
-            y: 12 * cell,
-            width: 2 * cell,
-            height: 9 * cell,               
+            x: 10 * cell,
+            y: 24 * cell,
+            width: 4 * cell,
+            height: 18 * cell,               
             fill:  '' ,
             opacity: 0.2
         },
@@ -472,10 +477,10 @@ export default  {
         }
     },
     intro: {
-        group: {x: 0, y: 8 * cell, visible: false},
+        group: {x: 0, y: 16 * cell, },
         items: [
             {
-                group: {x: cell / 3 , y: cell * 1.5},
+                group: {x: cell * 2 / 3 , y: cell * 3},
                 imageName: "intro1.png",
                 image: {
                     x: 0,
@@ -486,7 +491,7 @@ export default  {
                 },
             },
             {
-                group: {x: cell / 3 , y: cell * 5.5},
+                group: {x: cell * 2 / 3 , y: cell * 11},
                 imageName: "intro2.png",
                 image: {
                     x: 0,
@@ -497,7 +502,7 @@ export default  {
                 },
             },
             {
-                group: {x: cell / 3 , y: cell * 9.5},
+                group: {x: cell * 2 / 3 , y: cell * 19},
                 imageName: "intro3.png",
                 image: {
                     x: 0,

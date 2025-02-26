@@ -3,10 +3,9 @@ const cell = 20;
 const baseWidth = 768;
 const baseHeight = 1024;
 const sliderItemCount = 7
-const sliderItemSize = (windowWidth - cell) / sliderItemCount;
-const sliderSpacing = 10;
+const sliderItemSize = Math.round((windowWidth - 2 * cell) / sliderItemCount);
+const sliderSpacing = 8;
 const padding = 4;
-const sliderX = cell 
 const sliderY = cell * 4
 
 export default  {
@@ -91,6 +90,7 @@ export default  {
                     y: 0,
                     width: 6 * cell,
                     text: 'ดูทั้งหมด',
+                    fontFamily: "PSLDisplayPro",
                     fontSize: 16,
                     lineHeight: cell / 8,
                     align: 'center',
@@ -110,6 +110,7 @@ export default  {
                     y: 0,
                     x: 45,
                     text: 'เลือกคน',
+                    fontFamily: "PSLDisplayPro",
                     fontSize: 16,
                     lineHeight: cell / 8,
                     align: 'center',
@@ -129,6 +130,7 @@ export default  {
                     x: 40,
                     y: 0,
                     text: 'เลือกของ',
+                    fontFamily: "PSLDisplayPro",
                     fontSize: 12,
                     lineHeight: cell / 6,
                     align: 'center',
@@ -188,6 +190,7 @@ export default  {
                 x: cell * 2 + 10,
                 y: 0,
                 text: 'ดูรูปแบบที่นั่งทั้ง 13 แบบเพิ่มเติม',
+                fontFamily: "PSLDisplayPro",
                 fill: 'white',
                 fontSize: 16,
                 lineHeight: cell / 8
@@ -210,6 +213,7 @@ export default  {
                 x: cell * 2,
                 y: 0,
                 text: 'รีเซ็ต',
+                fontFamily: "PSLDisplayPro",
                 fill: 'white',
                 fontSize: 16,
                 lineHeight: cell / 8

@@ -13,3 +13,7 @@ Array.prototype.removeItem = function(item) {
     }
     return this; // Return the modified array
 };
+
+Array.prototype.insertAtIndex = function(index, item) {
+  this.splice(index, 0, item);
+};

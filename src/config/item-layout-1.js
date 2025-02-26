@@ -1,13 +1,14 @@
 const windowWidth = window.innerWidth
 let cell = 17;
-let sliderItemSize = (windowWidth - cell) / 5;
-let sliderSpacing = 8;
+let sliderItemSize = Math.round((windowWidth ) / 5);
+let sliderSpacing = 4;
 if(windowWidth >= 768 && windowWidth < 1024) {
+    sliderSpacing = 8;
     cell = 20
-    sliderItemSize = (windowWidth - cell) / 7;
+    sliderItemSize = Math.round((windowWidth ) / 7);
 } else if(windowWidth >= 1024) {
     cell = 20
-    sliderItemSize = (36 * cell) / 7;
+    sliderItemSize = Math.round((36 * cell) / 7);
 }
 
 const imageConfig= {
@@ -117,7 +118,7 @@ export default  {
         },
         {
             groupConfig: {
-                id: 'people|grandfather|1,3,4',
+                id: 'people|grandfather|1,2,3,4',
                 draggable: true,
             },
             image: {
@@ -136,7 +137,7 @@ export default  {
         },
         {
             groupConfig: {
-                id: 'people|grandfather|1,3,4',
+                id: 'people|grandfather|1,2,3,4',
                 draggable: true,
             },
             image: {
@@ -155,7 +156,7 @@ export default  {
         },
         {
             groupConfig: {
-                id: 'people|lieboy|1,3,4,5',
+                id: 'people|lieboy|_',
                 draggable: true,
             },
             image: {
@@ -185,12 +186,12 @@ export default  {
                 x: 0.2 * cell,
                 y: 0.2 * cell,
                 width: 3.6 * cell,
-                height: 17.6 * cell
+                height: 16.6 * cell
             },
             imageName: "long-box-group.png",
             imageDragName: "long-box.png",
             type: "item",
-            size: [4,18]
+            size: [4,17]
         },
         {
             groupConfig: {
@@ -201,15 +202,15 @@ export default  {
                 ...imageConfig
             },
             imageDrag: {
-                x: 0 ,
-                y: 0,
-                width: cell * 4,
-                height: cell * 6
+                x: cell * 0.2,
+                y: cell * 0.2,
+                width: cell * 3.6,
+                height: cell * 5.6
             },
             imageName: "big-bag-group.png",
             imageDragName: "big-bag.png",
             type: "item",
-            size: [4,6]
+            size: [4,6] 
         },
         {
             groupConfig: {
@@ -221,14 +222,14 @@ export default  {
             },
             imageDrag: {
                 x: 0,
-                y: cell,
+                y: cell / 2,
                 width: cell ,
-                height: 17 * cell,
+                height: 16 * cell,
             },
             imageName: "surf-group.png",
             imageDragName: "surf.png",
             type: "item",
-            size: [2,18]
+            size: [2,17]
         },
         {
             groupConfig: {
@@ -239,15 +240,15 @@ export default  {
                 ...imageConfig
             },
             imageDrag: {
-                x: -cell ,
-                y: 0,
-                width: 4 * cell,
-                height: 12 * cell,
+                x: -cell * 2 ,
+                y: cell / 2,
+                width: 6 * cell,
+                height: 16 * cell,
             },
             imageName: "bike-group.png",
             imageDragName: "bike.png",
             type: "item",
-            size: [2,12]
+            size: [2,17]
         },
         {
             groupConfig: {
@@ -270,7 +271,7 @@ export default  {
         },
         {
             groupConfig: {
-                id: 'item|backpack|5',
+                id: 'item|backpack|5,8',
                 draggable: true,
             },
             image: {
@@ -278,18 +279,18 @@ export default  {
             },
             imageDrag: {
                 x: 0,
-                y: 0,
-                width: cell * 4,
-                height: cell * 8,
+                y: cell / 2,
+                width: cell * 2,
+                height: cell * 5,
             },
             imageName: "backpack-group.png",
             imageDragName: "backpack.png",
             type: "item",
-            size: [4, 8]
+            size: [2, 6]
         },
         {
             groupConfig: {
-                id: 'item|smallbag|5,7',
+                id: 'item|smallbag|5,6,7',
                 draggable: true,
             },
             image: {
@@ -298,32 +299,32 @@ export default  {
             imageDrag: {
                 x: 0,
                 y: 0,
-                width: 4 * cell,
-                height: 3 * cell,
+                width: 3 * cell,
+                height: 2 * cell,
             },
             imageName: "small-bag-group.png",
             imageDragName: "small-bag.png",
             type: "item",
-            size: [4, 3]
+            size: [3, 2]
         },
         {
             groupConfig: {
-                id: 'item|aimalcase|5',
+                id: 'item|aimalcase|1,3,4,5',
                 draggable: true,
             },
             image: {
                 ...imageConfig
             },
             imageDrag: {
-                x: 0,
+                x: cell / 2,
                 y: 0,
-                width: 6 * cell,
-                height: 3 * cell,
+                width: 3 * cell,
+                height: 4 * cell,
             },
             imageName: "animal-cage-group.png",
             imageDragName: "animal-cage.png",
             type: "item",
-            size: [6, 3]
+            size: [3, 4]
         },
         {
             groupConfig: {

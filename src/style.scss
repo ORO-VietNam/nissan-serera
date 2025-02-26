@@ -3,35 +3,29 @@
 @tailwind components;
 @tailwind utilities;
 
-.btn {
-  @apply px-4 py-2 bg-green-300 text-white text-center font-bold cursor-pointer;
+
+@font-face {
+  font-family: 'PSLDisplayPro';
+  src: url('@assets/fonts/PSLDisplayPro.eot');
+  font-weight: 400;
 }
 
-.car {
-  .seat {
-    @apply absolute bottom-0 right-[15%] w-1/2 h-1/2 bg-black text-white transition-all duration-500;
-
-    &.rear-gather-x {
-      @apply -translate-x-10;
-    }
-    &.rear-gather-b {
-      @apply bottom-auto top-full;
-    }
-    &.rear-gather-t {
-      @apply bottom-full;
-    }
-    
-    .people {
-      @apply absolute text-[40px] bottom-full left-1/2 -translate-x-1/2 opacity-0 transition-opacity duration-500;
-
-      &.show {
-        @apply opacity-100;
-      }
-    }
-    
-    .backrest {
-      @apply absolute bottom-full right-0 w-1 h-12 bg-black origin-bottom-left transition-all duration-500;
-    }
-  }
+@font-face {
+  font-family: 'PSLDisplayPro';
+  src: url('@assets/fonts/PSLDisplayPro.woff') format('woff'),
+  url('@assets/fonts/PSLDisplayPro.svg#') format('svg');
+  font-weight: 400;
 }
 
+@font-face {
+  font-family: 'PSLDisplayPro';
+  src: url('@assets/fonts/PSLDisplayProBold.eot');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'PSLDisplayPro';
+  src: url('@assets/fonts/PSLDisplayProBold.woff') format('woff'),
+  url('@assets/fonts/PSLDisplayProBold.svg#') format('svg');
+  font-weight: 700;
+}

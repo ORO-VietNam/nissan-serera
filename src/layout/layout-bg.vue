@@ -50,12 +50,14 @@
                 text: "เลื่อน พับ ปรับที่นั่ง",
                 fontSize: 48,
                 fontStyle: 'bold',
+                fontFamily: "PSLDisplayPro",
                 fill: "#15668E"
             },
             h2: {
                 x: 0,
                 y: 6 * cell,
                 text: "สะดวกสบาย สไตล์ครอบครัวคุณ",
+                fontFamily: "PSLDisplayPro",
                 fontSize: 30,
                 fill: "#15668E"
             },
