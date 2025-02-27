@@ -298,14 +298,14 @@ export default  {
             },
             imageDrag: {
                 x: 0,
-                y: 0,
-                width: 3 * cell,
-                height: 2 * cell,
+                y: cell * 0.25,
+                width: 4 * cell,
+                height: 2.5 * cell,
             },
             imageName: "small-bag-group.png",
             imageDragName: "small-bag.png",
             type: "item",
-            size: [3, 2]
+            size: [4, 3]
         },
         {
             groupConfig: {

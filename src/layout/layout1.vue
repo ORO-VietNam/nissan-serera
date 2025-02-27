@@ -104,7 +104,6 @@
                             >
                                 <v-rect :config="{...item.rect, fill: '', opacity: .1}"/>
                                 <v-image :config="item.image" />
-                                <!-- <v-text :config="{...config.item.text, text: item.text}"/> -->
                             </v-group>
                         </v-group>
                     </v-group>
@@ -126,9 +125,19 @@
                         <v-group 
                             :config="config.footer.selectLayout.group"
                         >
-                            <v-circle :config="config.footer.selectLayout.circle"/>
-                            <v-path :config="config.footer.selectLayout.path"/>
-                            <v-text :config="config.footer.selectLayout.text"/>
+                            <v-rect 
+                                :config="{
+                                    x: 0,
+                                    y: 0,
+                                    height: 2 * cell,
+                                    width: 13 * cell,
+                                }"
+                                @tap="showSelectLayout"
+                                @click="showSelectLayout"
+                            />
+                            <v-circle :config="config.footer.selectLayout.circle" :listening="false"/>
+                            <v-path :config="config.footer.selectLayout.path" :listening="false"/>
+                            <v-text :config="config.footer.selectLayout.text" :listening="false"/>
                         </v-group>
                         <v-group :config="config.footer.resetLayout.group"
                             @tap="resetKonva"
@@ -136,6 +145,69 @@
                         >
                             <v-path :config="config.footer.resetLayout.path"/>
                             <v-text :config="config.footer.resetLayout.text"/>
+                        </v-group>
+                    </v-group>
+    <!-- Select layer -->
+                    <v-group 
+                        ref="seclectLayoutRef"
+                        :config="{
+                            x: -10 * cell,
+                            y: 0,
+                            clipFunc: function(ctx) {
+                                ctx.beginPath();
+                                ctx.rect(0, 0, 10 * cell, baseHeight - 4 * cell);
+                                ctx.closePath();
+                            }
+                        }
+                    ">
+                        <v-rect :config="{
+                            x: 0,
+                            y: 0,
+                            width: 10 * cell,
+                            height: 39 * cell,
+                            fill: 'white',
+                            opacity: 1,
+                            shadowColor: '#aaa',
+                            shadowBlur: 20,
+                            shadowOffset: { x: 10, y: 10 },
+                            shadowOpacity: 1,
+                            draggable: true,
+                                dragBoundFunc: function (pos) {
+                                    let y = pos.y
+                                    let max = baseHeight - 43 * cell
+                                    if(y > 0) y = 0
+                                    else if(y < max) y = max
+                                    scrollSelectLayout(y)
+                                    return {
+                                        x: this.absolutePosition().x,
+                                        y: y
+                                    }
+                                },
+                           
+                        }"/>
+                        <v-group 
+                            :config="{
+                                x: 0,
+                                y: y,
+                                
+                            }
+                        ">
+                            <v-group 
+                                v-for="(layout, index) in layouts"
+                                :config="{
+                                    x: 0,
+                                    y: index * 3 * cell
+                                }"
+                            >
+                                <v-text 
+                                    :config="{
+                                        x: 15,
+                                        text: `Layout ${layout}`,
+                                        fontSize: 16,
+                                        lineHeight: 3 * cell / 16
+                                    }"
+                                />
+                            </v-group>
                         </v-group>
                     </v-group>
                 </v-group>
@@ -193,6 +265,7 @@
     const volangRef = ref()
     const seatsRef = ref()
     const introImageRef = ref()
+    const seclectLayoutRef = ref()
     const baseWidth = config.value.baseWidth
     const baseHeight = config.value.baseHeight
     const padding = config.value.padding;
@@ -216,6 +289,9 @@
     let moveCount = ref(0)
     let filterType = "";
     let itemsDropped = [];
+    const layouts = [1,2,3,4,5,6,7,8,9,10,11,12,13]
+    const y = ref(0)
+    let showLayout = false;
 
     const initSlider = () => {
         let list = []
@@ -243,6 +319,19 @@
             list.push(item)
         })
         return list;
+    }
+    
+    function scrollSelectLayout(posY) {
+        y.value = posY
+    }
+
+    function showSelectLayout() {
+        let layout = seclectLayoutRef.value.getNode()
+        showLayout = !showLayout
+        layout.to({
+            x: showLayout ? 0 : (-10 * cell.value),
+            y: 0
+        })
     }
 
     let initItems = ref(initSlider())
