@@ -24,7 +24,7 @@ export default  {
         {
             groupConfig: {
                 id: 'people|dad|1,2,3,4',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -43,7 +43,7 @@ export default  {
         {
             groupConfig: {
                 id: 'people|wife|1,2,3,4',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -62,7 +62,7 @@ export default  {
         {
             groupConfig: {
                 id: 'people|kidboy|1,3,4',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -81,7 +81,7 @@ export default  {
         {
             groupConfig: {
                 id: 'people|kidgirl|1,3,4',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -100,7 +100,7 @@ export default  {
         {
             groupConfig: {
                 id: 'people|baby|3,4',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -119,7 +119,7 @@ export default  {
         {
             groupConfig: {
                 id: 'people|grandfather|1,2,3,4',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -138,7 +138,7 @@ export default  {
         {
             groupConfig: {
                 id: 'people|grandfather|1,2,3,4',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -157,7 +157,7 @@ export default  {
         {
             groupConfig: {
                 id: 'people|lieboy|_',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -177,7 +177,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|longbox|9',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -196,7 +196,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|bigbag|5',
-                draggable: true,
+                draggable: false,
             }, 
             image: {
                 ...imageConfig
@@ -215,7 +215,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|surfboard|8',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -234,7 +234,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|bike|5,8',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -253,7 +253,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|kidbike|5,8',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -272,7 +272,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|backpack|5,8',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -291,7 +291,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|smallbag|5,6,7',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -310,7 +310,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|aimalcase|1,3,4,5',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -329,7 +329,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|stroller|5,6',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -348,7 +348,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|lieBox|5',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig
@@ -367,7 +367,7 @@ export default  {
         {
             groupConfig: {
                 id: 'item|golf|7',
-                draggable: true,
+                draggable: false,
             },
             image: {
                 ...imageConfig

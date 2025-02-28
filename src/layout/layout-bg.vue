@@ -1,5 +1,8 @@
 <template>
-    <div ref="container" class="absolute left-0 top-1/2 -translate-y-1/2 hidden lg:block w-full">
+    <div 
+        ref="container" 
+        class="hidden lg:block w-full" 
+    >
         <v-stage
             ref="stageRef"
             :config="stageConfig"
@@ -40,12 +43,12 @@
     import { ref, onMounted } from 'vue'
     const cell = 20;
     const baseWidth = 1280;
-    const baseHeight = 620 + 44 * cell;
+    const baseHeight = 620 + 15 * cell;
     let config = ref({
         intro: {
-            group: {x: 0, y: 16 * cell},
+            group: {x: 0, y: 4 * cell},
             h1: {
-                x: 0,
+                x: cell,
                 y: 3 * cell,
                 text: "เลื่อน พับ ปรับที่นั่ง",
                 fontSize: 48,
@@ -54,7 +57,7 @@
                 fill: "#15668E"
             },
             h2: {
-                x: 0,
+                x: cell,
                 y: 6 * cell,
                 text: "สะดวกสบาย สไตล์ครอบครัวคุณ",
                 fontFamily: "PSLDisplayPro",
@@ -106,24 +109,24 @@
             ]
         },
         car: {
-            group: {x: 0, y: 0},
+            group: {x: 0, y: 1 * cell},
             shadow: {
-                x: 44 * cell,
-                y: 12 * cell,
+                x: 45 * cell,
+                y: 2 * cell,
                 width: 14 * cell,
-                height: 40 * cell,
+                height: 38 * cell,
                 fill: 'red',
-                cornerRadius: cell,
+                cornerRadius: cell * 4,
                 shadowColor: '#124057',
-                shadowBlur: 80,
-                shadowOffset: { x: 0, y: 0 },
+                shadowBlur: 60,
+                shadowOffset: { x: 0, y: 10 },
                 shadowOpacity: 1,
             },
-            groupItem: {x: 4 * cell},
+            groupItem: {x: 5 * cell},
             body: {
                 image: null,
                 x: cell * 38,
-                y: 11 * cell,
+                y: 0,
                 width: 18 * cell,
                 height: 18 * cell / 0.43,
                 opacity: 1
@@ -160,16 +163,17 @@
     // Function to calculate and update scale
     const fitStageIntoParentContainer = () => {
         if (!container.value || !stageRef.value) return
-        const containerWidth = container.value.offsetWidth
+        const containerWidth = Math.min(1280, window.innerWidth)
         const containerHeight = container.value.offsetHeight
         // Calculate scale
         const scaleX = containerWidth / baseWidth
         const scaleY = containerHeight / baseHeight
         const scale = Math.min(scaleX, scaleY)
         let _stage = stageRef.value.getNode();
-        _stage.width(baseWidth * scale);
-        _stage.height(baseHeight * scale );
-        _stage.scale({ x: scale, y: scale });
+        console.log()
+        _stage.width(baseWidth * scaleX);
+        _stage.height(baseHeight * scaleX);
+        _stage.scale({ x: scaleX, y: scaleX });
         _stage.batchDraw();
     }
 

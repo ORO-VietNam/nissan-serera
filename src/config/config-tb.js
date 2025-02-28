@@ -195,6 +195,42 @@ export default  {
                 fontSize: 16,
                 lineHeight: cell / 8
             },
+            nav: {
+                x: -10 * cell,
+                y: baseHeight - 43 * cell,
+                height: 39 * cell,
+                width: 10 * cell,
+                group: {
+                    x: -10 * cell,
+                    y: baseHeight - 43 * cell,
+                },
+                background: {
+                    x: 0,
+                    y: 0,
+                    width: 10 * cell,
+                    height: 39 * cell,
+                    fill: 'white',
+                    opacity: 1,
+                    shadowColor: '#000',
+                    shadowBlur: 20,
+                    shadowOffset: { x: 0, y: -5 },
+                    shadowOpacity: 0,
+                    draggable: false
+                },
+                groupItem: {
+                    x: 0,
+                    y: 0, 
+                },
+                item: {
+                    
+                },
+                text: {
+                    x: 15,
+                    text: `Layout`,
+                    fontSize: 16,
+                    lineHeight: 3 * cell / 16
+                }
+            }
         },
         resetLayout: {
             group: {
@@ -219,6 +255,7 @@ export default  {
                 lineHeight: cell / 8
             },
         },
+        
     },
     car: {
         group: {x: 0, y: 0},
@@ -445,6 +482,8 @@ export default  {
         },
     ],
     slider: {
+        x: 0,
+        y: 0,
         group: {x: cell , y: sliderY},
         count: sliderItemCount,
         perMove: sliderItemSize * sliderItemCount,
@@ -478,34 +517,34 @@ export default  {
         items: [
             {
                 group: {x: cell * 2 / 3 , y: cell * 3},
-                imageName: "intro1.png",
+                imageName: "intro1-sp.png",
                 image: {
                     x: 0,
                     y: 0,
                     width: 105,
-                    height: 114,
+                    height: 104,
                     image: null
                 },
             },
             {
                 group: {x: cell * 2 / 3 , y: cell * 11},
-                imageName: "intro2.png",
+                imageName: "intro2-sp.png",
                 image: {
                     x: 0,
                     y: 0,
                     width: 105,
-                    height: 114,
+                    height: 90,
                     image: null
                 },
             },
             {
                 group: {x: cell * 2 / 3 , y: cell * 19},
-                imageName: "intro3.png",
+                imageName: "intro3-sp.png",
                 image: {
                     x: 0,
                     y: 0,
                     width: 105,
-                    height: 114,
+                    height: 122,
                     image: null
                 },
             },

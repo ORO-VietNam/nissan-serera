@@ -188,6 +188,47 @@ export default  {
                 fontSize: 16,
                 lineHeight: cell / 8
             },
+            nav: {
+                x: -10 * cell,
+                y: 0,
+                height: 35 * cell,
+                width: 10 * cell,
+                group: {
+                    x: -10 * cell,
+                    y: 0,
+                    clipFunc: function(ctx) {
+                        ctx.beginPath();
+                        ctx.rect(0, 0, 10 * cell, baseHeight - 4 * cell);
+                        ctx.closePath();
+                    }
+                },
+                background: {
+                    x: 0,
+                    y: 0,
+                    width: 10 * cell,
+                    height: 39 * cell,
+                    fill: 'white',
+                    opacity: 1,
+                    shadowColor: '#aaa',
+                    shadowBlur: 20,
+                    shadowOffset: { x: 10, y: 10 },
+                    shadowOpacity: 1,
+                    draggable: true
+                },
+                groupItem: {
+                    x: 0,
+                    y: 0, 
+                },
+                item: {
+                    
+                },
+                text: {
+                    x: 15,
+                    text: `Layout`,
+                    fontSize: 16,
+                    lineHeight: 3 * cell / 16
+                }
+            }
         },
         resetLayout: {
             group: {
