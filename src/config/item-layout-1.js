@@ -7,8 +7,8 @@ if(windowWidth >= 768 && windowWidth < 1024) {
     cell = 20
     sliderItemSize = Math.round((windowWidth ) / 7);
 } else if(windowWidth >= 1024) {
-    cell = 20
-    sliderItemSize = Math.round((36 * cell) / 7);
+    cell = 15
+    sliderItemSize = Math.round(50 * cell / 7);
 }
 
 const imageConfig= {

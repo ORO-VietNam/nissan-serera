@@ -57,6 +57,10 @@ export default  {
         return lines
     },
     head: {
+        group: {
+            x: 0,
+            y: 0
+        },
         background: { 
             x: 0, 
             y: 0, 
@@ -68,6 +72,11 @@ export default  {
         },
         filter: {
             group: {x: cell, y: cell},
+            position: {
+                "": 2,
+                "people": 6 * cell,
+                "item": 12 * cell,
+            },
             background: {
                 width: 18 * cell,
                 height: 2 * cell,
@@ -522,7 +531,7 @@ export default  {
                     x: 0,
                     y: 0,
                     width: 85,
-                    height: 99,
+                    // height: 'auto',
                     image: null
                 },
             },
@@ -533,7 +542,7 @@ export default  {
                     x: 0,
                     y: 0,
                     width: 85,
-                    height: 73,
+                    // height: 73,
                     image: null
                 },
             },
@@ -544,7 +553,7 @@ export default  {
                     x: 0,
                     y: 0,
                     width: 85,
-                    height: 99,
+                    // height: 99,
                     image: null
                 },
             },

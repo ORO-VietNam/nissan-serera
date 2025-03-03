@@ -1,8 +1,8 @@
-const cell = 20;
-const baseWidth = 1280;
-const baseHeight = 620;
+const cell = 15;
+const baseWidth = 1440;
+const baseHeight = 700;
 const sliderItemCount = 7
-const sliderItemSize = Math.round(36 * cell / sliderItemCount);
+const sliderItemSize = Math.round(50 * cell / sliderItemCount);
 const sliderSpacing = 8;
 const padding = 4;
 
@@ -50,49 +50,118 @@ export default  {
         
         return lines
     },
+    intro: {
+        group: {x: 8 * cell, y: 2 * cell},
+        h1: {
+            x: cell,
+            y: 1 * cell,
+            text: "เลื่อน พับ ปรับที่นั่ง",
+            fontSize: 48,
+            fontStyle: 'bold',
+            fontFamily: "PSLDisplayPro",
+            fill: "#15668E"
+        },
+        h2: {
+            x: cell,
+            y: 4 * cell,
+            text: "สะดวกสบาย สไตล์ครอบครัวคุณ",
+            fontFamily: "PSLDisplayPro",
+            fontSize: 30,
+            fill: "#15668E"
+        },
+        image: {
+            x: (52 - 20) * cell,
+            y: -2 * cell,
+            width: 20 * cell ,
+            height: 20 * cell * 0.889,
+            image: null,
+        },
+        imageName: "img-head.png",
+        items: [
+            {
+                group: {x: 0 , y: 10 * cell},
+                imageName: "intro1.png",
+                image: {
+                    x: 0,
+                    y: 0,
+                    width: 105,
+                    image: null
+                },
+            },
+            {
+                group: {x: cell * 8 , y: 10 * cell},
+                imageName: "intro2.png",
+                image: {
+                    x: 0,
+                    y: 0,
+                    width: 105,
+                    image: null
+                },
+            },
+            {
+                group: {x: cell * 17 , y: 10 * cell},
+                imageName: "intro3.png",
+                image: {
+                    x: 0,
+                    y: 0,
+                    width: 105,
+                    image: null
+                },
+            },
+        ]
+    },
     head: {
+        group: {
+            x: 8 * cell,
+            y: 21 * cell
+        },
         background: { 
-            x: 0, y: 11 * cell, width: 38 * cell, height: 15 * cell,
+            x: 0, y: 0, width: 52 * cell, height: 21 * cell,
             fillLinearGradientStartPoint: { x: 0, y: 0 },
             fillLinearGradientEndPoint: { x: 0, y: 12 * cell },
             fillLinearGradientColorStops: [0, 'white', 1, '#ffffffb4'],
             cornerRadius: 24,
-            opacity: .8
+            opacity: .7
         },
         filter: {
-            group: {x: cell, y: cell * 12},
+            group: {x: cell, y: cell * 1.5 },
+            position: {
+                "": 2,
+                "people": 9 * cell,
+                "item": 18 * cell,
+            },
             background: {
-                width: 18 * cell,
-                height: 2 * cell,
+                width: 27 * cell,
+                height: 2.5 * cell,
                 fill: '#f2f2f2',
                 opacity: 1,
-                cornerRadius: cell * 2
+                cornerRadius: cell * 2.5
             },
             activeBackground: {
-                x: 0 * cell + 2,
+                x: 2,
                 y: 2,
-                width: 6 * cell - 4,
-                height: 2 * cell - 4,
+                width: 9 * cell - 4,
+                height: 2.5 * cell - 4,
                 fill: '#15668E',
-                cornerRadius: cell * 2
+                cornerRadius: cell * 2.5
             },
             all: {
                 group: {x: 0, y: 0},
-                rect: {width: 6 * cell, height: 2 * cell},
+                rect: {width: 9 * cell, height: 2.5 * cell},
                 text: {
                     y: 0,
-                    width: 6 * cell,
+                    width: 8 * cell,
                     text: 'ดูทั้งหมด',
                     fontFamily: "PSLDisplayPro",
                     fontSize: 16,
-                    lineHeight: cell / 8,
+                    lineHeight: 2.5 * cell / 16,
                     align: 'center',
                     fill: 'white'
                 }
             },
             people: {
-                group: {x: 6 * cell, y: 0},
-                rect: {width: 6 * cell, height: 2 * cell},
+                group: {x: 9 * cell, y: 0},
+                rect: {width: 9 * cell, height: 2.5 * cell},
                 path: {
                     x: 20,
                     y: 9,
@@ -105,14 +174,14 @@ export default  {
                     text: 'เลือกคน',
                     fontFamily: "PSLDisplayPro",
                     fontSize: 16,
-                    lineHeight: cell / 8,
+                    lineHeight: 2.5 * cell / 16,
                     align: 'center',
                     fill: 'black'
                 }
             },
             items: {
-                group: {x: 12 * cell, y: 0},
-                rect: {width: 6 * cell, height: 2 * cell},
+                group: {x: 18 * cell, y: 0},
+                rect: {width: 9 * cell, height: 2.5 * cell},
                 path: {
                     x: 20,
                     y: 10,
@@ -125,15 +194,15 @@ export default  {
                     text: 'เลือกของ',
                     fontFamily: "PSLDisplayPro",
                     fontSize: 16,
-                    lineHeight: cell / 8,
+                    lineHeight: 2.5 * cell / 16,
                     align: 'center',
                     fill: 'black'
                 }
             },
         },
         buttonPrev: {
-            group: {x: 34 * cell  - 5, y: cell * 13 },
-            circle: { radius: cell , fill: '#e2e2e2'},
+            group: {x: 47 * cell  - 5, y: cell * 2.75 },
+            circle: { radius: 2.5 * cell / 2, fill: '#e2e2e2'},
             icon: {
                 x: -4,
                 y: -6,
@@ -145,8 +214,8 @@ export default  {
             }
         },
         buttonNext: {
-            group: {x: 36 * cell, y: cell * 13},
-            circle: { radius: cell, fill: '#B0D0E0'},
+            group: {x: 49.75 * cell, y: cell * 2.75},
+            circle: { radius: cell * 2.5 / 2, fill: '#B0D0E0'},
             icon: {
                 x: -4,
                 y: -6,
@@ -159,19 +228,19 @@ export default  {
         }
     },
     footer: {
-        group: {x: 0, y: baseHeight - 4 * cell},
+        group: {x: 0, y: baseHeight - 6 * cell},
         background: {
             x: 0, 
             y: 0, 
-            width: 38 * cell, 
-            height: 4 * cell, 
+            width: baseWidth, 
+            height: 6 * cell, 
             fillLinearGradientStartPoint: { x: 0, y: 0 },
-            fillLinearGradientEndPoint: { x: 0, y: 4 * cell },
+            fillLinearGradientEndPoint: { x: 0, y: 6 * cell },
             fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
         },
         selectLayout: {
-            group: {x: cell, y: cell },
-            circle: { x: cell, y: cell, radius: cell, stroke: 'white', strokeWidth: 2 },
+            group: {x: cell * 8, y: 2.5 * cell },
+            circle: { x: 20, y: 20, radius: cell, stroke: 'white', strokeWidth: 2 },
             path: {
                 x: 13.5,
                 y: 13.5,
@@ -181,7 +250,7 @@ export default  {
             },
             text: {
                 x: 2 * cell + 10,
-                y: 0,
+                y: 5,
                 text: 'ดูรูปแบบที่นั่งทั้ง 13 แบบเพิ่มเติม',
                 fontFamily: "PSLDisplayPro",
                 fill: 'white',
@@ -198,7 +267,7 @@ export default  {
                     y: 0,
                     clipFunc: function(ctx) {
                         ctx.beginPath();
-                        ctx.rect(0, 0, 10 * cell, baseHeight - 4 * cell);
+                        ctx.rect(0, 0, 10 * cell, baseHeight - 6 * cell);
                         ctx.closePath();
                     }
                 },
@@ -232,20 +301,21 @@ export default  {
         },
         resetLayout: {
             group: {
-                x: 32 * cell,
-                y: cell
+                x: 55 * cell,
+                y: 2.5 * cell
             },
             circle: { x: cell, y: cell, radius: cell, stroke: 'white', strokeWidth: 2 },
             path: {
+                y: 1,
                 data: 'M22 14.2556C22 20.0546 17.299 24.7556 11.5 24.7556C5.70101 24.7556 1 20.0546 1 14.2556C1 8.45663 5.70101 3.75562 11.5 3.75562C14.2424 3.75562 16.7393 4.80697 18.6095 6.52862 M17.5 1.24438L19.1471 7.3915L13 9.03861',
                 fill: 'transparent',
                 stroke: 'white',
-                scaleX: 1.5,
-                scaleY: 1.5,
+                scaleX: 1.4,
+                scaleY: 1.4,
             },
             text: {
                 x: cell * 2.5,
-                y: 0,
+                y: 5,
                 text: 'รีเซ็ต',
                 fontFamily: "PSLDisplayPro",
                 fill: 'white',
@@ -257,55 +327,52 @@ export default  {
     car: {
         group: {x: 0, y: 0},
         shadow: {
-            x: 44 * cell,
-            y: 0 * cell,
+            x: 70 * cell,
+            y: 2.5 * cell,
             width: 14 * cell,
-            height: 30 * cell,
+            height: 41 * cell ,
             fill: 'red',
-            cornerRadius: cell,
+            cornerRadius: 60,
             shadowColor: '#124057',
-            shadowBlur: 80,
-            shadowOffset: { x: 0, y: 0 },
+            shadowBlur: 50,
+            shadowOffset: { x: 0, y: 10 },
             shadowOpacity: 1,
-            opacity: 0
+            opacity: 1
         },
         background: {
-            x: 40 * cell,
-            y: 3 * cell,
-            width: 22 * cell,
-            height: 24 * cell,
+            x: 65 * cell,
+            y: 21 * cell,
+            width: 23 * cell,
+            height: 21 * cell,
             fill: 'white',
-            cornerRadius: cell,
-            // filters: [Konva.Filters.Blur],
-            // blurRadius: 20,
-            // shadowBlur: 44.1,
+            cornerRadius: 24,
             shadowColor: '#124057',
             shadowBlur: 40,
             shadowOffset: { x: 0, y: 0 },
             shadowOpacity: .2,
-            opacity: 0.9,
+            opacity: 0.7,
         },
         groupItem: {x: 4 * cell},
         body: {
             image: null,
-            x: cell * 38,
-            y: -11 * cell,
+            x: cell * 64,
+            y: 2 * cell,
             width: 18 * cell,
             height: 18 * cell / 0.43,
             opacity: 1
         },
         volang: {
             image: null,
-            x: 44.3 * cell,
-            y: -0.4 * cell,
+            x: 70.3 * cell,
+            y: 29 * 0.4 * cell,
             width: 13.3 * cell,
             opacity: 1,
         },
         seats: [
             {
                 group: {
-                    x: 42 * cell,
-                    y: 2 * cell,
+                    x: 68 * cell,
+                    y: 15 * cell,
                 },
                 rect: {
                     id: "1",
@@ -323,8 +390,8 @@ export default  {
             },
             {
                 group: {
-                    x: 46 * cell,
-                    y: 3 * cell,
+                    x: 72 * cell,
+                    y: 16 * cell,
                 },
                 rect: {
                     id: "0",
@@ -342,8 +409,8 @@ export default  {
             },
             {
                 group: {
-                    x: 48 * cell,
-                    y: 2 * cell,
+                    x: 74 * cell,
+                    y: 15 * cell,
                 },
                 rect: {
                     id: "2",
@@ -361,8 +428,8 @@ export default  {
             },
             {
                 group: {
-                    x: 42 * cell,
-                    y: 10 * cell,
+                    x: 68 * cell,
+                    y: 23 * cell,
                 },
                 rect: {
                     id: "3",
@@ -380,8 +447,8 @@ export default  {
             },
             {
                 group: {
-                    x: 48 * cell,
-                    y: 10 * cell,
+                    x: 74 * cell,
+                    y: 23 * cell,
                 },
                 rect: {
                     id: "4",
@@ -399,8 +466,8 @@ export default  {
             },
             {
                 group: {
-                    x: 42 * cell,
-                    y: 19 * cell,
+                    x: 68 * cell,
+                    y: 32 * cell,
                 },
                 rect: {
                     id: "11",
@@ -418,8 +485,8 @@ export default  {
             },
             {
                 group: {
-                    x: 50 * cell,
-                    y: 19 * cell,
+                    x: 76 * cell,
+                    y: 32 * cell,
                 },
                 rect: {
                     id: "11",
@@ -440,8 +507,10 @@ export default  {
     dropZones: [
         {
             id: "5",
-            x: 48 * cell,
-            y: 16 * cell,
+            // x: 48 * cell,
+            // y: 16 * cell,
+            x: 74 * cell,
+            y: 29 * cell,
             width: 6 * cell,
             height: 12 * cell,               
             fill:  "" ,
@@ -449,8 +518,10 @@ export default  {
         },
         {
             id: "6",
-            x: 46 * cell,
-            y: 16 * cell,
+            // x: 46 * cell,
+            // y: 16 * cell,
+            x: 72 * cell,
+            y: 29 * cell,
             width: 10 * cell,
             height: 3 * cell,               
             fill:  "" ,
@@ -458,8 +529,10 @@ export default  {
         },
         {
             id: "7",
-            x: 46 * cell,
-            y: 25 * cell,
+            // x: 46 * cell,
+            // y: 25 * cell,
+            x: 72 * cell,
+            y: 38 * cell,
             width: 10 * cell,
             height: 3 * cell,               
             fill:  "" ,
@@ -467,8 +540,10 @@ export default  {
         },
         {
             id: "8",
-            x: 50 * cell,
-            y: 10 * cell,
+            // x: 50 * cell,
+            // y: 10 * cell,
+            x: 76 * cell,
+            y: 23 * cell,
             width: 2 * cell,
             height: 18 * cell,               
             fill:  "" ,
@@ -476,8 +551,10 @@ export default  {
         },
         {
             id: "9",
-            x: 46 * cell,
-            y: 10 * cell,
+            // x: 46 * cell,
+            // y: 10 * cell,
+            x: 72 * cell,
+            y: 23 * cell,
             width: 4 * cell,
             height: 18 * cell,               
             fill:  "" ,
@@ -489,11 +566,11 @@ export default  {
         y: 0,
         groupContainer: {},
         group: {
-            x: cell,
-            y: 15 * cell - (2 * sliderSpacing),
+            x: cell * 9,
+            y: 27 * cell - (2 * sliderSpacing),
             clipFunc: function(ctx) {
                 ctx.beginPath();
-                ctx.rect(0, 0, 36 * cell, sliderItemSize * 2 + (2 * sliderSpacing));
+                ctx.rect(0, 0, 50 * cell, sliderItemSize * 2 + (2 * sliderSpacing));
                 ctx.closePath();
             }
         },
@@ -524,42 +601,39 @@ export default  {
             fontWeight: "bold"
         }
     },
-    intro: {
-        group: {x: 0, y: 3 * cell, visible: false},
-        items: [
-            {
-                group: {x: 0 , y: 0, visible: false},
-                imageName: "intro1.png",
-                image: {
-                    x: 0,
-                    y: 0,
-                    width: 210,
-                    height: 228,
-                    image: null
-                }
-            },
-            {
-                group: {x: 6 * cell , y: 0, visible: false},
-                imageName: "intro2.png",
-                image: {
-                    x: 0,
-                    y: 0,
-                    width: 210,
-                    height: 228,
-                    image: null
-                }
-            },
-            {
-                group: {x: 12.8 * cell , y: 0, visible: false},
-                imageName: "intro3.png",
-                image: {
-                    x: 0,
-                    y: 0,
-                    width: 210,
-                    height: 228,
-                    image: null
-                }
-            }
-        ]
-    }
+    // intro: {
+    //     group: {x: 0, y: 3 * cell, visible: false},
+    //     items: [
+    //         {
+    //             group: {x: 0 , y: 0, visible: false},
+    //             imageName: "intro1.png",
+    //             image: {
+    //                 x: 0,
+    //                 y: 0,
+    //                 width: 210,
+    //                 image: null
+    //             }
+    //         },
+    //         {
+    //             group: {x: 6 * cell , y: 0, visible: false},
+    //             imageName: "intro2.png",
+    //             image: {
+    //                 x: 0,
+    //                 y: 0,
+    //                 width: 210,
+    //                 image: null
+    //             }
+    //         },
+    //         {
+    //             group: {x: 12.8 * cell , y: 0, visible: false},
+    //             imageName: "intro3.png",
+    //             image: {
+    //                 x: 0,
+    //                 y: 0,
+    //                 width: 210,
+    //                 image: null
+    //             }
+    //         }
+    //     ]
+    // }
 }
