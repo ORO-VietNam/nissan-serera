@@ -1,7 +1,7 @@
 const windowWidth = window.innerWidth
 let cell = 17;
-let sliderItemSize = Math.round((windowWidth ) / 5);
 let sliderSpacing = 4;
+let sliderItemSize = Math.round((windowWidth - 2 * cell + sliderSpacing ) / 5);
 if(windowWidth >= 768 && windowWidth < 1024) {
     sliderSpacing = 8;
     cell = 20

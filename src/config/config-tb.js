@@ -184,6 +184,7 @@ export default  {
             fillLinearGradientStartPoint: { x: 0, y: 0 },
             fillLinearGradientEndPoint: { x: 0, y: 4 * cell },
             fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
+            opacity: 0
         },
         selectLayout: {
             group: {x: cell, y: cell },

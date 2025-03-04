@@ -1,6 +1,6 @@
 <template>
     <div class="relative gradient overflow-hidden min-h-screen lg:py-0">
-        <div class="relative border-b lg:border-0 border-[#f5f5f5]">
+        <!-- <div class="relative border-b lg:border-0 border-[#f5f5f5]">
             <div class="px-5 md:px-10 max-w-[1320px] mx-auto lg:hidden">
                 <div class="flex items-center font-psl">
                     <div class="flex-1 text-[#15668E]">
@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="relative min-h-screen lg:flex justify-center items-center">
             <Layout1 />
         </div>
