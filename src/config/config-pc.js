@@ -79,7 +79,7 @@ export default  {
         imageName: "img-head.png",
         items: [
             {
-                group: {x: 0 , y: 10 * cell},
+                group: {x: 0 , y: 9 * cell},
                 imageName: "intro1.png",
                 image: {
                     x: 0,
@@ -89,7 +89,7 @@ export default  {
                 },
             },
             {
-                group: {x: cell * 8 , y: 10 * cell},
+                group: {x: cell * 8 , y: 9 * cell},
                 imageName: "intro2.png",
                 image: {
                     x: 0,
@@ -99,7 +99,7 @@ export default  {
                 },
             },
             {
-                group: {x: cell * 17 , y: 10 * cell},
+                group: {x: cell * 17 , y: 9 * cell},
                 imageName: "intro3.png",
                 image: {
                     x: 0,
@@ -150,7 +150,7 @@ export default  {
                 rect: {width: 9 * cell, height: 2.5 * cell},
                 text: {
                     y: 0,
-                    width: 8 * cell,
+                    width: 9 * cell,
                     text: 'ดูทั้งหมด',
                     fontFamily: "PSLDisplayPro",
                     fontSize: 16,
@@ -237,6 +237,7 @@ export default  {
             fillLinearGradientStartPoint: { x: 0, y: 0 },
             fillLinearGradientEndPoint: { x: 0, y: 6 * cell },
             fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
+            opacity: 0
         },
         selectLayout: {
             group: {x: cell * 8, y: 2.5 * cell },

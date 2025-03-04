@@ -6,7 +6,7 @@ const sliderItemCount = 7
 const sliderItemSize = Math.round((windowWidth - 2 * cell) / sliderItemCount);
 const sliderSpacing = 8;
 const padding = 4;
-const sliderY = cell * 4
+const sliderY = cell * 3.5
 
 export default  {
     cell: cell,
@@ -15,14 +15,14 @@ export default  {
     padding: padding,
     group: {x: 0, y: 0},
     background: {
-        x: 0,
-        y: 0,
-        width: baseWidth,
-        height: baseHeight ,
-        rotate: -180,
-        fillLinearGradientStartPoint: { x: 0, y: 0 },
-        fillLinearGradientEndPoint: { x: 0, y: baseHeight },
-        fillLinearGradientColorStops: [0, 'white', 0.65, "#f2f2f2", 1, '#e2e2e2'],
+        // x: 0,
+        // y: 0,
+        // width: baseWidth,
+        // height: baseHeight ,
+        // rotate: -180,
+        // fillLinearGradientStartPoint: { x: 0, y: 0 },
+        // fillLinearGradientEndPoint: { x: 0, y: baseHeight },
+        // fillLinearGradientColorStops: [0, 'white', 0.65, "#f2f2f2", 1, '#e2e2e2'],
     },
     grid: function() {
         const lines = []
@@ -181,9 +181,11 @@ export default  {
             y: 0, 
             width: baseWidth, 
             height: 4 * cell, 
-            fillLinearGradientStartPoint: { x: 0, y: 0 },
-            fillLinearGradientEndPoint: { x: 0, y: 4 * cell },
-            fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
+            // fillLinearGradientStartPoint: { x: 0, y: 0 },
+            // fillLinearGradientEndPoint: { x: 0, y: 4 * cell },
+            // fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
+            fill: "red",
+            opacity: 0
         },
         selectLayout: {
             group: {x: cell, y: cell },
@@ -303,7 +305,7 @@ export default  {
         volang: {
             image: null,
             x: 18.3 * cell,
-            y: 12.8 * cell,
+            y: 14.1 * cell,
             width: 13.3 * cell,
             opacity: 1,
         },
@@ -465,7 +467,7 @@ export default  {
         {
             id: '7',
             x: 20 * cell,
-            y: 49 * cell,
+            y: 39 * cell,
             width: 10 * cell,
             height: 3 * cell,               
             fill:  '' ,

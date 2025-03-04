@@ -13,7 +13,8 @@
       }
       #seatfeature {
         position: relative;
-        aspect-ratio: 430 / 1035;
+        max-width: 100%;
+        aspect-ratio: 430 / 850;
       }
       #seatfeature iframe.pace-iframe{
         position: absolute;
@@ -24,13 +25,13 @@
       }
       @media screen and (min-width: 768px) {
         #seatfeature {
-          aspect-ratio: 768 / 1209 ;
+          aspect-ratio: 768 / 768;
         }
       }
       @media screen and (min-width: 1024px) {
         #seatfeature {
           aspect-ratio: auto;
-          min-height: 930px;
+          height: 100vh;
         }
       }
     </style>

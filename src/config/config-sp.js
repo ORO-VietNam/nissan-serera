@@ -3,7 +3,7 @@ const cell = 17;
 const baseWidth = 430;
 const baseHeight = 50 * cell;
 const sliderItemCount = 5
-const sliderItemSize = Math.round((windowWidth ) / sliderItemCount);
+const sliderItemSize = Math.round((windowWidth - 2 * cell) / sliderItemCount);
 const sliderSpacing = 4;
 const padding = 4;
 const sliderX = cell
@@ -184,6 +184,7 @@ export default  {
             fillLinearGradientStartPoint: { x: 0, y: 0 },
             fillLinearGradientEndPoint: { x: 0, y: 4 * cell },
             fillLinearGradientColorStops: [0, '#15668E', 1, '#0C4B6A'],
+            opacity: 0
         },
         selectLayout: {
             group: {x: cell, y: cell },

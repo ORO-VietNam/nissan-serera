@@ -1,9 +1,9 @@
 <template>
     <div ref="container" class="relative w stage-container">
         <div 
-            class="absolute left-0 bottom-0 w-full bg-red-400" 
+            class="absolute left-0 bottom-0 w-full footer-backgroud" 
             :style="{
-                height: outputCell * 6 + 'px'
+                height: outputCell * (screenWidth >= 1024 ? 6 : 4) + 'px'
             }">
             
         </div>
@@ -160,10 +160,6 @@
                                 />
                                 <v-image 
                                     :config="item.image" 
-                                    @mousedown="handleTouchStart"
-                                    @mouseup="handleTouchEnd"
-                                    @touchstart="handleTouchStart"
-                                    @touchend="handleTouchEnd"
                                 />
                             </v-group>
                         </v-group>
@@ -299,6 +295,8 @@
     const stageConfig = {width: baseWidth, height: baseHeight};
     const sliderConfig = config.value.slider;
     const navConfig = config.value.footer.selectLayout.nav;
+    let screenWidth = ref(window.innerWidth)
+    let screenHeight = ref(window.innerHeight)
     let cell = ref(config.value.cell);
     let car = ref(config.value.car.body)
     let volang = ref(config.value.car.volang)
@@ -334,7 +332,7 @@
             item.groupConfig = {
                 ...item.groupConfig,
                 x: count * size,
-                y: breakLine * size 
+                y: breakLine * size,
             }
             item.rect = {
                 x: 0,
@@ -524,24 +522,6 @@
 
     let dragClone = undefined;
 
-    const handleTouchStart = (e) => {
-        holdTimeout = setTimeout(() => {
-            console.log('can drag')
-            holdTimeout = null;
-            e.target.parent.draggable(true)
-            e.target.parent.startDrag()
-        }, holdDuration)
-    }
-    
-    const handleTouchEnd = (e) => {
-        if (holdTimeout) {
-            console.log('cancel drag')
-            clearTimeout(holdTimeout);
-            holdTimeout = null;
-            e.target.parent.draggable(false)
-        }
-    };
-
     const handleDragStart = async (e, index) => {
         const group = e.target
         const shape = e.target.find('Rect')[0]
@@ -549,19 +529,21 @@
         const itemOriginal = initItems.value[index]
         if(group.id().includes('clone')) {
             itemsDropped.removeItem(group)
+        } else {
+            dragClone = group.clone()
+            groupSlider.value.getNode().add(dragClone)
+            group.to({
+                x: dragClone.x(),
+                y: dragClone.y(),
+                duration: 0,
+            })
+
+            group.attrs.originalX = dragClone.x()
+            group.attrs.originalY = dragClone.y()
         }
         console.log('drag start')
-        dragClone = group.clone()
-        groupSlider.value.getNode().add(dragClone)
         group.moveTo(groupCarRef.value.getNode())
         group.moveToTop()
-        group.to({
-            x: dragClone.x(),
-            y: dragClone.y(),
-            duration: 0,
-        })
-        group.attrs.originalX = dragClone.x()
-        group.attrs.originalY = dragClone.y()
         shape.width(itemOriginal.size[0] * cell.value - padding * 2)
         shape.height(itemOriginal.size[1] * cell.value - padding * 2)
         image.visible(false)
@@ -574,7 +556,6 @@
         })
         loadImageRef(image, index, 'imageDragName')
         shadowRectConfig.value.visible = true
-        // image.visible(true)
     }
 
     const handleDragMove = (e) => {
@@ -587,14 +568,9 @@
         shadowRectConfig.value.height = shape.height()
         shadowRectConfig.value.x = Math.round(group.x() / cell.value ) * cell.value + padding 
         shadowRectConfig.value.y = Math.round(group.y() / cell.value) * cell.value + padding 
-        // console.log(itemsDropped)
         itemsDropped.forEach(item => {
-            // let item = el.getNode()
             let shapeDrop = item.find('Rect')[0]
-            // console.log('------------------------')
-            // console.log(shape.getClientRect())
-            // console.log(shadowRect.value.getNode().getClientRect())
-            // console.log('------------------------')
+            if(shapeDrop == undefined) return;
             if (checkOverlap(shapeDrop.getClientRect(), shadowRect.value.getNode().getClientRect())) {
                 item.find('Rect')[0].fill('red')
             } else {
@@ -758,8 +734,8 @@
     }
 
     const containStageIntoParentContainer = () => {
-        if (!container.value || !stageRef.value) return
-        // Calculate scale
+        screenWidth.value = window.innerWidth
+        screenHeight.value = window.innerHeight
         const scaleX = window.innerWidth / baseWidth
         const scaleY = window.innerHeight / baseHeight
         const scale = Math.min(scaleX, scaleY)
@@ -767,35 +743,46 @@
         _stage.width(baseWidth * scale);
         _stage.height(baseHeight * scale );
         _stage.scale({ x: scale, y: scale });
+        _stage.batchDraw();
         outputCell.value = cell.value * scale
-        console.log(outputCell.value)
-        stageDraw()
+        console.log(scale)
     }
 
     const fitStageIntoParentContainer = () => {
         if (!container.value || !stageRef.value) return
+        const containerWidth = window.innerWidth
+        const containerHeight =  window.innerHeight
         // Calculate scale
-        const scaleX = window.innerWidth / baseWidth
-        const scaleY = window.innerHeight / baseHeight
-        const scale = Math.min(scaleX, scaleY)
+        const scaleX = containerWidth / baseWidth
+        const scaleY = containerHeight / baseHeight
         let _stage = stageRef.value.getNode();
+        console.log()
         _stage.width(baseWidth * scaleX);
-        _stage.height(baseHeight * scaleY );
-        _stage.scale({ x: scaleX, y: scaleY });
-        outputCell.value = cell.value * scale
-        stageDraw()
+        _stage.height(baseHeight * scaleX);
+        _stage.scale({ x: scaleX, y: scaleX });
+        outputCell.value = cell.value * scaleX
+        _stage.batchDraw();
     }
 
     const resetKonva = () => {
         itemsDropped.forEach(el => el.destroy())
+        itemsDropped = [];
     };
 
     onMounted(async () => {
-        containStageIntoParentContainer()
         imageInit()
-        window.addEventListener('resize', containStageIntoParentContainer)
+        if(screenWidth.value >= 768) {
+            containStageIntoParentContainer()
+            window.addEventListener('resize', containStageIntoParentContainer)
+        } else {
+            fitStageIntoParentContainer()
+            window.addEventListener('resize', fitStageIntoParentContainer)
+        }
     })
 </script>
   
 <style scoped>
+    .footer-backgroud {
+        background-image: linear-gradient(to bottom, #0C4B6A 0%, #15668E 100%);
+    }
 </style>
