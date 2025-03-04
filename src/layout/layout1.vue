@@ -22,7 +22,7 @@
                             v-for="(item, index) in config.intro.items"
                             :config="item.group"
                         >
-                            <v-image ref="introImageRef" :config="item.image"/>
+                            <v-image ref="introImageRef" :config="item.image" :listening="false"/>
                         </v-group>
                     </v-group>
     <!-- Footer -->
@@ -58,7 +58,7 @@
     <!-- Car -->    
                     <v-rect :config="config.background" :listening="false"/>
                     <v-group 
-                        ref="groupCarImageRef" 
+                        ref="groupCarRef" 
                         :config="config.car.group"
                     >
                         <v-rect :config="config.car.background" :listening="false"/>
@@ -171,7 +171,7 @@
                             :config="item.group"
                             :listening="false"
                         >
-                            <v-image ref="introImageRef" :config="item.image"/>
+                            <v-image ref="introImageRef" :config="item.image" :listening="false"/>
                         </v-group>
                     </v-group>
     
@@ -220,6 +220,7 @@
                         </v-group>
                     </v-group>
                     <v-group 
+                        v-if="screenWidth > 1024"
                         ref="groupCarRef" 
                         :config="config.car.group"
                     >
@@ -607,7 +608,8 @@
         const groupId = group.id()
         const itemOriginal = initItems.value[index]
         if(!overlapItem() && inDropZone()) {
-            // group.moveTo(groupCarRef.value.getNode())
+            group.moveTo(groupCarRef.value.getNode())
+            console.log(getDropZoneActive())
             group.position({
                 x: Math.round(group.x() / cell.value) * cell.value,
                 y: Math.round(group.y() / cell.value) * cell.value
@@ -765,7 +767,10 @@
     }
 
     const resetKonva = () => {
-        itemsDropped.forEach(el => el.destroy())
+        itemsDropped.forEach(el => {
+            console.log(el)
+            el.destroy()
+        })
         itemsDropped = [];
     };
 

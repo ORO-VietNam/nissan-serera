@@ -5,7 +5,7 @@ let sliderSpacing = 4;
 if(windowWidth >= 768 && windowWidth < 1024) {
     sliderSpacing = 8;
     cell = 20
-    sliderItemSize = Math.round((windowWidth ) / 7);
+    sliderItemSize = Math.round((windowWidth - 5 * cell ) / 7);
 } else if(windowWidth >= 1024) {
     cell = 15
     sliderItemSize = Math.round(50 * cell / 7);
@@ -326,7 +326,7 @@ export default  {
             imageName: "animal-cage-group.png",
             imageDragName: "animal-cage.png",
             type: "item",
-            size: [3, 4]
+            size: [4, 4]
         },
         {
             groupConfig: {
